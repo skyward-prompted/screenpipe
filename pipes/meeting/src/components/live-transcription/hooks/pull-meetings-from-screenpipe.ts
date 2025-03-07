@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { pipe } from "@screenpipe/browser"
+import { pipe } from "@skyprompt/browser"
 import { TranscriptionChunk } from '../../meeting-history/types'
 
 export function useRecentChunks() {
@@ -9,7 +9,7 @@ export function useRecentChunks() {
   const fetchRecentChunks = async () => {
     try {
       console.log('fetching recent chunks')
-      const results = await pipe.queryScreenpipe({
+      const results = await pipe.querySkyprompt({
         contentType: "audio",
         limit: 10,
         offset: 0,
@@ -18,7 +18,7 @@ export function useRecentChunks() {
       console.log('recent chunks:', results)
       
       if (!results) {
-        console.log('no results returned from queryScreenpipe')
+        console.log('no results returned from querySkyprompt')
         return
       }
 

@@ -42,7 +42,7 @@ import {
 import posthog from "posthog-js";
 
 interface AIProviderCardProps {
-  type: "screenpipe-cloud" | "openai" | "native-ollama" | "custom" | "embedded";
+  type: "skyprompt-cloud" | "openai" | "native-ollama" | "custom" | "embedded";
   title: string;
   description: string;
   imageSrc: string;
@@ -147,7 +147,7 @@ const AISection = () => {
         newUrl = `http://localhost:${settings.embeddedLLM.port}/v1`;
         newModel = settings.embeddedLLM.model;
         break;
-      case "screenpipe-cloud":
+      case "skyprompt-cloud":
         newUrl = "https://ai-proxy.i-f9f.workers.dev/v1";
         break;
       case "custom":
@@ -175,7 +175,7 @@ const AISection = () => {
     console.log(settings.aiProviderType, settings.openaiApiKey, settings.aiUrl);
     try {
       switch (settings.aiProviderType) {
-        case "screenpipe-cloud":
+        case "skyprompt-cloud":
           const response = await fetch(
             "https://ai-proxy.i-f9f.workers.dev/v1/models",
             {
@@ -275,12 +275,12 @@ const AISection = () => {
           />
 
           <AIProviderCard
-            type="screenpipe-cloud"
-            title="screenpipe cloud"
+            type="skyprompt-cloud"
+            title="skyprompt cloud"
             description="use openai, anthropic and google models without worrying about api keys or usage"
-            imageSrc="/images/screenpipe.png"
-            selected={settings.aiProviderType === "screenpipe-cloud"}
-            onClick={() => handleAiProviderChange("screenpipe-cloud")}
+            imageSrc="/images/skyprompt.png"
+            selected={settings.aiProviderType === "skyprompt-cloud"}
+            onClick={() => handleAiProviderChange("skyprompt-cloud")}
             disabled={!settings.user}
             warningText={
               !settings.user

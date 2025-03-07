@@ -29,7 +29,7 @@ export interface SearchHistory {
     }[];
   } 
 
-const HISTORY_KEY = 'screenpipe-search-history';
+const HISTORY_KEY = 'skyprompt-search-history';
 
 export function useSearchHistory() {
   const [searches, setSearches] = useState<SearchHistory[]>([]);

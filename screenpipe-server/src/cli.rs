@@ -3,11 +3,11 @@ use std::path::PathBuf;
 use clap::{Parser, Subcommand, ValueHint};
 use clap_complete::{generate, Shell};
 use clap::CommandFactory;
-use screenpipe_audio::{vad_engine::VadSensitivity, AudioTranscriptionEngine as CoreAudioTranscriptionEngine};
-use screenpipe_vision::{custom_ocr::CustomOcrConfig, utils::OcrEngine as CoreOcrEngine};
+use skyprompt_audio::{vad_engine::VadSensitivity, AudioTranscriptionEngine as CoreAudioTranscriptionEngine};
+use skyprompt_vision::{custom_ocr::CustomOcrConfig, utils::OcrEngine as CoreOcrEngine};
 use clap::ValueEnum;
-use screenpipe_audio::vad_engine::VadEngineEnum;
-use screenpipe_core::Language;
+use skyprompt_audio::vad_engine::VadEngineEnum;
+use skyprompt_core::Language;
 
 #[derive(Clone, Debug, ValueEnum, PartialEq)]
 pub enum CliAudioTranscriptionEngine {
@@ -60,7 +60,7 @@ impl From<CliOcrEngine> for CoreOcrEngine {
             CliOcrEngine::AppleNative => CoreOcrEngine::AppleNative,
             CliOcrEngine::Custom => {
                 // Try to read config from environment variable
-                if let Ok(config_str) = std::env::var("SCREENPIPE_CUSTOM_OCR_CONFIG") {
+                if let Ok(config_str) = std::env::var("SKYPROMPT_CUSTOM_OCR_CONFIG") {
                     match serde_json::from_str(&config_str) {
                         Ok(config) => CoreOcrEngine::Custom(config),
                         Err(e) => {
@@ -115,7 +115,7 @@ impl From<CliVadSensitivity> for VadSensitivity {
     version,
     about, 
     long_about = None,
-    name = "screenpipe"
+    name = "skyprompt"
 )]
 pub struct Cli {
     /// FPS for continuous recording
@@ -125,7 +125,7 @@ pub struct Cli {
     /// Your screen rarely change more than 1 times within a second, right?
     #[cfg_attr(not(target_os = "macos"), arg(short, long, default_value_t = 1.0))]
     #[cfg_attr(target_os = "macos", arg(short, long, default_value_t = 0.5))] 
-    pub fps: f64, // ! not crazy about this (inconsistent behaviour across platforms) see https://github.com/mediar-ai/screenpipe/issues/173
+    pub fps: f64, // ! not crazy about this (inconsistent behaviour across platforms) see https://github.com/mediar-ai/skyprompt/issues/173
     
     /// Audio chunk duration in seconds
     #[arg(short = 'd', long, default_value_t = 30)]
@@ -147,11 +147,11 @@ pub struct Cli {
     #[arg(short = 'r', long)]
     pub realtime_audio_device: Vec<String>,
 
-    /// Data directory. Default to $HOME/.screenpipe
+    /// Data directory. Default to $HOME/.skyprompt
     #[arg(long, value_hint = ValueHint::DirPath)]
     pub data_dir: Option<String>,
 
-    /// Enable debug logging for screenpipe modules
+    /// Enable debug logging for skyprompt modules
     #[arg(long)]
     pub debug: bool,
 
@@ -229,7 +229,7 @@ pub struct Cli {
     #[arg(long = "deepgram-api-key")]
     pub deepgram_api_key: Option<String>,
 
-    /// PID to watch for auto-destruction. If provided, screenpipe will stop when this PID is no longer running.
+    /// PID to watch for auto-destruction. If provided, skyprompt will stop when this PID is no longer running.
     #[arg(long)]
     pub auto_destruct_pid: Option<u32>,
 
@@ -276,7 +276,7 @@ impl Cli {
     }
     pub fn handle_completions(&self, shell: Shell) -> anyhow::Result<()> {
         let mut cmd = Self::command();
-        generate(shell, &mut cmd, "screenpipe", &mut std::io::stdout());
+        generate(shell, &mut cmd, "skyprompt", &mut std::io::stdout());
         Ok(())
     }
 }
@@ -298,11 +298,11 @@ pub enum Command {
         #[command(subcommand)]
         subcommand: PipeCommand,
     },
-    /// Add video files to existing screenpipe data (OCR only) - DOES NOT SUPPORT AUDIO
+    /// Add video files to existing skyprompt data (OCR only) - DOES NOT SUPPORT AUDIO
     Add {
         /// Path to folder containing video files
         path: String,
-        /// Data directory. Default to $HOME/.screenpipe
+        /// Data directory. Default to $HOME/.skyprompt
         #[arg(long, value_hint = ValueHint::DirPath)]
         data_dir: Option<String>,
         /// Output format
@@ -317,24 +317,24 @@ pub enum Command {
         /// Path to JSON file containing metadata overrides
         #[arg(long, value_hint = ValueHint::FilePath)]
         metadata_override: Option<PathBuf>,
-        /// Copy videos to screenpipe data directory
+        /// Copy videos to skyprompt data directory
         #[arg(long, default_value_t = true)]
         copy_videos: bool,
-        /// Enable debug logging for screenpipe modules
+        /// Enable debug logging for skyprompt modules
         #[arg(long)]
         debug: bool,
         /// Enable embedding generation for OCR text
         #[arg(long, default_value_t = false)]
         use_embedding: bool,
     },
-    /// Setup screenpipe environment
+    /// Setup skyprompt environment
     Setup,
     /// Run data migrations in the background
     Migrate {
         /// The name of the migration to run
         #[arg(long, default_value = "ocr_text_to_frames")]
         migration_name: String,
-        /// Data directory. Default to $HOME/.screenpipe
+        /// Data directory. Default to $HOME/.skyprompt
         #[arg(long, value_hint = ValueHint::DirPath)]
         data_dir: Option<String>,
         /// The subcommand for data migration

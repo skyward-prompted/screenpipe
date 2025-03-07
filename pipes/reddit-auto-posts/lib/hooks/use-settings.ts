@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getDefaultSettings, type Settings } from "@screenpipe/browser";
+import { getDefaultSettings, type Settings } from "@skyprompt/browser";
 
 export function useSettings() {
   const defaultSettings = getDefaultSettings();

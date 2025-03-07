@@ -159,7 +159,7 @@ export function DataImportSection() {
       const configPath = await join(await appLocalDataDir(), configFileName);
       console.log("config file path:", configPath);
 
-      const command = TauriCommand.sidecar("screenpipe", [
+      const command = TauriCommand.sidecar("skyprompt", [
         "add",
         path.trim(),
         "--metadata-override",
@@ -270,7 +270,7 @@ export function DataImportSection() {
       <div>
         <h1 className="text-2xl font-bold">data import</h1>
         <p className="text-sm text-gray-500">
-          add your own video recordings (mp4, mov, avi) into screenpipe
+          add your own video recordings (mp4, mov, avi) into skyprompt
         </p>
       </div>
 

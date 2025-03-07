@@ -1,10 +1,10 @@
 import MotionDiv from '../../components/motion-div'
 
-# cli reference for screenpipe
+# cli reference for skyprompt
 
 <MotionDiv>
 
-below is the detailed cli reference for screenpipe's core functionality.
+below is the detailed cli reference for skyprompt's core functionality.
 
 </MotionDiv>
 
@@ -20,7 +20,7 @@ below is the detailed cli reference for screenpipe's core functionality.
   - default: `3030`
 
 - **data-dir** (`--data-dir <PATH>`): data directory
-  - default: `$HOME/.screenpipe`
+  - default: `$HOME/.skyprompt`
 
 - **debug** (`--debug`): enable debug logging
   - default: `false`
@@ -83,7 +83,7 @@ below is the detailed cli reference for screenpipe's core functionality.
     - `windows-native`: default for windows
     - `tesseract`: default for linux
     - `unstructured`: cloud-based (free tier available)
-    - `custom`: configurable via `SCREENPIPE_CUSTOM_OCR_CONFIG`
+    - `custom`: configurable via `SKYPROMPT_CUSTOM_OCR_CONFIG`
 
 #### custom ocr engine example
 
@@ -133,15 +133,15 @@ EOF
 # start the ocr server
 uvicorn app:app --host 0.0.0.0 --port 8000
 
-# 2. configure screenpipe
-export SCREENPIPE_CUSTOM_OCR_CONFIG='{
+# 2. configure skyprompt
+export SKYPROMPT_CUSTOM_OCR_CONFIG='{
   "api_url": "http://localhost:8000/ocr",
   "api_key": "",
   "timeout_ms": 5000
 }'
 
-# 3. run screenpipe with custom ocr
-screenpipe add \
+# 3. run skyprompt with custom ocr
+skyprompt add \
   path/to/videos \
   --ocr-engine custom \
   --data-dir /tmp/sp
@@ -209,37 +209,37 @@ rm -rf venv app.py
 #### pipe management
 ```bash
 # list all pipes
-screenpipe pipe list [--output <FORMAT>] [--port <PORT>]
+skyprompt pipe list [--output <FORMAT>] [--port <PORT>]
 
 # install a new pipe
-screenpipe pipe install <URL> [--output <FORMAT>] [--port <PORT>]
+skyprompt pipe install <URL> [--output <FORMAT>] [--port <PORT>]
 
 # get pipe info
-screenpipe pipe info <ID> [--output <FORMAT>] [--port <PORT>]
+skyprompt pipe info <ID> [--output <FORMAT>] [--port <PORT>]
 
 # enable/disable pipe
-screenpipe pipe enable <ID> [--port <PORT>]
-screenpipe pipe disable <ID> [--port <PORT>]
+skyprompt pipe enable <ID> [--port <PORT>]
+skyprompt pipe disable <ID> [--port <PORT>]
 
 # delete pipe
-screenpipe pipe delete <ID> [-y] [--port <PORT>]
+skyprompt pipe delete <ID> [-y] [--port <PORT>]
 
 # purge all pipes
-screenpipe pipe purge [-y] [--port <PORT>]
+skyprompt pipe purge [-y] [--port <PORT>]
 ```
 
-#### add external data to screenpipe (OCR only)
+#### add external data to skyprompt (OCR only)
 
-allows you to add external screen recordings to screenpipe, for example it could be your iphone screen recordings, your physical journal photos, etc.
+allows you to add external screen recordings to skyprompt, for example it could be your iphone screen recordings, your physical journal photos, etc.
 
 companies use this to index their product's screen recordings, for example.
 
 ```bash
 # add video files
-screenpipe add <PATH> [--data-dir <DIR>] [--output <FORMAT>] [--pattern <REGEX>] [--ocr-engine <ENGINE>] [--metadata-override <PATH>]
+skyprompt add <PATH> [--data-dir <DIR>] [--output <FORMAT>] [--pattern <REGEX>] [--ocr-engine <ENGINE>] [--metadata-override <PATH>]
 ```
 
-by default, screenpipe extracts metadata (fps, duration, creation time) directly from video files. however, you can override these with a metadata file:
+by default, skyprompt extracts metadata (fps, duration, creation time) directly from video files. however, you can override these with a metadata file:
 
 #### metadata override example
 
@@ -248,7 +248,7 @@ by default, screenpipe extracts metadata (fps, duration, creation time) directly
 mkdir -p $HOME/Downloads/tmpvideos
 
 # copy 3 videos with random names
-find $HOME/.screenpipe/data -type f -name "*monitor*.mp4" | head -n 3 | while read -r file; do
+find $HOME/.skyprompt/data -type f -name "*monitor*.mp4" | head -n 3 | while read -r file; do
     case $RANDOM in
         [0-9][0-9][0-9][0-9])
             cp "$file" "$HOME/Downloads/tmpvideos/video1.mp4"
@@ -297,8 +297,8 @@ cat > metadata.json << EOF
 }
 EOF
 
-# 3. run screenpipe with metadata override
-screenpipe add \
+# 3. run skyprompt with metadata override
+skyprompt add \
   $HOME/Downloads/tmpvideos \
   --metadata-override metadata.json \
   --data-dir /tmp/sp
@@ -308,23 +308,23 @@ rm -rf $HOME/Downloads/tmpvideos
 rm metadata.json
 ```
 
-note: if you don't provide a metadata override file, screenpipe will automatically extract metadata from the video files. use overrides when you need to specify custom metadata or when the automatic extraction fails.
+note: if you don't provide a metadata override file, skyprompt will automatically extract metadata from the video files. use overrides when you need to specify custom metadata or when the automatic extraction fails.
 
 #### database
 ```bash
 # run migrations
-screenpipe migrate
+skyprompt migrate
 ```
 
 
 ### Shell Completions  
 
-The `screenpipe` CLI supports generating shell completions for popular shells. Follow the steps below to enable autocompletion for your shell:  
+The `skyprompt` CLI supports generating shell completions for popular shells. Follow the steps below to enable autocompletion for your shell:  
 
 #### Bash  
 1. Add the following to your `.bashrc` profile:  
    ```bash
-   eval "$(screenpipe completions bash)" 
+   eval "$(skyprompt completions bash)" 
    ```  
 2. Reload your profile:  
    ```bash  
@@ -334,7 +334,7 @@ The `screenpipe` CLI supports generating shell completions for popular shells. F
 #### Zsh  
 1. Add the following to your `.zshrc` profile:
    ```bash  
-   eval "$(screenpipe completions zsh)"
+   eval "$(skyprompt completions zsh)"
    ```  
 2. Reload your profile:  
    ```bash  
@@ -342,15 +342,15 @@ The `screenpipe` CLI supports generating shell completions for popular shells. F
    ```  
 `
 #### Fish  
-1. Create `~/.config/fish/conf.d/screenpipe.fish` and add this line to it:
+1. Create `~/.config/fish/conf.d/skyprompt.fish` and add this line to it:
    ```fish  
-   screenpipe completions fish | source  
+   skyprompt completions fish | source  
    ```  
 
 #### PowerShell  
 1. Add the following to the end of your profile file:
    ```powershell  
-   screenpipe completions powershell | Out-String | Invoke-Expression 
+   skyprompt completions powershell | Out-String | Invoke-Expression 
    ```
    
 - For macOS/Linux, the profile is located at `~/.config/powershell/Microsoft.PowerShell_profile.ps1`
@@ -377,6 +377,6 @@ The `screenpipe` CLI supports generating shell completions for popular shells. F
 
 paste these links into your Cursor chat for context:
 
-- https://github.com/mediar-ai/screenpipe/blob/main/screenpipe-server/src/bin/screenpipe-server.rs
-- https://github.com/mediar-ai/screenpipe/blob/main/screenpipe-server/src/cli.rs
+- https://github.com/mediar-ai/skyprompt/blob/main/skyprompt-server/src/bin/skyprompt-server.rs
+- https://github.com/mediar-ai/skyprompt/blob/main/skyprompt-server/src/cli.rs
 

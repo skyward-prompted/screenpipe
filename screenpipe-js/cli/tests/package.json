@@ -1,9 +1,9 @@
 {
   "name": "tests",
-  "description": "Tests for the ScreenPipe CLI",
+  "description": "Tests for the Skyprompt CLI",
   "repository": {
     "type": "git",
-    "url": "https://github.com/neo773/screenpipe-test.git"
+    "url": "https://github.com/neo773/skyprompt-test.git"
   },
   "module": "index.ts",
   "type": "module",

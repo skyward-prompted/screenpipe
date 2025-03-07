@@ -1,14 +1,14 @@
 "use server";
 
-import { pipe } from "@screenpipe/js";
-import type { Settings as ScreenpipeAppSettings } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
+import type { Settings as SkypromptAppSettings } from "@skyprompt/js";
 
-export async function getScreenpipeAppSettings() {
+export async function getSkypromptAppSettings() {
   return await pipe.settings.getAll();
 }
 
-export async function updateScreenpipeAppSettings(
-  newSettings: Partial<ScreenpipeAppSettings>
+export async function updateSkypromptAppSettings(
+  newSettings: Partial<SkypromptAppSettings>
 ) {
   return await pipe.settings.update(newSettings);
 }

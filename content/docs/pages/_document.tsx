@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <meta
           property="og:title"
-          content="screenpipe - context-aware ai for your desktop"
+          content="skyprompt - context-aware ai for your desktop"
         />
         <meta
           property="og:description"

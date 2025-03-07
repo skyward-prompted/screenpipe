@@ -66,14 +66,14 @@ export function Settings() {
 
   const handleProfileChange = async () => {
     toast({
-      title: "Restarting Screenpipe",
-      description: "Please wait while we restart Screenpipe",
+      title: "Restarting Skyprompt",
+      description: "Please wait while we restart Skyprompt",
     });
-    await invoke("stop_screenpipe");
+    await invoke("stop_skyprompt");
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    await invoke("spawn_screenpipe");
+    await invoke("spawn_skyprompt");
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
     relaunch();

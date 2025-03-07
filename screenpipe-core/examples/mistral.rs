@@ -1,8 +1,8 @@
 use anyhow::Result;
 #[cfg(feature = "llm")]
-use screenpipe_core::mistral::MistralConfig;
+use skyprompt_core::mistral::MistralConfig;
 #[cfg(feature = "llm")]
-use screenpipe_core::stream_text;
+use skyprompt_core::stream_text;
 
 fn main() -> Result<()> {
     #[cfg(feature = "llm")]

@@ -3,8 +3,8 @@ use base64::{engine::general_purpose, Engine as _};
 use clap::Parser;
 use futures_util::{SinkExt, StreamExt};
 use image::ImageEncoder;
-use screenpipe_vision::capture_screenshot_by_window::WindowFilters;
-use screenpipe_vision::{
+use skyprompt_vision::capture_screenshot_by_window::WindowFilters;
+use skyprompt_vision::{
     continuous_capture, monitor::get_default_monitor, CaptureResult, OcrEngine,
 };
 use serde::Serialize;
@@ -196,12 +196,12 @@ async fn handle_connection(
 
 /*
 
-first: cargo run --example screenpipe-vision-websocket
+first: cargo run --example skyprompt-vision-websocket
 
 
 Python one-liner to connect and print WebSocket data:
-virtualenv /tmp/screenpipe-vision
-source /tmp/screenpipe-vision/bin/activate
+virtualenv /tmp/skyprompt-vision
+source /tmp/skyprompt-vision/bin/activate
 pip install websockets
 
 # open python3 and copy paste the code and press enter

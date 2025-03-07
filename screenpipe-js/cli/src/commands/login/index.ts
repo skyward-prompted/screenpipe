@@ -5,9 +5,9 @@ import { apiKeyLogin } from "./utils/api-key-login";
 
 export const loginCommand = new Command()
   .name("login")
-  .description("authenticate with screenpipe")
+  .description("authenticate with skyprompt")
   .action(async () => {
-    p.intro("Welcome to Screenpipe");
+    p.intro("Welcome to Skyprompt");
 
     const type = await p.select({
       message: "Select login type",

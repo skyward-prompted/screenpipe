@@ -97,10 +97,10 @@ const OnboardingSelection: React.FC<OnboardingSelectionProps> = ({
         <img
           className="w-24 h-24 justify-center"
           src="/128x128.png"
-          alt="screenpipe-logo"
+          alt="skyprompt-logo"
         />
         <DialogTitle className="text-center text-2xl">
-          what are you planning to use the screenpipe for?
+          what are you planning to use the skyprompt for?
         </DialogTitle>
       </DialogHeader>
 

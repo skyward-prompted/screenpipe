@@ -24,7 +24,7 @@ export class SettingsManager {
     const platform = process.platform;
     const home = os.homedir();
 
-    // Get base screenpipe data directory path based on platform
+    // Get base skyprompt data directory path based on platform
     let baseDir: string;
     switch (platform) {
       case "darwin":
@@ -32,18 +32,18 @@ export class SettingsManager {
           home,
           "Library",
           "Application Support",
-          "screenpipe"
+          "skyprompt"
         );
         break;
       case "linux":
         const xdgData =
           process.env.XDG_DATA_HOME || path.join(home, ".local", "share");
-        baseDir = path.join(xdgData, "screenpipe");
+        baseDir = path.join(xdgData, "skyprompt");
         break;
       case "win32":
         baseDir = path.join(
           process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"),
-          "screenpipe"
+          "skyprompt"
         );
         break;
       default:

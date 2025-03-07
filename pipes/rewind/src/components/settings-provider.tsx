@@ -1,10 +1,10 @@
 "use client";
 
 import {
-	getScreenpipeAppSettings,
-	updateScreenpipeAppSettings,
-} from "@/lib/actions/get-screenpipe-app-settings";
-import { Settings } from "@screenpipe/js";
+	getSkypromptAppSettings,
+	updateSkypromptAppSettings,
+} from "@/lib/actions/get-skyprompt-app-settings";
+import { Settings } from "@skyprompt/js";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 export const SettingsContext = createContext<{
@@ -24,12 +24,12 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
 	const loadSettings = async () => {
 		try {
-			// Load screenpipe app settings
-			const screenpipeSettings = await getScreenpipeAppSettings();
+			// Load skyprompt app settings
+			const skypromptSettings = await getSkypromptAppSettings();
 
 			// Merge everything together
 			setSettings({
-				...screenpipeSettings,
+				...skypromptSettings,
 			});
 		} catch (error) {
 			console.error("failed to load settings:", error);
@@ -38,19 +38,19 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 		}
 	};
 
-	const updateSettings = async (screenpipeAppSettings: Partial<Settings>) => {
+	const updateSettings = async (skypromptAppSettings: Partial<Settings>) => {
 		try {
-			// Update screenpipe settings if provided
-			if (screenpipeAppSettings) {
-				await updateScreenpipeAppSettings({
+			// Update skyprompt settings if provided
+			if (skypromptAppSettings) {
+				await updateSkypromptAppSettings({
 					...settings,
-					...screenpipeAppSettings,
+					...skypromptAppSettings,
 				});
 			}
 
 			// Update state with everything
 			setSettings({
-				...screenpipeAppSettings,
+				...skypromptAppSettings,
 			});
 			return true;
 		} catch (error) {

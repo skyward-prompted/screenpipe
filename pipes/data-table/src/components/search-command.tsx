@@ -63,7 +63,7 @@ export function SearchCommand() {
     try {
       const openai = new OpenAI({
         apiKey:
-          settings.aiProviderType === "screenpipe-cloud"
+          settings.aiProviderType === "skyprompt-cloud"
             ? settings.user.token
             : settings.openaiApiKey,
         baseURL: settings.aiUrl,
@@ -73,7 +73,7 @@ export function SearchCommand() {
       const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
         {
           role: "system",
-          content: `You are an SQL expert helping developers query Screenpipe's 24/7 recording context database. Generate SQLite queries based on natural language input.
+          content: `You are an SQL expert helping developers query Skyprompt's 24/7 recording context database. Generate SQLite queries based on natural language input.
 
           Important rules:
           - Only return the SQL query, no explanations

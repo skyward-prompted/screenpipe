@@ -25,10 +25,10 @@ const getDebuggingCommands = (os: string | null, dataDir: string) => {
 
   if (os === "windows") {
     cliInstructions =
-      "# 1. Open Command Prompt as admin (search for 'cmd' in the Start menu, right click, 'Run as admin')\n# 2. Navigate to: %LOCALAPPDATA%\\screenpipe\\\n#    Type: cd %LOCALAPPDATA%\\screenpipe\n";
+      "# 1. Open Command Prompt as admin (search for 'cmd' in the Start menu, right click, 'Run as admin')\n# 2. Navigate to: %LOCALAPPDATA%\\skyprompt\\\n#    Type: cd %LOCALAPPDATA%\\skyprompt\n";
   } else if (os === "macos") {
     cliInstructions =
-      "# 1. Open Terminal\n# 2. Navigate to: /Applications/screenpipe.app/Contents/MacOS/\n#    Type: cd /Applications/screenpipe.app/Contents/MacOS/\n";
+      "# 1. Open Terminal\n# 2. Navigate to: /Applications/skyprompt.app/Contents/MacOS/\n#    Type: cd /Applications/skyprompt.app/Contents/MacOS/\n";
   } else if (os === "linux") {
     cliInstructions =
       "# 1. Open Terminal\n# 2. Navigate to: /usr/local/bin/\n#    Type: cd /usr/local/bin/\n";
@@ -37,17 +37,17 @@ const getDebuggingCommands = (os: string | null, dataDir: string) => {
       "# OS not recognized. Please check the documentation for your specific operating system.\n";
   }
 
-  const baseInstructions = `# First, view the Screenpipe CLI arguments:
+  const baseInstructions = `# First, view the Skyprompt CLI arguments:
   ${cliInstructions}
-  # 3. Run: screenpipe -h
-  # 4. Choose your preferred setup and start Screenpipe:
+  # 3. Run: skyprompt -h
+  # 4. Choose your preferred setup and start Skyprompt:
   #    (Replace [YOUR_ARGS] with your chosen arguments)
-  #    Example: screenpipe --fps 1 `;
+  #    Example: skyprompt --fps 1 `;
 
   const logPath =
     os === "windows"
-      ? `${dataDir}\\screenpipe.${new Date().toISOString().split("T")[0]}.log`
-      : `${dataDir}/screenpipe.${new Date().toISOString().split("T")[0]}.log`;
+      ? `${dataDir}\\skyprompt.${new Date().toISOString().split("T")[0]}.log`
+      : `${dataDir}/skyprompt.${new Date().toISOString().split("T")[0]}.log`;
 
   const dbPath =
     os === "windows" ? `${dataDir}\\db.sqlite` : `${dataDir}/db.sqlite`;
@@ -56,9 +56,9 @@ const getDebuggingCommands = (os: string | null, dataDir: string) => {
     baseInstructions +
     dataDir +
     (os === "windows"
-      ? `\n\n# We highly recommend adding --ocr-engine windows-native to your command.\n# This will use a very experimental but powerful engine to extract text from your screen instead of the default one.\n# Example: screenpipe --data-dir ${dataDir} --ocr-engine windows-native\n`
+      ? `\n\n# We highly recommend adding --ocr-engine windows-native to your command.\n# This will use a very experimental but powerful engine to extract text from your screen instead of the default one.\n# Example: skyprompt --data-dir ${dataDir} --ocr-engine windows-native\n`
       : "") +
-    "\n\n# 5. If you've already started Screenpipe, try these debugging commands:\n";
+    "\n\n# 5. If you've already started Skyprompt, try these debugging commands:\n";
 
   if (os === "windows") {
     return (
@@ -113,28 +113,28 @@ export const DevModeSettings = ({ localDataDir }: { localDataDir: string }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleStartScreenpipe = async () => {
+  const handleStartSkyprompt = async () => {
     setIsLoading(true);
     const toastId = toast({
-      title: "starting screenpipe",
+      title: "starting skyprompt",
       description: "please wait...",
       duration: Infinity,
     });
     try {
-      await invoke("spawn_screenpipe");
+      await invoke("spawn_skyprompt");
       await new Promise((resolve) => setTimeout(resolve, 2000));
       toastId.update({
         id: toastId.id,
-        title: "screenpipe started",
-        description: "screenpipe is now running.",
+        title: "skyprompt started",
+        description: "skyprompt is now running.",
         duration: 3000,
       });
     } catch (error) {
-      console.error("failed to start screenpipe:", error);
+      console.error("failed to start skyprompt:", error);
       toastId.update({
         id: toastId.id,
         title: "error",
-        description: "failed to start screenpipe.",
+        description: "failed to start skyprompt.",
         variant: "destructive",
         duration: 3000,
       });
@@ -144,28 +144,28 @@ export const DevModeSettings = ({ localDataDir }: { localDataDir: string }) => {
     }
   };
 
-  const handleStopScreenpipe = async () => {
+  const handleStopSkyprompt = async () => {
     setIsLoading(true);
     const toastId = toast({
-      title: "stopping screenpipe",
+      title: "stopping skyprompt",
       description: "please wait...",
       duration: Infinity,
     });
     try {
-      await invoke("stop_screenpipe");
+      await invoke("stop_skyprompt");
       await new Promise((resolve) => setTimeout(resolve, 2000));
       toastId.update({
         id: toastId.id,
-        title: "screenpipe stopped",
-        description: "screenpipe is now stopped.",
+        title: "skyprompt stopped",
+        description: "skyprompt is now stopped.",
         duration: 3000,
       });
     } catch (error) {
-      console.error("failed to stop screenpipe:", error);
+      console.error("failed to stop skyprompt:", error);
       toastId.update({
         id: toastId.id,
         title: "error",
-        description: "failed to stop screenpipe.",
+        description: "failed to stop skyprompt.",
         variant: "destructive",
         duration: 3000,
       });
@@ -226,7 +226,7 @@ export const DevModeSettings = ({ localDataDir }: { localDataDir: string }) => {
                         <TooltipTrigger asChild>
                           <Button
                             variant="outline"
-                            onClick={handleStopScreenpipe}
+                            onClick={handleStopSkyprompt}
                             disabled={isLoading}
                             className="text-xs w-full"
                           >
@@ -234,7 +234,7 @@ export const DevModeSettings = ({ localDataDir }: { localDataDir: string }) => {
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>stop screenpipe backend</p>
+                          <p>stop skyprompt backend</p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -245,7 +245,7 @@ export const DevModeSettings = ({ localDataDir }: { localDataDir: string }) => {
                         <TooltipTrigger asChild>
                           <Button
                             variant="outline"
-                            onClick={handleStartScreenpipe}
+                            onClick={handleStartSkyprompt}
                             disabled={isLoading}
                             className="text-xs w-full"
                           >
@@ -253,7 +253,7 @@ export const DevModeSettings = ({ localDataDir }: { localDataDir: string }) => {
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>start screenpipe recording</p>
+                          <p>start skyprompt recording</p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -262,7 +262,7 @@ export const DevModeSettings = ({ localDataDir }: { localDataDir: string }) => {
               </CardContent>
               <CardFooter className="flex flex-col items-center">
                 <p className="text-sm text-muted-foreground">
-                  manually start or stop screenpipe recording
+                  manually start or stop skyprompt recording
                 </p>
                 <p className="text-xs text-muted-foreground">
                   (auto started when dev mode is off)

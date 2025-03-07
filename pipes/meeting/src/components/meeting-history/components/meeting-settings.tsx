@@ -12,7 +12,7 @@ interface MeetingSettingsProps {
   onBack: () => void
 }
 
-type TranscriptionMode = 'browser' | 'screenpipe'
+type TranscriptionMode = 'browser' | 'skyprompt'
 
 export function MeetingSettings({ onBack }: MeetingSettingsProps) {
   const [stats, setStats] = useState<{
@@ -96,16 +96,16 @@ export function MeetingSettings({ onBack }: MeetingSettingsProps) {
         <div className="flex gap-2 p-1 bg-muted rounded-lg">
           <button
             className={`flex-1 px-4 py-2 rounded-md transition-colors ${
-              transcriptionMode === 'screenpipe' 
+              transcriptionMode === 'skyprompt' 
                 ? 'bg-background shadow-sm' 
                 : 'hover:bg-background/50'
             }`}
             onClick={() => {
-              console.log('changing transcription mode to: screenpipe')
-              setTranscriptionMode('screenpipe')
+              console.log('changing transcription mode to: skyprompt')
+              setTranscriptionMode('skyprompt')
             }}
           >
-            screenpipe
+            skyprompt
           </button>
           <button
             className={`flex-1 px-4 py-2 rounded-md transition-colors ${
@@ -122,8 +122,8 @@ export function MeetingSettings({ onBack }: MeetingSettingsProps) {
           </button>
         </div>
         <p className="text-sm text-muted-foreground">
-          {transcriptionMode === 'screenpipe' 
-            ? 'uses screenpipe to power your meeting notes'
+          {transcriptionMode === 'skyprompt' 
+            ? 'uses skyprompt to power your meeting notes'
             : 'use browser-based transcription, no extra local context available'}
         </p>
       </div>

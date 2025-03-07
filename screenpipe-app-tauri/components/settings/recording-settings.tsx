@@ -281,7 +281,7 @@ export function RecordingSettings() {
   const handleUpdate = async () => {
     setIsUpdating(true);
     toast({
-      title: "Updating screenpipe recording settings",
+      title: "Updating skyprompt recording settings",
       description: "This may take a few moments...",
     });
 
@@ -315,18 +315,18 @@ export function RecordingSettings() {
         }
       }
 
-      await invoke("stop_screenpipe");
+      await invoke("stop_skyprompt");
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
       // Start a new instance with updated settings
-      await invoke("spawn_screenpipe");
+      await invoke("spawn_skyprompt");
 
       await new Promise((resolve) => setTimeout(resolve, 2000));
       // await relaunch();
 
       toast({
         title: "settings updated successfully",
-        description: "screenpipe has been restarted with new settings.",
+        description: "skyprompt has been restarted with new settings.",
       });
 
       window.location.reload();
@@ -348,12 +348,12 @@ export function RecordingSettings() {
   ) => {
     const isLoggedIn = checkLogin(settings.user);
     // If trying to use cloud but not logged in
-    if (value === "screenpipe-cloud" && !isLoggedIn) {
+    if (value === "skyprompt-cloud" && !isLoggedIn) {
       return;
     }
 
     // If trying to use cloud but not subscribed
-    if (value === "screenpipe-cloud" && !settings.user?.cloud_subscribed) {
+    if (value === "skyprompt-cloud" && !settings.user?.cloud_subscribed) {
       const clientRefId = `${
         settings.user?.id
       }&customer_email=${encodeURIComponent(settings.user?.email ?? "")}`;
@@ -669,7 +669,7 @@ export function RecordingSettings() {
           <Terminal className="h-4 w-4" />
           <AlertTitle>heads up!</AlertTitle>
           <AlertDescription>
-            make sure to turn off dev mode and start screenpipe recorder first
+            make sure to turn off dev mode and start skyprompt recorder first
             (go to status)
           </AlertDescription>
         </Alert>
@@ -710,7 +710,7 @@ export function RecordingSettings() {
                   <p className="text-sm text-muted-foreground">
                     stream screen content in real-time (dev preview) -{" "}
                     <a
-                      href="https://github.com/mediar-ai/screenpipe/tree/main/screenpipe-js/examples/stream-screenshots"
+                      href="https://github.com/mediar-ai/skyprompt/tree/main/skyprompt-js/examples/stream-screenshots"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"
@@ -968,7 +968,7 @@ export function RecordingSettings() {
                   <p className="text-sm text-muted-foreground">
                     transcribe audio in real-time as you speak (dev preview) -{" "}
                     <a
-                      href="https://github.com/mediar-ai/screenpipe/blob/main/screenpipe-js/examples/basic-transcription/index.ts"
+                      href="https://github.com/mediar-ai/skyprompt/blob/main/skyprompt-js/examples/basic-transcription/index.ts"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"
@@ -1012,14 +1012,14 @@ export function RecordingSettings() {
                       <SelectValue placeholder="select realtime transcription engine" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="screenpipe-cloud">
+                      <SelectItem value="skyprompt-cloud">
                         <div className="flex items-center justify-between w-full space-x-2">
-                          <span>screenpipe cloud</span>
+                          <span>skyprompt cloud</span>
                           <div className="flex items-center gap-2">
                             <Badge variant="secondary">cloud</Badge>
                             {!settings.user?.cloud_subscribed && (
                               <Badge variant="outline" className="text-xs">
-                                get screenpipe cloud
+                                get skyprompt cloud
                               </Badge>
                             )}
                           </div>
@@ -1052,14 +1052,14 @@ export function RecordingSettings() {
                     <SelectValue placeholder="select audio transcription engine" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="screenpipe-cloud">
+                    <SelectItem value="skyprompt-cloud">
                       <div className="flex items-center justify-between w-full space-x-2">
-                        <span>screenpipe cloud</span>
+                        <span>skyprompt cloud</span>
                         <div className="flex items-center gap-2">
                           <Badge variant="secondary">cloud</Badge>
                           {!settings.user?.cloud_subscribed && (
                             <Badge variant="outline" className="text-xs">
-                              get screenpipe cloud
+                              get skyprompt cloud
                             </Badge>
                           )}
                         </div>
@@ -1135,7 +1135,7 @@ export function RecordingSettings() {
                     >
                       deepgram&apos;s website
                     </a>{" "}
-                    or use screenpipe cloud
+                    or use skyprompt cloud
                   </p>
                 </div>
               )}
@@ -1398,7 +1398,7 @@ export function RecordingSettings() {
               <div className="space-y-1">
                 <h4 className="font-medium">enable telemetry</h4>
                 <p className="text-sm text-muted-foreground">
-                  help improve screenpipe with anonymous usage data
+                  help improve skyprompt with anonymous usage data
                 </p>
               </div>
               <Switch

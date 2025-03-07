@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { pipe } from "@screenpipe/browser";
+import { pipe } from "@skyprompt/browser";
 
 const Pipe: React.FC = () => {
   const { toast } = useToast();
@@ -189,7 +189,7 @@ const Pipe: React.FC = () => {
       toast({
         title: "error",
         variant: "destructive",
-        description: "ffmpge error, please report it on screenpipe's github!",
+        description: "ffmpge error, please report it on skyprompt's github!",
         duration: 3000,
       });
     }

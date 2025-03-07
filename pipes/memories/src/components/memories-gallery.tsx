@@ -6,7 +6,7 @@ import { Play, Pause, Calendar, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { pipe, ContentItem } from "@screenpipe/browser";
+import { pipe, ContentItem } from "@skyprompt/browser";
 import { VideoComponent } from "@/components/video";
 import { Skeleton } from "@/components/ui/skeleton";
 import { OpenAI } from "openai";
@@ -81,7 +81,7 @@ export function MemoriesGallery() {
             Math.random() * (fiveMinutesAgo.getTime() - thirtyDaysAgo.getTime())
         );
 
-        const response = await pipe.queryScreenpipe({
+        const response = await pipe.querySkyprompt({
           limit: 2,
           contentType: "ocr",
           //   includeFrames: true,
@@ -159,7 +159,7 @@ export function MemoriesGallery() {
 
     const openai = new OpenAI({
       apiKey:
-        settings.aiProviderType === "screenpipe-cloud"
+        settings.aiProviderType === "skyprompt-cloud"
           ? settings.user.token
           : settings.openaiApiKey,
       baseURL: settings.aiUrl,
@@ -242,7 +242,7 @@ export function MemoriesGallery() {
     try {
       const openai = new OpenAI({
         apiKey:
-          settings.aiProviderType === "screenpipe-cloud"
+          settings.aiProviderType === "skyprompt-cloud"
             ? settings.user.token
             : settings.openaiApiKey,
         baseURL: settings.aiUrl,

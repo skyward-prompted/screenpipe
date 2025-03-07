@@ -33,7 +33,7 @@ const getProfilesStore = async () => {
     profilesStorePromise = (async () => {
       const dir = await localDataDir();
       console.log(dir, "dir");
-      return new LazyStore(`${dir}/screenpipe/profiles.bin`, {
+      return new LazyStore(`${dir}/skyprompt/profiles.bin`, {
         autoSave: false,
       });
     })();
@@ -90,7 +90,7 @@ const copyProfileSettings = async (
 
     console.log(`copying profile settings to ${fileName}`);
 
-    const store = new LazyStore(`${dir}/screenpipe/${fileName}`, {
+    const store = new LazyStore(`${dir}/skyprompt/${fileName}`, {
       autoSave: false,
     });
 
@@ -117,7 +117,7 @@ const copyProfileSettings = async (
       "openaiApiKey",
 
       // Shortcuts
-      "showScreenpipeShortcut",
+      "showSkypromptShortcut",
       "startRecordingShortcut",
       "stopRecordingShortcut",
       "disabledShortcuts",
@@ -151,7 +151,7 @@ const deleteProfileFile = async (profile: string) => {
   try {
     const dir = await localDataDir();
     const file = profile === "default" ? "store.bin" : `store-${profile}.bin`;
-    await remove(`${dir}/screenpipe/${file}`);
+    await remove(`${dir}/skyprompt/${file}`);
   } catch (err) {
     console.error(`failed to delete profile file: ${err}`);
     throw new Error(`failed to delete profile file: ${err}`);

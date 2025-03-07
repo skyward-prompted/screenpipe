@@ -3,7 +3,7 @@ use candle::IndexOp;
 use candle::{Result, Tensor, D};
 use candle_transformers::models::whisper::SOT_TOKEN;
 use log::debug;
-use screenpipe_core::Language;
+use skyprompt_core::Language;
 use tokenizers::Tokenizer;
 
 pub const LANGUAGES: [(&str, &str); 99] = [

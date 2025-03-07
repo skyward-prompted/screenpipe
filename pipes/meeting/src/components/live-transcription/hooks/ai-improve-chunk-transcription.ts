@@ -1,5 +1,5 @@
 import { callOpenAI, createAiClient } from "./ai-client"
-import type { Settings } from "@screenpipe/browser"
+import type { Settings } from "@skyprompt/browser"
 import { TranscriptionChunk } from "../../meeting-history/types"
 import { VocabularyEntry, getVocabularyEntries } from "./storage-vocabulary"
 import { Meeting } from "../../meeting-history/types"

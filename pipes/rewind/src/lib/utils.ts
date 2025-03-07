@@ -1,4 +1,4 @@
-import { ContentItem } from "@screenpipe/js";
+import { ContentItem } from "@skyprompt/js";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import levenshtein from "js-levenshtein";

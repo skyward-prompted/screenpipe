@@ -1,6 +1,6 @@
 "use server";
 import { OpenAI } from "openai";
-import { ContentItem } from "@screenpipe/js";
+import { ContentItem } from "@skyprompt/js";
 import { DailyLog } from "../types";
 
 export default async function generateDailyLog(
@@ -33,7 +33,7 @@ export default async function generateDailyLog(
     `;
 
   const openai = new OpenAI({
-    apiKey: aiProviderType === "screenpipe-cloud" ? userToken : openaiApiKey,
+    apiKey: aiProviderType === "skyprompt-cloud" ? userToken : openaiApiKey,
     baseURL: gptApiUrl,
     dangerouslyAllowBrowser: true,
   })

@@ -43,7 +43,7 @@ const Pipe: React.FC = () => {
   const [hourlyRepetance, setHourlyRepetance] = useState("1");
 
   const aiDisabled =
-    settings.aiProviderType === "screenpipe-cloud" && !settings.user.token;
+    settings.aiProviderType === "skyprompt-cloud" && !settings.user.token;
 
   const defaultDailylogPrompt = `- Analyze user activities and summarize them into a structured daily log.
 - Focus on identifying the purpose and context of each activity, categorizing them into clear categories like 'work', 'email', 'slack', etc.
@@ -406,11 +406,11 @@ const Pipe: React.FC = () => {
               <TooltipContent>
                 <p>{`${
                   (aiDisabled && isServerDown) || !isAvailable
-                    ? "you don't have access of screenpipe-cloud and screenpipe is down!"
+                    ? "you don't have access of skyprompt-cloud and skyprompt is down!"
                     : isServerDown
-                    ? "screenpipe is not running..."
+                    ? "skyprompt is not running..."
                     : aiDisabled
-                    ? "you don't have access to screenpipe-cloud :( please consider login"
+                    ? "you don't have access to skyprompt-cloud :( please consider login"
                     : !isAvailable
                     ? { error }
                     : ""

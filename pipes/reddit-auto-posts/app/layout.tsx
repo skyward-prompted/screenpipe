@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Reddit • Screenpipe",
+  title: "Reddit • Skyprompt",
   description: "Advertise your content, or learn, automatically",
 };
 

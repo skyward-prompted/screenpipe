@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Settings } from "@/lib/types";
 import {
-  getScreenpipeAppSettings,
-  updateScreenpipeAppSettings,
-} from "../actions/get-screenpipe-app-settings";
+  getSkypromptAppSettings,
+  updateSkypromptAppSettings,
+} from "../actions/get-skyprompt-app-settings";
 
 const DEFAULT_SETTINGS: Partial<Settings> = {
   prompt: `yo, you're my personal data detective! 🕵
@@ -41,22 +41,22 @@ export function useNotionSettings() {
 
   const loadSettings = async () => {
     try {
-      // Load screenpipe app settings
-      const screenpipeSettings = await getScreenpipeAppSettings();
+      // Load skyprompt app settings
+      const skypromptSettings = await getSkypromptAppSettings();
 
-      console.log(screenpipeSettings);
+      console.log(skypromptSettings);
       // Load notion settings from localStorage
       // const storedSettings = localStorage.getItem(STORAGE_KEY);
       // const notionSettings = storedSettings
       //   ? JSON.parse(storedSettings)
       //   : {
-      //       ...(screenpipeSettings.customSettings?.notion && {
-      //         ...screenpipeSettings.customSettings?.notion,
+      //       ...(skypromptSettings.customSettings?.notion && {
+      //         ...skypromptSettings.customSettings?.notion,
       //       }),
       //     };
       const notionSettings = {
-        ...(screenpipeSettings.customSettings?.notion && {
-          ...screenpipeSettings.customSettings?.notion,
+        ...(skypromptSettings.customSettings?.notion && {
+          ...skypromptSettings.customSettings?.notion,
         }),
       };
 
@@ -64,7 +64,7 @@ export function useNotionSettings() {
       setSettings({
         ...DEFAULT_SETTINGS,
         ...notionSettings,
-        screenpipeAppSettings: screenpipeSettings,
+        skypromptAppSettings: skypromptSettings,
       });
     } catch (error) {
       console.error("failed to load settings:", error);
@@ -76,7 +76,7 @@ export function useNotionSettings() {
   const updateSettings = async (newSettings: Partial<Settings>) => {
     try {
       // Split settings
-      const { screenpipeAppSettings, ...notionSettings } = newSettings;
+      const { skypromptAppSettings, ...notionSettings } = newSettings;
 
       // Update notion settings in localStorage
       const mergedNotionSettings = {
@@ -84,11 +84,11 @@ export function useNotionSettings() {
         ...notionSettings,
       };
 
-      // Update screenpipe settings if provided
-      await updateScreenpipeAppSettings({
-        ...screenpipeAppSettings,
+      // Update skyprompt settings if provided
+      await updateSkypromptAppSettings({
+        ...skypromptAppSettings,
         customSettings: {
-          ...screenpipeAppSettings?.customSettings,
+          ...skypromptAppSettings?.customSettings,
           notion: notionSettings,
         },
       });
@@ -98,8 +98,8 @@ export function useNotionSettings() {
       // Update state with everything
       setSettings({
         ...mergedNotionSettings,
-        screenpipeAppSettings:
-          screenpipeAppSettings || settings?.screenpipeAppSettings,
+        skypromptAppSettings:
+          skypromptAppSettings || settings?.skypromptAppSettings,
       });
       return true;
     } catch (error) {

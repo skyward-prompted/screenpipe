@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "screenpipe",
+  "productName": "skyprompt",
   "identifier": "screenpi.pe",
   "build": {
     "beforeDevCommand": "bun run dev",
@@ -30,8 +30,8 @@
       "icons/1024x1024.png",
       "icons/icon.icns",
       "icons/icon.ico",
-      "icons/screenpipe-logo-tray-failed.png",
-      "icons/screenpipe-logo-tray-black.png"
+      "icons/skyprompt-logo-tray-failed.png",
+      "icons/skyprompt-logo-tray-black.png"
     ],
     "resources": [
       "assets/*"
@@ -42,14 +42,14 @@
       "active": true,
       "dialog": true,
       "endpoints": [
-        "https://cdn.crabnebula.app/update/mediar/screenpipe/{{target}}-{{arch}}/{{current_version}}"
+        "https://cdn.crabnebula.app/update/mediar/skyprompt/{{target}}-{{arch}}/{{current_version}}"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDIyQjQ2RkQzMUNBOUFDMTcKUldRWHJLa2MwMiswSWl3RlBGUW5zYUE0Zm0vNFFRRTltNUZZTUVxR2FxUDNtSWdUSHgyL3JNcmcK"
     },
     "deep-link": {
       "desktop": {
         "schemes": [
-          "screenpipe"
+          "skyprompt"
         ]
       },
       "mobile": [
@@ -101,13 +101,13 @@
   "app": {
     "withGlobalTauri": true,
     "trayIcon": {
-      "id": "screenpipe_main",
-      "iconPath": "icons/screenpipe-logo-tray-black.png",
+      "id": "skyprompt_main",
+      "iconPath": "icons/skyprompt-logo-tray-black.png",
       "iconAsTemplate": true
     },
     "windows": [
       {
-        "title": "screenpipe",
+        "title": "skyprompt",
         "width": 1200,
         "height": 850,
         "resizable": true

@@ -1,7 +1,7 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 use image::GenericImageView;
 use memory_stats::memory_stats;
-use screenpipe_vision::perform_ocr_apple;
+use skyprompt_vision::perform_ocr_apple;
 use std::path::PathBuf;
 
 fn bytes_to_mb(bytes: usize) -> f64 {

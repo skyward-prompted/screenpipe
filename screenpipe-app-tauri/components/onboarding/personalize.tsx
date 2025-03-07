@@ -84,7 +84,7 @@ const OnboardingPersonalize: React.FC<OnboardingPersonalizeProps> = ({
         <img
           className="w-24 h-24 justify-center"
           src="/128x128.png"
-          alt="screenpipe-logo"
+          alt="skyprompt-logo"
         />
         <DialogTitle className="text-center text-2xl">
           do you want to use AI or just plain search?

@@ -1,5 +1,5 @@
 [package]
-name = "screenpipe-server"
+name = "skyprompt-server"
 version = { workspace = true }
 authors = { workspace = true }
 description = { workspace = true }
@@ -14,10 +14,10 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 oasgen = { workspace = true }
 
-screenpipe-events = { path = "../screenpipe-events" }
-screenpipe-vision = { path = "../screenpipe-vision" }
-screenpipe-audio = { path = "../screenpipe-audio" }
-screenpipe-core = { path = "../screenpipe-core", features = ["security"] }
+skyprompt-events = { path = "../skyprompt-events" }
+skyprompt-vision = { path = "../skyprompt-vision" }
+skyprompt-audio = { path = "../skyprompt-audio" }
+skyprompt-core = { path = "../skyprompt-core", features = ["security"] }
 killport = { version = "1.1.0" }
 
 # Image processing
@@ -150,8 +150,8 @@ experimental = ["enigo"]
 debug-console = ["console-subscriber"]
 
 [[bin]]
-name = "screenpipe"
-path = "src/bin/screenpipe-server.rs"
+name = "skyprompt"
+path = "src/bin/skyprompt-server.rs"
 
 
 [package.metadata.cargo-machete]

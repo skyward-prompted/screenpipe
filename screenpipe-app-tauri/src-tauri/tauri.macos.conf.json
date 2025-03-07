@@ -10,7 +10,7 @@
             }
         },
         "externalBin": [
-            "screenpipe",
+            "skyprompt",
             "bun",
             "ui_monitor"
         ]

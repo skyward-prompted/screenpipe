@@ -1,4 +1,4 @@
-import type { Settings as ScreenpipeAppSettings } from "@screenpipe/js";
+import type { Settings as SkypromptAppSettings } from "@skyprompt/js";
 
 export interface NotionCredentials {
   accessToken: string;
@@ -45,5 +45,5 @@ export interface Settings {
   backend: "notion";
   notion: NotionCredentials;
   prompt: string;
-  screenpipeAppSettings: ScreenpipeAppSettings;
+  skypromptAppSettings: SkypromptAppSettings;
 }

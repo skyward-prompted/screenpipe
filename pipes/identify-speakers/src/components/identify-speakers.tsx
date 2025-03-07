@@ -33,7 +33,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { pipe } from "@screenpipe/browser";
+import { pipe } from "@skyprompt/browser";
 
 export interface MeetingSegment {
   timestamp: string;

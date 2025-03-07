@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useState, useRef, useMemo } from "react";
 import { getMediaFile } from "@/lib/actions/video-actions";
 import { cn } from "@/lib/utils";
-import { Speaker } from "@screenpipe/browser";
+import { Speaker } from "@skyprompt/browser";
 import { motion } from "framer-motion";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";

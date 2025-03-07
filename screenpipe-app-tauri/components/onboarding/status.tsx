@@ -19,8 +19,8 @@ import posthog from "posthog-js";
 import { toast } from "@/components/ui/use-toast";
 import { PermissionButtons } from "../status/permission-buttons";
 import { usePlatform } from "@/lib/hooks/use-platform";
-import { pipe } from "@screenpipe/browser";
-import { VisionEvent } from "@screenpipe/browser";
+import { pipe } from "@skyprompt/browser";
+import { VisionEvent } from "@skyprompt/browser";
 import Image from "next/image";
 
 interface OnboardingStatusProps {
@@ -187,36 +187,36 @@ const OnboardingStatus: React.FC<OnboardingStatusProps> = ({
     }
   };
 
-  const handleStartScreenpipe = async () => {
-    posthog.capture("screenpipe_setup_start");
+  const handleStartSkyprompt = async () => {
+    posthog.capture("skyprompt_setup_start");
     setIsLoading(true);
     const toastId = toast({
-      title: "starting screenpipe",
+      title: "starting skyprompt",
       description:
         "please wait as we download AI models and start recording\nplease check logs if this is taking longer than expected (30s)",
       duration: Infinity,
     });
     try {
-      await invoke("stop_screenpipe");
+      await invoke("stop_skyprompt");
       await new Promise((resolve) => setTimeout(resolve, 1_000));
 
-      await invoke("spawn_screenpipe", {
+      await invoke("spawn_skyprompt", {
         overrideArgs: ["--enable-realtime-vision"],
       });
       await new Promise((resolve) => setTimeout(resolve, 5_000));
       toastId.update({
         id: toastId.id,
-        title: "screenpipe started",
-        description: "screenpipe is now running.",
+        title: "skyprompt started",
+        description: "skyprompt is now running.",
         duration: 3000,
       });
       setStatus("ok");
     } catch (error) {
-      console.error("failed to start screenpipe:", error);
+      console.error("failed to start skyprompt:", error);
       toastId.update({
         id: toastId.id,
         title: "error",
-        description: "failed to start screenpipe.",
+        description: "failed to start skyprompt.",
         variant: "destructive",
         duration: 3000,
       });
@@ -247,9 +247,9 @@ const OnboardingStatus: React.FC<OnboardingStatusProps> = ({
       className={`${className} w-full flex flex-col items-center overflow-y-auto max-h-[80vh] pb-4 relative`}
     >
       <DialogHeader className="flex flex-col px-2 justify-center items-center sticky top-0 bg-background z-10 w-full pt-4 pb-2">
-        <img className="w-24 h-24" src="/128x128.png" alt="screenpipe-logo" />
+        <img className="w-24 h-24" src="/128x128.png" alt="skyprompt-logo" />
         <DialogTitle className="text-center text-2xl">
-          setting up screenpipe
+          setting up skyprompt
         </DialogTitle>
         <p className="text-sm text-muted-foreground mt-2">
           100% local-first • your data never leaves your device
@@ -301,7 +301,7 @@ const OnboardingStatus: React.FC<OnboardingStatusProps> = ({
       <div className="w-full flex flex-col items-center justify-center gap-2 my-1">
         {status === null ? (
           <Button
-            onClick={handleStartScreenpipe}
+            onClick={handleStartSkyprompt}
             disabled={isLoading}
             className="mt-4"
           >
@@ -327,7 +327,7 @@ const OnboardingStatus: React.FC<OnboardingStatusProps> = ({
           <div className="flex flex-col items-center mt-4">
             <Check className="size-5 stroke-zinc-400" />
             <p className="text-sm text-zinc-600 mt-2 text-center">
-              screenpipe setup complete. <br />
+              skyprompt setup complete. <br />
               AI models downloaded.
             </p>
           </div>

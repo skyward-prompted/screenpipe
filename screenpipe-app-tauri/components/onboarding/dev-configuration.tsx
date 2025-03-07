@@ -32,49 +32,49 @@ const OnboardingDevConfig: React.FC<OnboardingDevConfigProps> = ({
   const devInstructionsData: devInstructionItems = {
     windows: [
       {
-        label: "to start using the screenpipe cli,",
+        label: "to start using the skyprompt cli,",
         description:
-          "to use the screenpipe cli, open your cmd with admin privileges and navigate to '%LOCALAPPDATA%\\screenpipe' or run this command to view all setup arguments",
+          "to use the skyprompt cli, open your cmd with admin privileges and navigate to '%LOCALAPPDATA%\\skyprompt' or run this command to view all setup arguments",
         command:
-          "cd %LOCALAPPDATA%\\screenpipe && ./screenpipe.exe -h   # shows list of arguments",
+          "cd %LOCALAPPDATA%\\skyprompt && ./skyprompt.exe -h   # shows list of arguments",
       },
       {
-        label: "starting screenpipe with custom arguments,",
+        label: "starting skyprompt with custom arguments,",
         description:
-          "after reviewing the cli arguments, choose your setup options and start screenpipe with your preference. replace arguments as needed. for example:",
+          "after reviewing the cli arguments, choose your setup options and start skyprompt with your preference. replace arguments as needed. for example:",
         command:
-          "screenpipe --ignored-windows settings    # ignore the windows named settings",
+          "skyprompt --ignored-windows settings    # ignore the windows named settings",
       },
     ],
     macos: [
       {
-        label: "to start using the screenpipe cli,",
+        label: "to start using the skyprompt cli,",
         description:
-          "to use the screenpipe cli, open your terminal and navigate to '/Applications/screenpipe.app/Contents/MacOS/' or run this command to view all setup arguments",
+          "to use the skyprompt cli, open your terminal and navigate to '/Applications/skyprompt.app/Contents/MacOS/' or run this command to view all setup arguments",
         command:
-          "cd /Applications/screenpipe.app/Contents/MacOS/ && screenpipe -h  # shows help",
+          "cd /Applications/skyprompt.app/Contents/MacOS/ && skyprompt -h  # shows help",
       },
       {
-        label: "starting screenpipe with custom arguments",
+        label: "starting skyprompt with custom arguments",
         description:
-          "after reviewing the cli arguments, choose your setup options and start screenpipe with your preference. replace arguments as needed. for example:",
-        command: "screenpipe --list-monitors     # list monitors",
+          "after reviewing the cli arguments, choose your setup options and start skyprompt with your preference. replace arguments as needed. for example:",
+        command: "skyprompt --list-monitors     # list monitors",
       },
     ],
     linux: [
       {
-        label: "to start using the screenpipe cli,",
+        label: "to start using the skyprompt cli,",
         description:
-          "open your terminal and navigate to the installation directory (usually /usr/local/bin) or run this command, this will show all arguments to setup screenpipe as you prefer.",
+          "open your terminal and navigate to the installation directory (usually /usr/local/bin) or run this command, this will show all arguments to setup skyprompt as you prefer.",
         command:
-          "cd /usr/local/bin/ && screenpipe -h   # shows list of arguments",
+          "cd /usr/local/bin/ && skyprompt -h   # shows list of arguments",
       },
       {
-        label: "starting screenpipe with custom arguments",
+        label: "starting skyprompt with custom arguments",
         description:
-          "after reviewing the cli arguments, choose your setup options and start screenpipe with your preference. replace arguments as needed. for example:",
+          "after reviewing the cli arguments, choose your setup options and start skyprompt with your preference. replace arguments as needed. for example:",
         command:
-          "screenpipe --ignored-windows kitty    # ignore the windows named kitty",
+          "skyprompt --ignored-windows kitty    # ignore the windows named kitty",
       },
     ],
   };
@@ -93,10 +93,10 @@ const OnboardingDevConfig: React.FC<OnboardingDevConfigProps> = ({
         <img
           className="w-24 h-24 justify-center"
           src="/128x128.png"
-          alt="screenpipe-logo"
+          alt="skyprompt-logo"
         />
         <DialogTitle className="text-center text-2xl">
-          screenpipe in dev mode
+          skyprompt in dev mode
         </DialogTitle>
       </DialogHeader>
       <div className="mt-8 w-full flex justify-around flex-col">
@@ -112,7 +112,7 @@ const OnboardingDevConfig: React.FC<OnboardingDevConfigProps> = ({
         {instructions.length > 0 && (
           <div className="mx-3 mt-1">
             <h1 className="font-medium text-md">
-              run the screenpipe backend via cli:
+              run the skyprompt backend via cli:
             </h1>
             <ul className="mt-0">
               {instructions.map((instructions, index) => (
@@ -138,7 +138,7 @@ const OnboardingDevConfig: React.FC<OnboardingDevConfigProps> = ({
           href="#"
           className="mt-4 text-muted-foreground text-sm mr-auto ml-auto !text-center hover:underline"
         >
-          learn more about screenpipe args &amp; api
+          learn more about skyprompt args &amp; api
           <ArrowUpRight className="inline w-4 h-4 ml-1 " />
         </a>
       </div>

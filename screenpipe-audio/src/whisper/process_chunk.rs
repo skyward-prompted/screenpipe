@@ -9,7 +9,7 @@ use candle_transformers::models::whisper::audio;
 use lazy_static::lazy_static;
 use log::debug;
 use regex::Regex;
-use screenpipe_core::Language;
+use skyprompt_core::Language;
 use std::collections::HashSet;
 
 lazy_static! {

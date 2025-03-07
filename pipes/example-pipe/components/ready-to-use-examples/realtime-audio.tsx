@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { pipe, type TranscriptionChunk } from "@screenpipe/browser";
+import { pipe, type TranscriptionChunk } from "@skyprompt/browser";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useSettings } from "@/lib/settings-provider";
@@ -23,8 +23,8 @@ export function RealtimeAudio({ onDataChange }: { onDataChange?: (data: any, err
   const startStreaming = async () => {
     try {
       // Check if realtime transcription is enabled
-      if (!settings?.screenpipeAppSettings?.enableRealtimeAudioTranscription) {
-        const errorMessage = "realtime audio transcription is not enabled in settings, go to account-> settings -> recording -> enable realtime audiotranscription -> models to use: screenpipe cloud. Then Refresh. If it doesn't start you might need to restart.";
+      if (!settings?.skypromptAppSettings?.enableRealtimeAudioTranscription) {
+        const errorMessage = "realtime audio transcription is not enabled in settings, go to account-> settings -> recording -> enable realtime audiotranscription -> models to use: skyprompt cloud. Then Refresh. If it doesn't start you might need to restart.";
         setError(errorMessage);
         
         // Pass the error to the parent component

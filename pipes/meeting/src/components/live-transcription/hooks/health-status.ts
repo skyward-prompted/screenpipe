@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { pipe } from "@screenpipe/browser"
+import { pipe } from "@skyprompt/browser"
 import { ServiceStatus } from '../../meeting-history/types'
 
 export function useServiceStatus() {
@@ -83,11 +83,11 @@ export function useServiceStatus() {
   const getStatusMessage = () => {
     switch (serviceStatus) {
       case 'no_subscription':
-        return "please subscribe to screenpipe cloud in settings"
+        return "please subscribe to skyprompt cloud in settings"
       case 'forbidden':
-        return "please enable real-time transcription in screenpipe settings"
+        return "please enable real-time transcription in skyprompt settings"
       case 'unavailable':
-        return "waiting for screenpipe to be available..."
+        return "waiting for skyprompt to be available..."
       default:
         return "transcribing..."
     }

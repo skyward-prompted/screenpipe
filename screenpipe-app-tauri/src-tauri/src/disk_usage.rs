@@ -37,7 +37,7 @@ pub struct CachedDiskUsage {
 
 pub fn get_cache_dir() -> Result<Option<PathBuf>, String> {
     let proj_dirs = dirs::cache_dir().ok_or_else(|| "failed to get cache dir".to_string())?;
-    Ok(Some(proj_dirs.join("screenpipe")))
+    Ok(Some(proj_dirs.join("skyprompt")))
 }
 
 pub fn directory_size(path: &Path) -> io::Result<u64> {
@@ -69,12 +69,12 @@ pub fn readable(size: u64) -> String {
     }
 }
 
-pub async fn disk_usage(screenpipe_dir: &PathBuf) -> Result<Option<DiskUsage>, String> {
+pub async fn disk_usage(skyprompt_dir: &PathBuf) -> Result<Option<DiskUsage>, String> {
     // Create base directories if they don't exist
-    fs::create_dir_all(screenpipe_dir).map_err(|e| e.to_string())?;
+    fs::create_dir_all(skyprompt_dir).map_err(|e| e.to_string())?;
     
-    let pipes_dir = screenpipe_dir.join("pipes");
-    let data_dir = screenpipe_dir.join("data");
+    let pipes_dir = skyprompt_dir.join("pipes");
+    let data_dir = skyprompt_dir.join("data");
     
     // Create required subdirectories
     fs::create_dir_all(&pipes_dir).map_err(|e| e.to_string())?;
@@ -86,11 +86,11 @@ pub async fn disk_usage(screenpipe_dir: &PathBuf) -> Result<Option<DiskUsage>, S
     };
     fs::create_dir_all(&cache_dir).map_err(|e| e.to_string())?;
     
-    // Create screenpipe subdirectory in cache
-    let screenpipe_cache_dir = cache_dir.join("screenpipe");
-    fs::create_dir_all(&screenpipe_cache_dir).map_err(|e| e.to_string())?;
+    // Create skyprompt subdirectory in cache
+    let skyprompt_cache_dir = cache_dir.join("skyprompt");
+    fs::create_dir_all(&skyprompt_cache_dir).map_err(|e| e.to_string())?;
     
-    let cache_file = screenpipe_cache_dir.join("disk_usage.json");
+    let cache_file = skyprompt_cache_dir.join("disk_usage.json");
 
     // Check if cache exists and is recent
     if let Ok(content) = fs::read_to_string(&cache_file) {
@@ -106,7 +106,7 @@ pub async fn disk_usage(screenpipe_dir: &PathBuf) -> Result<Option<DiskUsage>, S
     // Calculate new disk usage
     info!(
         "Cache miss or expired, calculating disk usage for path {:?}",
-        screenpipe_dir
+        skyprompt_dir
     );
     let mut pipes = Vec::new();
     let mut total_video_size = 0;
@@ -124,10 +124,10 @@ pub async fn disk_usage(screenpipe_dir: &PathBuf) -> Result<Option<DiskUsage>, S
         }
     }
 
-    let total_data_size = directory_size(screenpipe_dir).map_err(|e| e.to_string())?;
+    let total_data_size = directory_size(skyprompt_dir).map_err(|e| e.to_string())?;
     let total_media_size = directory_size(&data_dir).map_err(|e| e.to_string())?;
     let total_pipes_size = directory_size(&pipes_dir).map_err(|e| e.to_string())?;
-    let total_cache_size = directory_size(&screenpipe_cache_dir).map_err(|e| e.to_string())?;
+    let total_cache_size = directory_size(&skyprompt_cache_dir).map_err(|e| e.to_string())?;
 
     for entry in fs::read_dir(&data_dir).map_err(|e| e.to_string())? {
         let entry = entry.map_err(|e| e.to_string())?;
@@ -146,7 +146,7 @@ pub async fn disk_usage(screenpipe_dir: &PathBuf) -> Result<Option<DiskUsage>, S
     let avaiable_space = {
         let mut sys = System::new();
         sys.refresh_disks_list();
-        let path_obj = Path::new(&screenpipe_dir);
+        let path_obj = Path::new(&skyprompt_dir);
         sys.disks()
             .iter()
             .find(|disk| path_obj.starts_with(disk.mount_point()))

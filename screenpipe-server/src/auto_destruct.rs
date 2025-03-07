@@ -56,7 +56,7 @@ pub async fn watch_pid(pid: u32) -> bool {
             let app_output = Command::new("tasklist")
                 .args(&[
                     "/FI",
-                    "IMAGENAME eq screenpipe-app.exe",
+                    "IMAGENAME eq skyprompt-app.exe",
                     "/NH",
                     "/FO",
                     "CSV",

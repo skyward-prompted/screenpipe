@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 
 
 export const metadata: Metadata = {
-  title: "Search • Screenpipe",
-  description: "Search your screenpipe recordings",
+  title: "Search • Skyprompt",
+  description: "Search your skyprompt recordings",
 };
 
 export default function RootLayout({

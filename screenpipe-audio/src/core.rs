@@ -6,7 +6,7 @@ use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use cpal::StreamError;
 use lazy_static::lazy_static;
 use log::{debug, error, info, warn};
-use screenpipe_core::Language;
+use skyprompt_core::Language;
 use serde::{Deserialize, Serialize};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::mpsc;

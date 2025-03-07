@@ -1,6 +1,6 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use futures::StreamExt;
-use screenpipe_events::{send_event, subscribe_to_event};
+use skyprompt_events::{send_event, subscribe_to_event};
 use tokio::runtime::Runtime;
 
 fn benchmark_event_system(c: &mut Criterion) {

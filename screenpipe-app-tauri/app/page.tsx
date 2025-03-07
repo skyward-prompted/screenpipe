@@ -92,7 +92,7 @@ export default function Home() {
 
     const unlisten = Promise.all([
       listen("shortcut-start-recording", async () => {
-        await invoke("spawn_screenpipe");
+        await invoke("spawn_skyprompt");
 
         toast({
           title: "recording started",
@@ -101,7 +101,7 @@ export default function Home() {
       }),
 
       listen("shortcut-stop-recording", async () => {
-        await invoke("stop_screenpipe");
+        await invoke("stop_skyprompt");
 
         toast({
           title: "recording stopped",
@@ -115,14 +115,14 @@ export default function Home() {
 
         toast({
           title: "profile switched",
-          description: `switched to ${profile} profile, restarting screenpipe now`,
+          description: `switched to ${profile} profile, restarting skyprompt now`,
         });
 
-        await invoke("stop_screenpipe");
+        await invoke("stop_skyprompt");
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        await invoke("spawn_screenpipe");
+        await invoke("spawn_skyprompt");
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
         relaunch();

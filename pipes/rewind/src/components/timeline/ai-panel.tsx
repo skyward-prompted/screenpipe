@@ -9,7 +9,7 @@ import { Loader2, Send, Square, X, GripHorizontal, Bot } from "lucide-react";
 import { StreamTimeSeriesResponse } from "@/app/page";
 import { useTimelineSelection } from "@/lib/hooks/use-timeline-selection";
 import { Agent } from "./agents";
-import { pipe, type Settings } from "@screenpipe/browser";
+import { pipe, type Settings } from "@skyprompt/browser";
 import { useAiProvider } from "@/lib/hooks/use-ai-provider";
 import {
 	Tooltip,
@@ -269,7 +269,7 @@ export function AIPanel({
 
 			const openai = new OpenAI({
 				apiKey:
-					settings?.aiProviderType === "screenpipe-cloud"
+					settings?.aiProviderType === "skyprompt-cloud"
 						? settings?.user?.token
 						: settings?.openaiApiKey,
 				baseURL: settings?.aiUrl,

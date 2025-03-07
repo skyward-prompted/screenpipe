@@ -1,6 +1,6 @@
 use image::DynamicImage;
 use rusty_tesseract::{Args, DataOutput, Image};
-use screenpipe_core::{Language, TESSERACT_LANGUAGES};
+use skyprompt_core::{Language, TESSERACT_LANGUAGES};
 use std::collections::HashMap;
 
 pub fn perform_ocr_tesseract(

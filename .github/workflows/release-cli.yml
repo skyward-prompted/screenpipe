@@ -79,19 +79,19 @@ jobs:
 
       - name: Create deployment package
         run: |
-          mkdir -p screenpipe-${{ env.VERSION }}-${{ matrix.target }}/bin
-          cp target/${{ matrix.target }}/release/screenpipe screenpipe-${{ env.VERSION }}-${{ matrix.target }}/bin/
-          tar -czf screenpipe-${{ env.VERSION }}-${{ matrix.target }}.tar.gz -C screenpipe-${{ env.VERSION }}-${{ matrix.target }} .
+          mkdir -p skyprompt-${{ env.VERSION }}-${{ matrix.target }}/bin
+          cp target/${{ matrix.target }}/release/skyprompt skyprompt-${{ env.VERSION }}-${{ matrix.target }}/bin/
+          tar -czf skyprompt-${{ env.VERSION }}-${{ matrix.target }}.tar.gz -C skyprompt-${{ env.VERSION }}-${{ matrix.target }} .
 
       - name: Calculate SHA256
         run: |
-          echo "MAC_SHA256_${{ matrix.target }}=$(shasum -a 256 screenpipe-*.tar.gz | cut -d ' ' -f 1)" >> $GITHUB_ENV
+          echo "MAC_SHA256_${{ matrix.target }}=$(shasum -a 256 skyprompt-*.tar.gz | cut -d ' ' -f 1)" >> $GITHUB_ENV
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: screenpipe-macos-${{ matrix.target }}
-          path: screenpipe-*.tar.gz
+          name: skyprompt-macos-${{ matrix.target }}
+          path: skyprompt-*.tar.gz
 
   build-windows:
     runs-on: windows-latest
@@ -165,22 +165,22 @@ jobs:
       - name: Create deployment package
         shell: pwsh
         run: |
-          $packageDir = "screenpipe-${{ env.VERSION }}-x86_64-pc-windows-msvc"
+          $packageDir = "skyprompt-${{ env.VERSION }}-x86_64-pc-windows-msvc"
           New-Item -Path "$packageDir/bin" -ItemType Directory -Force
-          Copy-Item "target/x86_64-pc-windows-msvc/release/screenpipe.exe" "$packageDir/bin/"
+          Copy-Item "target/x86_64-pc-windows-msvc/release/skyprompt.exe" "$packageDir/bin/"
           7z a "$packageDir.zip" "./$packageDir/*"
 
       - name: Calculate SHA256
         shell: pwsh
         run: |
-          $hash = Get-FileHash "screenpipe-${{ env.VERSION }}-x86_64-pc-windows-msvc.zip" -Algorithm SHA256
+          $hash = Get-FileHash "skyprompt-${{ env.VERSION }}-x86_64-pc-windows-msvc.zip" -Algorithm SHA256
           "WIN_SHA256=$($hash.Hash)" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: screenpipe-windows
-          path: screenpipe-*.zip
+          name: skyprompt-windows
+          path: skyprompt-*.zip
 
   build-linux:
     runs-on: ubuntu-latest
@@ -262,19 +262,19 @@ jobs:
 
       - name: Create deployment package
         run: |
-          mkdir -p screenpipe-${{ env.VERSION }}-${{ matrix.target }}/bin
-          cp target/${{ matrix.target }}/release/screenpipe screenpipe-${{ env.VERSION }}-${{ matrix.target }}/bin/
-          tar -czf screenpipe-${{ env.VERSION }}-${{ matrix.target }}.tar.gz -C screenpipe-${{ env.VERSION }}-${{ matrix.target }} .
+          mkdir -p skyprompt-${{ env.VERSION }}-${{ matrix.target }}/bin
+          cp target/${{ matrix.target }}/release/skyprompt skyprompt-${{ env.VERSION }}-${{ matrix.target }}/bin/
+          tar -czf skyprompt-${{ env.VERSION }}-${{ matrix.target }}.tar.gz -C skyprompt-${{ env.VERSION }}-${{ matrix.target }} .
 
       - name: Calculate SHA256
         run: |
-          echo "LINUX_SHA256_${{ matrix.target }}=$(sha256sum screenpipe-*.tar.gz | cut -d ' ' -f 1)" >> $GITHUB_ENV
+          echo "LINUX_SHA256_${{ matrix.target }}=$(sha256sum skyprompt-*.tar.gz | cut -d ' ' -f 1)" >> $GITHUB_ENV
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: screenpipe-linux-${{ matrix.target }}
-          path: screenpipe-*.tar.gz
+          name: skyprompt-linux-${{ matrix.target }}
+          path: skyprompt-*.tar.gz
 
   release:
     runs-on: ubuntu-latest
@@ -309,21 +309,21 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT }}
         run: |
           gh release create v${{ env.VERSION }} --title ${{ env.VERSION }} --generate-notes || true
-          for file in artifacts/screenpipe-macos-*/screenpipe-*.tar.gz; do
+          for file in artifacts/skyprompt-macos-*/skyprompt-*.tar.gz; do
             if [ -f "$file" ]; then
               gh release upload v${{ env.VERSION }} "$file" --clobber
             else
               echo "Warning: $file not found"
             fi
           done
-          for file in artifacts/screenpipe-windows/screenpipe-*.zip; do
+          for file in artifacts/skyprompt-windows/skyprompt-*.zip; do
             if [ -f "$file" ]; then
               gh release upload v${{ env.VERSION }} "$file" --clobber
             else
               echo "Warning: $file not found"
             fi
           done
-          for file in artifacts/screenpipe-linux-*/screenpipe-*.tar.gz; do
+          for file in artifacts/skyprompt-linux-*/skyprompt-*.tar.gz; do
             if [ -f "$file" ]; then
               gh release upload v${{ env.VERSION }} "$file" --clobber
             else

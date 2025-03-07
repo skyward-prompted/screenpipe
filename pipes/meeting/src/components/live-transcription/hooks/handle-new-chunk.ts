@@ -3,7 +3,7 @@ import { LiveMeetingData } from "./storage-for-live-meeting"
 import { improveTranscription } from './ai-improve-chunk-transcription'
 import { generateMeetingNote } from './ai-create-note-based-on-chunk'
 import { diffWords } from 'diff'
-import type { Settings } from "@screenpipe/browser"
+import type { Settings } from "@skyprompt/browser"
 
 interface DiffChunk {
     value: string
@@ -124,7 +124,7 @@ export function createHandleNewChunk(deps: HandleNewChunkDeps) {
                 const previousMerged = mergedChunks.length > 1 ? mergedChunks[mergedChunks.length - 2] : null
                 
                 if (previousMerged && 
-                    settings.aiProviderType === "screenpipe-cloud" && 
+                    settings.aiProviderType === "skyprompt-cloud" && 
                     !currentData.editedMergedChunks[previousMerged.id] &&
                     !processingChunks.has(previousMerged.id) &&
                     currentData.isAiNotesEnabled) {

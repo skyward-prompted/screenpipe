@@ -157,10 +157,10 @@ struct ElementAttributes {
 // Add traversal state management
 var isTraversing = false
 var shouldCancelTraversal = false
-let traversalQueue = DispatchQueue(label: "com.screenpipe.traversal")
+let traversalQueue = DispatchQueue(label: "com.skyprompt.traversal")
 
-// Add ScreenPipeDB instance
-var screenPipeDb: ScreenPipeDB?
+// Add SkypromptDB instance
+var skypromptDb: SkypromptDB?
 
 // Replace the tuple with a struct
 struct WindowIdentifier: Hashable {
@@ -172,7 +172,7 @@ struct WindowIdentifier: Hashable {
 var changedWindows = Set<WindowIdentifier>()
 
 // Add synchronization queue and cleanup flag
-let synchronizationQueue = DispatchQueue(label: "com.screenpipe.synchronization")
+let synchronizationQueue = DispatchQueue(label: "com.skyprompt.synchronization")
 var isCleaningUp = false
 
 // JSON state structure
@@ -187,7 +187,7 @@ struct UIMonitoringState: Codable {
 // Function to get state file path
 func getStateFilePath() -> String {
     let paths = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
-    let appSupportDir = paths[0].appendingPathComponent("screenpipe")
+    let appSupportDir = paths[0].appendingPathComponent("skyprompt")
 
     // Create directory if it doesn't exist
     try? FileManager.default.createDirectory(at: appSupportDir, withIntermediateDirectories: true)
@@ -270,7 +270,7 @@ func startMonitoring() {
 func setupDatabase() {
     print("setting up database connection...")
     do {
-        screenPipeDb = try ScreenPipeDB()
+        skypromptDb = try SkypromptDB()
         print("database connected successfully")
 
         // Create table if not exists (original schema)
@@ -286,8 +286,8 @@ func setupDatabase() {
                 CREATE UNIQUE INDEX IF NOT EXISTS idx_app_window ON ui_monitoring(app, window);
             """
 
-        if sqlite3_exec(screenPipeDb?.db, createTableSQL, nil, nil, nil) != SQLITE_OK {
-            let error = String(cString: sqlite3_errmsg(screenPipeDb?.db))
+        if sqlite3_exec(skypromptDb?.db, createTableSQL, nil, nil, nil) != SQLITE_OK {
+            let error = String(cString: sqlite3_errmsg(skypromptDb?.db))
             print("error creating table: \(error)")
             return
         }
@@ -301,7 +301,7 @@ func setupDatabase() {
         var stmt: OpaquePointer?
         var columnExists = false
 
-        if sqlite3_prepare_v2(screenPipeDb?.db, addColumnSQL, -1, &stmt, nil) == SQLITE_OK {
+        if sqlite3_prepare_v2(skypromptDb?.db, addColumnSQL, -1, &stmt, nil) == SQLITE_OK {
             if sqlite3_step(stmt) == SQLITE_ROW {
                 columnExists = sqlite3_column_int(stmt, 0) > 0
             }
@@ -320,8 +320,8 @@ func setupDatabase() {
                     WHERE initial_traversal_at IS NULL;
                 """
 
-            if sqlite3_exec(screenPipeDb?.db, alterTableSQL, nil, nil, nil) != SQLITE_OK {
-                let error = String(cString: sqlite3_errmsg(screenPipeDb?.db))
+            if sqlite3_exec(skypromptDb?.db, alterTableSQL, nil, nil, nil) != SQLITE_OK {
+                let error = String(cString: sqlite3_errmsg(skypromptDb?.db))
                 print("error adding column: \(error)")
             } else {
                 print("added initial_traversal_at column successfully")
@@ -1164,7 +1164,7 @@ func buildTextOutput(from windowState: WindowState) -> String {
 }
 
 func saveToDatabase(windowId: WindowIdentifier, newTextOutput: String, timestamp: String) {
-    guard let db = screenPipeDb?.db else {
+    guard let db = skypromptDb?.db else {
         print("database not initialized")
         return
     }
@@ -1344,7 +1344,7 @@ func saveElementValues() {
     let timestamp = ISO8601DateFormatter().string(from: Date())
     var totalChars = 0
 
-    sqlite3_exec(screenPipeDb?.db, "BEGIN TRANSACTION", nil, nil, nil)
+    sqlite3_exec(skypromptDb?.db, "BEGIN TRANSACTION", nil, nil, nil)
 
     // Process windows with content changes
     for windowId in changedWindows {
@@ -1368,7 +1368,7 @@ func saveElementValues() {
         saveToDatabase(windowId: windowId, newTextOutput: "", timestamp: timestamp)
     }
 
-    sqlite3_exec(screenPipeDb?.db, "COMMIT", nil, nil, nil)
+    sqlite3_exec(skypromptDb?.db, "COMMIT", nil, nil, nil)
 
     // Clear the changed windows set
     changedWindows.removeAll()
@@ -1396,7 +1396,7 @@ func cleanup() {
     }
 
     // Clear database reference
-    screenPipeDb = nil
+    skypromptDb = nil
 
     // Clear global state
     globalElementValues.removeAll()
@@ -1555,19 +1555,19 @@ struct AXUIElementWrapper: Hashable {
     }
 }
 
-// Get the universal screenpipe database path
-func getScreenPipeDbPath() -> String {
+// Get the universal skyprompt database path
+func getSkypromptDbPath() -> String {
     let homeDir = FileManager.default.homeDirectoryForCurrentUser
-    return homeDir.appendingPathComponent(".screenpipe/db.sqlite").path
+    return homeDir.appendingPathComponent(".skyprompt/db.sqlite").path
 }
 
 // Database connection helper
-class ScreenPipeDB {
+class SkypromptDB {
     let db: OpaquePointer
 
     init() throws {
         var dbPointer: OpaquePointer?
-        let dbPath = getScreenPipeDbPath()
+        let dbPath = getSkypromptDbPath()
 
         // Create directory if it doesn't exist
         let dbDir = (dbPath as NSString).deletingLastPathComponent

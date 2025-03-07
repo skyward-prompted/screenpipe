@@ -9,5 +9,5 @@ export const logoutCommand = new Command()
   .action(async () => {
     Credentials.clearCredentials();
     logger.success(`\n${symbols.success} successfully logged out`);
-    logger.info(`${symbols.info} thanks for using screenpipe! come back soon.`);
+    logger.info(`${symbols.info} thanks for using skyprompt! come back soon.`);
   })

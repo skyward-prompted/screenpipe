@@ -1,6 +1,6 @@
 use chrono::{DateTime, Utc};
 use oasgen::OaSchema;
-use screenpipe_audio::DeviceType;
+use skyprompt_audio::DeviceType;
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 use std::error::Error as StdError;

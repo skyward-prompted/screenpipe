@@ -8,15 +8,15 @@ PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native paplay --verbose .github/scrip
 for i in {1..3}
 do
    sleep 10
-   ps -p $(cat screenpipe.pid) -o %cpu,%mem,cmd
+   ps -p $(cat skyprompt.pid) -o %cpu,%mem,cmd
 done
-cat screenpipe_output.log
-if grep -qi "human world" screenpipe_output.log; then
+cat skyprompt_output.log
+if grep -qi "human world" skyprompt_output.log; then
   echo "Audio capture test passed: 'human world' found in logs"
-elif grep -qi "audio" screenpipe_output.log; then
+elif grep -qi "audio" skyprompt_output.log; then
   echo "Audio capture test partially passed: Audio-related output found"
 else
   echo "Audio capture test failed"
-  tail -n 100 screenpipe_output.log
+  tail -n 100 skyprompt_output.log
   exit 1
 fi

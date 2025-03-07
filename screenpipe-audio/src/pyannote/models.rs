@@ -91,11 +91,11 @@ pub enum PyannoteModel {
 async fn download_model(model_type: PyannoteModel) -> Result<()> {
     let (url, filename) = match model_type {
         PyannoteModel::Segmentation => (
-            "https://github.com/mediar-ai/screenpipe/raw/refs/heads/main/screenpipe-audio/models/pyannote/segmentation-3.0.onnx",
+            "https://github.com/mediar-ai/skyprompt/raw/refs/heads/main/skyprompt-audio/models/pyannote/segmentation-3.0.onnx",
             "segmentation-3.0.onnx",
         ),
         PyannoteModel::Embedding => (
-            "https://github.com/mediar-ai/screenpipe/raw/refs/heads/main/screenpipe-audio/models/pyannote/wespeaker_en_voxceleb_CAM++.onnx",
+            "https://github.com/mediar-ai/skyprompt/raw/refs/heads/main/skyprompt-audio/models/pyannote/wespeaker_en_voxceleb_CAM++.onnx",
             "wespeaker_en_voxceleb_CAM++.onnx",
         ),
     };
@@ -123,5 +123,5 @@ async fn download_model(model_type: PyannoteModel) -> Result<()> {
 
 fn get_cache_dir() -> Result<PathBuf> {
     let proj_dirs = dirs::cache_dir().ok_or_else(|| anyhow::anyhow!("failed to get cache dir"))?;
-    Ok(proj_dirs.join("screenpipe").join("models"))
+    Ok(proj_dirs.join("skyprompt").join("models"))
 }

@@ -100,7 +100,7 @@ export function useMeetings() {
       const storedMeetings = await getMeetings()
       console.log("loaded stored meetings:", storedMeetings.length)
 
-      // Try to fetch new data from screenpipe
+      // Try to fetch new data from skyprompt
       try {
         const latestStoredTimestamp = storedMeetings.length > 0
           ? storedMeetings[0].meetingEnd
@@ -158,7 +158,7 @@ export function useMeetings() {
 
       } catch (apiError) {
         // If API is unavailable, just use stored meetings
-        console.log("screenpipe api unavailable, using stored meetings:", apiError)
+        console.log("skyprompt api unavailable, using stored meetings:", apiError)
         setMeetingsState(storedMeetings)
       }
       

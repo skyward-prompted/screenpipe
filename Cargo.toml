@@ -1,20 +1,20 @@
 [workspace]
 members = [
-    "screenpipe-core",
-    "screenpipe-vision",
-    "screenpipe-audio",
-    "screenpipe-server",
-    "screenpipe-integrations",
-    "screenpipe-events",
+    "skyprompt-core",
+    "skyprompt-vision",
+    "skyprompt-audio",
+    "skyprompt-server",
+    "skyprompt-integrations",
+    "skyprompt-events",
 ]
-exclude = ["screenpipe-app-tauri/src-tauri"]
+exclude = ["skyprompt-app-tauri/src-tauri"]
 resolver = "2"
 
 [workspace.package]
 version = "0.2.62"
 authors = ["louis030195 <hi@louis030195.com>"]
 description = ""
-repository = "https://github.com/mediar-ai/screenpipe"
+repository = "https://github.com/mediar-ai/skyprompt"
 license = "MIT OR Apache-2.0"
 edition = "2021"
 

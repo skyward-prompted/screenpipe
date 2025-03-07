@@ -347,14 +347,14 @@ async fn spawn_watchdog(parent_pid: u32, child_pid: u32) -> Result<tokio::proces
 
 pub async fn run_pipe(
     pipe: &str,
-    screenpipe_dir: PathBuf,
+    skyprompt_dir: PathBuf,
 ) -> Result<(tokio::process::Child, PipeState)> {
     let bun_path = find_bun_path().ok_or_else(|| {
         let err = anyhow::anyhow!("bun not found");
         sentry::capture_error(&err.source().unwrap());
         err
     })?;
-    let pipe_dir = screenpipe_dir.join("pipes").join(pipe);
+    let pipe_dir = skyprompt_dir.join("pipes").join(pipe);
     let pipe_json_path = pipe_dir.join("pipe.json");
     let package_json_path = pipe_dir.join("package.json");
 
@@ -396,8 +396,8 @@ pub async fn run_pipe(
     debug!("preparing environment variables for pipe: {}", pipe);
     let mut env_vars = std::env::vars().collect::<Vec<(String, String)>>();
     env_vars.push((
-        "SCREENPIPE_DIR".to_string(),
-        screenpipe_dir.to_str().unwrap().to_string(),
+        "SKYPROMPT_DIR".to_string(),
+        skyprompt_dir.to_str().unwrap().to_string(),
     ));
     env_vars.push(("PIPE_ID".to_string(), pipe.to_string()));
     env_vars.push((
@@ -484,7 +484,7 @@ pub async fn run_pipe(
                     let base_url = base_url.clone();
                     let pipe_clone = pipe.to_string();
                     let secret_clone = cron_secret.clone();
-                    let screenpipe_dir = screenpipe_dir.clone();
+                    let skyprompt_dir = skyprompt_dir.clone();
 
                     tokio::spawn(async move {
                         run_cron_schedule(
@@ -493,7 +493,7 @@ pub async fn run_pipe(
                             &path,
                             &secret_clone,
                             &schedule,
-                            &screenpipe_dir,
+                            &skyprompt_dir,
                             rx,
                         )
                         .await;
@@ -795,7 +795,7 @@ async fn retry_install(bun_path: &Path, dest_dir: &Path, max_retries: u32) -> Re
     Err(last_error.unwrap_or_else(|| anyhow::anyhow!("installation failed")))
 }
 
-pub async fn download_pipe(source: &str, screenpipe_dir: PathBuf) -> anyhow::Result<PathBuf> {
+pub async fn download_pipe(source: &str, skyprompt_dir: PathBuf) -> anyhow::Result<PathBuf> {
     info!("Processing pipe from source: {}", source);
 
     let is_local = Url::parse(source).is_err();
@@ -821,7 +821,7 @@ pub async fn download_pipe(source: &str, screenpipe_dir: PathBuf) -> anyhow::Res
         pipe_name.push_str("_local");
     }
 
-    let dest_dir = screenpipe_dir.join("pipes").join(&pipe_name);
+    let dest_dir = skyprompt_dir.join("pipes").join(&pipe_name);
 
     debug!("Destination directory: {:?}", dest_dir);
 
@@ -1045,7 +1045,7 @@ fn download_github_folder(
                 manager: CACacheManager {
                     path: home_dir()
                         .unwrap()
-                        .join(".screenpipe")
+                        .join(".skyprompt")
                         .join(".http-cacache"),
                 },
                 options: HttpCacheOptions::default(),
@@ -1058,7 +1058,7 @@ fn download_github_folder(
         let response = client
             .get(&api_url)
             .header("Accept", "application/vnd.github.v3+json")
-            .header("User-Agent", "screenpipe")
+            .header("User-Agent", "skyprompt")
             .send()
             .await?;
 
@@ -1378,7 +1378,7 @@ async fn run_cron_schedule(
     path: &str,
     secret: &str,
     schedule: &str,
-    screenpipe_dir: &Path,
+    skyprompt_dir: &Path,
     mut shutdown: watch::Receiver<bool>,
 ) {
     let schedule = match cron::Schedule::from_str(schedule) {
@@ -1399,7 +1399,7 @@ async fn run_cron_schedule(
     );
 
     // Get pipe directory for state persistence
-    let pipe_dir = screenpipe_dir.join("pipes").join(pipe);
+    let pipe_dir = skyprompt_dir.join("pipes").join(pipe);
 
     loop {
         // Get last execution time at the start of each loop
@@ -1557,11 +1557,11 @@ fn is_port_available(port: u16) -> bool {
 pub async fn download_pipe_private(
     pipe_name: &str,
     source: &str,
-    screenpipe_dir: PathBuf,
+    skyprompt_dir: PathBuf,
 ) -> anyhow::Result<PathBuf> {
     info!("processing private pipe from zip: {}", source);
 
-    let dest_dir = screenpipe_dir.join("pipes").join(&pipe_name);
+    let dest_dir = skyprompt_dir.join("pipes").join(&pipe_name);
     debug!("destination directory: {:?}", dest_dir);
 
     // Create temp directory for download

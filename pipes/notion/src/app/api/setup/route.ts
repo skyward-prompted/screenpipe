@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { automateNotionSetup } from "@/lib/notion/setup";
-import { getScreenpipeAppSettings } from "@/lib/actions/get-screenpipe-app-settings";
+import { getSkypromptAppSettings } from "@/lib/actions/get-skyprompt-app-settings";
 
 export async function GET() {
 	try {
-		const settings = (await getScreenpipeAppSettings())["customSettings"]![
+		const settings = (await getSkypromptAppSettings())["customSettings"]![
 			"notion"
 		];
 

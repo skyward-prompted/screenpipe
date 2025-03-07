@@ -49,7 +49,7 @@ export default function Page() {
       <ClientOnly>
         <div className={`flex flex-col gap-6 items-center justify-center h-full mt-12 px-4 pb-12 ${inter.className}`}>
           <h1 className="text-2xl font-bold mb-0">example app (pipe) for developers</h1>
-          <p className="text-gray-600 mb-2 -mt-5">ready-to-use components for engineers building apps with screenpipe</p>
+          <p className="text-gray-600 mb-2 -mt-5">ready-to-use components for engineers building apps with skyprompt</p>
           {componentsList.map((cardContent, index) => (
             <PlaygroundCard key={index} content={cardContent} />
           ))}
@@ -58,7 +58,7 @@ export default function Page() {
             <h2 className="text-xl font-semibold mb-4 text-left">open source pipes</h2>
             <p className="mb-6 text-left text-gray-600">
               # All pipes are open source and you can directly fork or reuse pipes or components.
-              # Source: <a href="https://github.com/mediar-ai/screenpipe/tree/main/pipes" className="text-blue-500 underline">https://github.com/mediar-ai/screenpipe/tree/main/pipes</a>
+              # Source: <a href="https://github.com/mediar-ai/skyprompt/tree/main/pipes" className="text-blue-500 underline">https://github.com/mediar-ai/skyprompt/tree/main/pipes</a>
             </p>
             
             {loading ? (

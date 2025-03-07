@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Memories • Screenpipe",
+  title: "Memories • Skyprompt",
   description: "Resurface your digital memories and insights with AI",
 };
 

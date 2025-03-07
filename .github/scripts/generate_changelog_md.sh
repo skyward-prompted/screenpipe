@@ -1,6 +1,6 @@
 CURRENT_RELEASE=$1
 
-CHANGELOG_PUBLIC_PATH=screenpipe-app-tauri/public/CHANGELOG.md
+CHANGELOG_PUBLIC_PATH=skyprompt-app-tauri/public/CHANGELOG.md
 
 LAST_CHANGELOG=$(awk '{printf "%s\\n", $0}' content/changelogs/v0.1.98.md | sed 's/"/\\"/g')
 
@@ -17,7 +17,7 @@ else
   CN_CMD=cn
 fi
 
-LAST_RELEASE=$($CN_CMD release list mediar/screenpipe --api-key $CN_API_KEY --format json | jq '.[0] | select(.status == "Published")')
+LAST_RELEASE=$($CN_CMD release list mediar/skyprompt --api-key $CN_API_KEY --format json | jq '.[0] | select(.status == "Published")')
 COMMIT_DATE_LAST_RELEASE=$(echo $LAST_RELEASE | jq '.createdAt')
 
 # Format date for git (remove quotes if present)
@@ -58,7 +58,7 @@ CONTENT=$(
       \"messages\": [
         {
           \"role\": \"system\",
-          \"content\": \"You are a helpful assistant.\nThe user is using a product called "screenpipe" which records his screen and mics 24/7. The user ask you questions and you use his screenpipe recordings to answer him.\nYou will generate a changelog for the new screenpipe update based on a list of commits.\nHere are a some guidelines for your responses:\n- only adds to the changelog what brings clear customer value\n- categorize the changes into 'New Features', 'Improvements' and 'Fixes'. Anything not matching these guidelines should not be included on your response\n- Deploys, merges, and software maintenance tasks which does not bring clear value to the end-user should not be included.\n\nUse the following changelog file as an example: $LAST_CHANGELOG\"
+          \"content\": \"You are a helpful assistant.\nThe user is using a product called "skyprompt" which records his screen and mics 24/7. The user ask you questions and you use his skyprompt recordings to answer him.\nYou will generate a changelog for the new skyprompt update based on a list of commits.\nHere are a some guidelines for your responses:\n- only adds to the changelog what brings clear customer value\n- categorize the changes into 'New Features', 'Improvements' and 'Fixes'. Anything not matching these guidelines should not be included on your response\n- Deploys, merges, and software maintenance tasks which does not bring clear value to the end-user should not be included.\n\nUse the following changelog file as an example: $LAST_CHANGELOG\"
         },
         {
           \"role\": \"user\",
@@ -87,7 +87,7 @@ SHORT_COMMIT_CURRENT_RELEASE=$(echo $COMMIT_CURRENT_RELEASE | cut -c 1-5)
 
 # Add the full changelog on the end of the file
 echo """
-#### **Full Changelog:** [$SHORT_COMMIT_LAST_RELEASE..$SHORT_COMMIT_CURRENT_RELEASE](https://github.com/mediar-ai/screenpipe/compare/$SHORT_COMMIT_LAST_RELEASE..$SHORT_COMMIT_CURRENT_RELEASE)
+#### **Full Changelog:** [$SHORT_COMMIT_LAST_RELEASE..$SHORT_COMMIT_CURRENT_RELEASE](https://github.com/mediar-ai/skyprompt/compare/$SHORT_COMMIT_LAST_RELEASE..$SHORT_COMMIT_CURRENT_RELEASE)
 """ >> content/changelogs/$CURRENT_RELEASE.md
 
 # Copy the new changelog to the main changelog file

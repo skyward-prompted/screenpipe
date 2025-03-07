@@ -1,10 +1,10 @@
 use anyhow::Result;
 use dirs::{self, home_dir};
-use screenpipe_core::Language;
-use screenpipe_server::video_utils::extract_frames_from_video;
-use screenpipe_vision::capture_screenshot_by_window::CapturedWindow;
+use skyprompt_core::Language;
+use skyprompt_server::video_utils::extract_frames_from_video;
+use skyprompt_vision::capture_screenshot_by_window::CapturedWindow;
 #[cfg(target_os = "macos")]
-use screenpipe_vision::perform_ocr_apple;
+use skyprompt_vision::perform_ocr_apple;
 use std::path::PathBuf;
 use tokio::fs;
 use tracing::info;
@@ -18,15 +18,15 @@ async fn setup_test_env() -> Result<()> {
 }
 
 async fn create_test_video() -> Result<PathBuf> {
-    let screenpipe_dir = dirs::home_dir()
+    let skyprompt_dir = dirs::home_dir()
         .expect("couldn't find home dir")
-        .join(".screenpipe")
+        .join(".skyprompt")
         .join("data");
 
-    info!("looking for monitor video in {}", screenpipe_dir.display());
+    info!("looking for monitor video in {}", skyprompt_dir.display());
 
     // Read directory and find first video containing "monitor"
-    let mut entries = tokio::fs::read_dir(&screenpipe_dir).await?;
+    let mut entries = tokio::fs::read_dir(&skyprompt_dir).await?;
 
     while let Some(entry) = entries.next_entry().await? {
         let path = entry.path();
@@ -39,7 +39,7 @@ async fn create_test_video() -> Result<PathBuf> {
     }
 
     Err(anyhow::anyhow!(
-        "no monitor video found in screenpipe data dir"
+        "no monitor video found in skyprompt data dir"
     ))
 }
 
@@ -160,7 +160,7 @@ async fn test_get_video_metadata() -> Result<()> {
     println!("testing metadata extraction from {}", video_path.display());
 
     let metadata =
-        screenpipe_server::video_utils::get_video_metadata(video_path.to_str().unwrap()).await?;
+        skyprompt_server::video_utils::get_video_metadata(video_path.to_str().unwrap()).await?;
 
     println!(
         "extracted metadata: creation_time={}, fps={}, duration={}s",

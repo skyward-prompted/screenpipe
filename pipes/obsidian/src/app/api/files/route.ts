@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import path from "path";
 import fs from "fs/promises";
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 
 // Force Node.js runtime
 export const runtime = "nodejs";

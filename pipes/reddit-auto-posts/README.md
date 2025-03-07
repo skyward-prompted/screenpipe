@@ -13,5 +13,5 @@ https://github.com/user-attachments/assets/289d1809-6855-4336-807f-dd9ee7181324
 #### quick setup
 1. [Get an OpenAI API key](https://platform.openai.com/account/api-keys)
 2. [Create an app-specific password](https://support.google.com/accounts/answer/185833?hl=en) in your Google account that will be used to send yourself emails
-3. Configure pipe in the app UI, save, enable, and restart screenpipe recording (you can configure to either receive an email daily or several every x hours)
+3. Configure pipe in the app UI, save, enable, and restart skyprompt recording (you can configure to either receive an email daily or several every x hours)
 

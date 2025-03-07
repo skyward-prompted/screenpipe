@@ -132,7 +132,7 @@ export function HealthStatus({
             <div>
               <h3 className="font-medium text-destructive">connection error</h3>
               <p className="text-sm text-muted-foreground mt-1">
-                {error} Make sure the screenpipe service is running.
+                {error} Make sure the skyprompt service is running.
               </p>
             </div>
           </div>

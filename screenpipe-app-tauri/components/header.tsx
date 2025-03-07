@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Settings } from "@/components/settings";
-import HealthStatus from "@/components/screenpipe-status";
+import HealthStatus from "@/components/skyprompt-status";
 
 import React from "react";
 import {

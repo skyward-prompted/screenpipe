@@ -177,7 +177,7 @@ export default function DiskUsage() {
                   <div className="flex flex-col !float-left items-start">
                     <span className="font-semibold">total data captured</span>
                     <span className="text-[14px] !font-normal text-muted-foreground">
-                      amount of data captured by screenpipe over the time
+                      amount of data captured by skyprompt over the time
                     </span>
                   </div>
                   <Badge
@@ -221,14 +221,14 @@ export default function DiskUsage() {
           <div className="w-[90%] border rounded-lg p-8">
             <div className="w-full space-y-6">
               <BadgeItem
-                label="screenpipe cache size"
+                label="skyprompt cache size"
                 description="disk space used for models, frames..."
                 value={diskUsage.total_cache_size}
               />
               <Divider />
               <BadgeItem
-                label="disk space used by screenpipe"
-                description="total disk space utilized by the screenpipe application"
+                label="disk space used by skyprompt"
+                description="total disk space utilized by the skyprompt application"
                 value={diskUsage.total_data_size}
               />
               <Divider />

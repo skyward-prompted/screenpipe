@@ -4,13 +4,13 @@ use std::time::Duration;
 use strsim::jaro_winkler;
 
 #[cfg(target_os = "macos")]
-use screenpipe_vision::perform_ocr_apple;
+use skyprompt_vision::perform_ocr_apple;
 
 #[cfg(target_os = "linux")]
-use screenpipe_vision::perform_ocr_tesseract;
+use skyprompt_vision::perform_ocr_tesseract;
 
 #[cfg(target_os = "windows")]
-use screenpipe_vision::perform_ocr_windows;
+use skyprompt_vision::perform_ocr_windows;
 
 // ! keep in mind we're optimising for OCR that is good to swallow for LLM
 // ! e.g. it's ok to have typo in words or wrong casing, etc.

@@ -4,12 +4,12 @@ import path from "path";
 
 export async function updatePipeConfig(intervalMinutes: number) {
   try {
-    const screenpipeDir =
-      process.env.SCREENPIPE_DIR ||
-      (process.env.HOME && path.join(process.env.HOME, ".screenpipe")) ||
+    const skypromptDir =
+      process.env.SKYPROMPT_DIR ||
+      (process.env.HOME && path.join(process.env.HOME, ".skyprompt")) ||
       process.cwd();
     const pipeConfigPath = path.join(
-      screenpipeDir,
+      skypromptDir,
       "pipes",
       "example-pipe",
       "pipe.json"

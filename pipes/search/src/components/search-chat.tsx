@@ -4,7 +4,7 @@ import React, { JSX, useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { pipe, type ContentItem } from "@screenpipe/browser";
+import { pipe, type ContentItem } from "@skyprompt/browser";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
@@ -95,7 +95,7 @@ import {
   CommandItem,
   Command,
 } from "./ui/command";
-import { type Speaker } from "@screenpipe/browser";
+import { type Speaker } from "@skyprompt/browser";
 import {
   Popover,
   PopoverContent,
@@ -516,14 +516,14 @@ export function SearchChat() {
   }, []);
 
   const isAiDisabled =
-    !settings.user?.token && settings.aiProviderType === "screenpipe-cloud";
+    !settings.user?.token && settings.aiProviderType === "skyprompt-cloud";
 
   const handleExampleSelect = async (example: ExampleSearch) => {
     if (isAiDisabled) {
       toast({
         title: "error",
         description:
-          "your selected ai provider is screenpipe-cloud. consider login in app to use screenpipe-cloud",
+          "your selected ai provider is skyprompt-cloud. consider login in app to use skyprompt-cloud",
         variant: "destructive",
       });
       return;
@@ -728,7 +728,7 @@ export function SearchChat() {
       console.log("settings", settings);
       const openai = new OpenAI({
         apiKey:
-          settings.aiProviderType === "screenpipe-cloud"
+          settings.aiProviderType === "skyprompt-cloud"
             ? settings.user.token
             : settings.openaiApiKey,
         baseURL: settings.aiUrl,
@@ -845,7 +845,7 @@ export function SearchChat() {
       toast({
         title: "error",
         description:
-          "your ai provider is screenpipe-cloud. consider login in app to use screenpipe-cloud",
+          "your ai provider is skyprompt-cloud. consider login in app to use skyprompt-cloud",
         duration: 3000,
         variant: "destructive",
       });
@@ -893,7 +893,7 @@ export function SearchChat() {
         ...(frameName && { frame_name: frameName }),
       };
 
-      const response = await pipe.queryScreenpipe(searchParams);
+      const response = await pipe.querySkyprompt(searchParams);
 
       // Add debug logging
       console.log("search response:", response);
@@ -1396,18 +1396,18 @@ export function SearchChat() {
                   {isAiDisabled && isServerDown ? (
                     <>
                       <AlertCircle className="mr-1 h-4 w-4 text-red-500 inline" />
-                      you don't have access to screenpipe-cloud <br /> and
-                      screenpipe server is down!
+                      you don't have access to skyprompt-cloud <br /> and
+                      skyprompt server is down!
                     </>
                   ) : isServerDown ? (
                     <>
                       <AlertCircle className="mr-1 h-4 w-4 text-red-500 inline" />
-                      screenpipe is not running...
+                      skyprompt is not running...
                     </>
                   ) : isAiDisabled ? (
                     <>
                       <AlertCircle className="mr-1 h-4 w-4 text-red-500 inline" />
-                      you don't have access to screenpipe-cloud :( <br /> please
+                      you don't have access to skyprompt-cloud :( <br /> please
                       consider login!
                     </>
                   ) : (

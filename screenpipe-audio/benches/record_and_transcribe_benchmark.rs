@@ -1,6 +1,6 @@
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
-use screenpipe_audio::vad_engine::VadSensitivity;
-use screenpipe_audio::{
+use skyprompt_audio::vad_engine::VadSensitivity;
+use skyprompt_audio::{
     create_whisper_channel, default_input_device, record_and_transcribe, AudioDevice, AudioInput,
     AudioStream, AudioTranscriptionEngine,
 };
@@ -20,7 +20,7 @@ async fn setup_test() -> (
     // let (whisper_sender, _) = mpsc::unbounded_channel();
     let (whisper_sender, _, _) = create_whisper_channel(
         Arc::new(AudioTranscriptionEngine::WhisperDistilLargeV3),
-        screenpipe_audio::VadEngineEnum::Silero,
+        skyprompt_audio::VadEngineEnum::Silero,
         None,
         &output_path,
         VadSensitivity::High,

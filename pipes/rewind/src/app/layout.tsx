@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SearchCommand } from "@/components/search-command";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { getScreenpipeAppSettings } from "@/lib/actions/get-screenpipe-app-settings";
+import { getSkypromptAppSettings } from "@/lib/actions/get-skyprompt-app-settings";
 import { SettingsProvider } from "@/components/settings-provider";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Timeline • Screenpipe",
-	description: "View your screenpipe recordings in a timeline",
+	title: "Timeline • Skyprompt",
+	description: "View your skyprompt recordings in a timeline",
 };
 
 export const dynamic = "force-dynamic";
@@ -31,7 +31,7 @@ export default async function RootLayout({
 }>) {
 	const checkSettings = async () => {
 		try {
-			const settings = await getScreenpipeAppSettings();
+			const settings = await getSkypromptAppSettings();
 
 			return settings.enableFrameCache;
 		} catch (error) {

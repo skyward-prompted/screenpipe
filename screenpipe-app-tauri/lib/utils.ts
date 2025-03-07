@@ -59,13 +59,13 @@ export function getCliPath() {
   const os = platform();
   switch (os) {
     case "windows":
-      return "%LOCALAPPDATA%\\screenpipe\\screenpipe.exe";
+      return "%LOCALAPPDATA%\\skyprompt\\skyprompt.exe";
     case "macos":
-      return "/Applications/screenpipe.app/Contents/MacOS/screenpipe";
+      return "/Applications/skyprompt.app/Contents/MacOS/skyprompt";
     case "linux":
-      return "/usr/local/bin/screenpipe";
+      return "/usr/local/bin/skyprompt";
     default:
-      return "screenpipe";
+      return "skyprompt";
   }
 }
 

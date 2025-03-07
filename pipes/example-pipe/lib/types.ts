@@ -1,4 +1,4 @@
-import type { Settings as ScreenpipeAppSettings } from "@screenpipe/js";
+import type { Settings as SkypromptAppSettings } from "@skyprompt/js";
 
 export interface WorkLog {
   title: string;
@@ -35,5 +35,5 @@ export interface Settings {
   analysisModel: string;
   analysisTimeWindow: number;
   deduplicationEnabled: boolean;
-  screenpipeAppSettings: ScreenpipeAppSettings;
+  skypromptAppSettings: SkypromptAppSettings;
 }

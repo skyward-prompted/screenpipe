@@ -16,8 +16,8 @@ async function main() {
   const program = new Command();
 
   program
-    .name('screenpipe-dev')
-    .description('screenpipe development CLI tool')
+    .name('skyprompt-dev')
+    .description('skyprompt development CLI tool')
     .version('0.0.1');
 
   program.addCommand(loginCommand)

@@ -28,10 +28,10 @@ const OnboardingIntro: React.FC<OnboardingIntroProps> = ({
         <img
           className="w-24 h-24 justify-center"
           src="/128x128.png"
-          alt="screenpipe-logo"
+          alt="skyprompt-logo"
         />
         <DialogTitle className="text-center text-2xl">
-          screenpipe
+          skyprompt
         </DialogTitle>
       </DialogHeader>
       <iframe
@@ -39,7 +39,7 @@ const OnboardingIntro: React.FC<OnboardingIntroProps> = ({
         height="338"
         className="mt-2 rounded-md"
         src="https://www.youtube.com/embed/2963sr3IPHY"
-        title="screenpipe introduction"
+        title="skyprompt introduction"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen

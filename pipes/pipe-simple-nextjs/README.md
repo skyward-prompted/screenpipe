@@ -25,9 +25,9 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on screenpipe
+## Deploy on skyprompt
 
-The easiest way to deploy your Next.js pipe is to use the [screenpipe Platform](https://screenpi.pe).
+The easiest way to deploy your Next.js pipe is to use the [skyprompt Platform](https://screenpi.pe).
 
 Check out our [pipe deployment documentation](https://docs.screenpi.pe/docs/plugins) for more details.
 

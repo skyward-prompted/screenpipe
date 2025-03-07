@@ -25,7 +25,7 @@ Release notes: ${update.body}
       // on windows only - TODO shouldnt be necessary
       const os = platform();
       if (os === "windows") {
-        await invoke("stop_screenpipe");
+        await invoke("stop_skyprompt");
       }
 
       const toastId = toast({

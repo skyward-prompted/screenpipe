@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { DailyLog } from "@/lib/types";
 import { NextResponse, NextRequest } from "next/server";
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 import sendEmail from "@/lib/actions/send-email";
 import generateDailyLog from "@/lib/actions/generate-log";
 import generateRedditQuestions from "@/lib/actions/generate-reddit-question";
@@ -13,9 +13,9 @@ async function saveDailyLog(logEntry: DailyLog) {
   }
   console.log("saving log entry:", logEntry);
 
-  const screenpipeDir = process.env.SCREENPIPE_DIR || process.cwd();
+  const skypromptDir = process.env.SKYPROMPT_DIR || process.cwd();
   const logsDir = path.join(
-    screenpipeDir,
+    skypromptDir,
     "pipes",
     "reddit-auto-posts",
     "logs"
@@ -45,7 +45,7 @@ async function retry(fn: any, retries = 3, delay = 5000) {
         return result;
       }
     } catch (error) {
-      console.log(`Screenpipe query failed, retry, attempt: ${i + 1}`);
+      console.log(`Skyprompt query failed, retry, attempt: ${i + 1}`);
       if (i === retries - 1) throw error;
       await new Promise((res) => setTimeout(res, delay));
     }
@@ -87,15 +87,15 @@ export async function GET(request: NextRequest) {
     const pageSize = redditSettings?.pageSize;
     const contentType = redditSettings?.contentType || "ocr";
     const emailEnabled = !!(emailAddress && emailPassword);
-    const screenpipeDir = process.env.SCREENPIPE_DIR || process.cwd();
+    const skypromptDir = process.env.SKYPROMPT_DIR || process.cwd();
     const logsDir = path.join(
-      screenpipeDir,
+      skypromptDir,
       "pipes",
       "reddit-auto-posts",
       "logs"
     );
     const pipeConfigPath = path.join(
-      screenpipeDir,
+      skypromptDir,
       "pipes",
       "reddit-auto-posts",
       "pipe.json"
@@ -149,7 +149,7 @@ export async function GET(request: NextRequest) {
     const now = new Date();
     const startTime = new Date(now.getTime() - interval);
     const screenData = await retry(() =>
-      pipe.queryScreenpipe({
+      pipe.querySkyprompt({
         startTime: startTime.toISOString(),
         endTime: now.toISOString(),
         windowName: windowName,
@@ -159,9 +159,9 @@ export async function GET(request: NextRequest) {
     );
 
     if (screenData && screenData.data && screenData.data.length > 0) {
-      if (aiProvider === "screenpipe-cloud" && !userToken) {
+      if (aiProvider === "skyprompt-cloud" && !userToken) {
         return NextResponse.json(
-          { error: `seems like you don't have screenpipe-cloud access :(` },
+          { error: `seems like you don't have skyprompt-cloud access :(` },
           { status: 500 }
         );
       }
@@ -211,7 +211,7 @@ export async function GET(request: NextRequest) {
 
       if (redditQuestions) {
         try {
-          console.log("Sending screenpipe inbox notification");
+          console.log("Sending skyprompt inbox notification");
           await pipe.inbox.send({
             title: "reddit questions",
             body: redditQuestions,

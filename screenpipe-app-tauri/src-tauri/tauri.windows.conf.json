@@ -8,7 +8,7 @@
             }
         },
         "externalBin": [
-            "screenpipe",
+            "skyprompt",
             "bun"
         ],
         "targets": [

@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 import { generateWorkLog } from "@/lib/helpers";
 import { NotionClient } from "@/lib/notion/client";
-import { getScreenpipeAppSettings } from "@/lib/actions/get-screenpipe-app-settings";
+import { getSkypromptAppSettings } from "@/lib/actions/get-skyprompt-app-settings";
 
 const minute = (min: number) => min * 60 * 1000;
 
 export async function GET() {
   try {
-    const settings = (await getScreenpipeAppSettings())["customSettings"]![
+    const settings = (await getSkypromptAppSettings())["customSettings"]![
       "notion"
     ];
 
@@ -34,7 +34,7 @@ export async function GET() {
     const now = new Date();
     const oneHourAgo = new Date(now.getTime() - interval);
 
-    const screenData = await pipe.queryScreenpipe({
+    const screenData = await pipe.querySkyprompt({
       startTime: oneHourAgo.toISOString(),
       endTime: now.toISOString(),
       limit: pageSize,

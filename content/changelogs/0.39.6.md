@@ -1,4 +1,4 @@
-Based on the provided commits, here is the changelog for the new screenpipe update:
+Based on the provided commits, here is the changelog for the new skyprompt update:
 
 ### **Improvements:**
 - **Removed emojis and ASCII Art from installation prompts:** Cleaned up the install.ps to present a more professional and straightforward installation experience.
@@ -8,5 +8,5 @@ Based on the provided commits, here is the changelog for the new screenpipe upda
 
 (Note: The specific result of the attempt fix for sideload is not clear; only the action taken is included under fixes.)
 
-#### **Full Changelog:** [20c3c..c3905](https://github.com/mediar-ai/screenpipe/compare/20c3c..c3905)
+#### **Full Changelog:** [20c3c..c3905](https://github.com/mediar-ai/skyprompt/compare/20c3c..c3905)
 

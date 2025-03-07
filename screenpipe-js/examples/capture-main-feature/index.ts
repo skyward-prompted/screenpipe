@@ -1,4 +1,4 @@
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 
 async function startScreenRecorder() {
   console.log("let's send events when our main feature is used ...");

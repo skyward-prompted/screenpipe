@@ -3,7 +3,7 @@ import fs from 'fs/promises'
 import os from 'os'
 import path from 'path'
 
-const isDevMode = process.env.SCREENPIPE_APP_DEV === 'true' || false;
+const isDevMode = process.env.SKYPROMPT_APP_DEV === 'true' || false;
 
 const originalCWD = process.cwd()
 // Change CWD to src-tauri
@@ -199,37 +199,37 @@ if (platform == 'linux') {
 	}
 
 
-	// Copy screenpipe binary
-	console.log('copying screenpipe binary for linux...');
+	// Copy skyprompt binary
+	console.log('copying skyprompt binary for linux...');
 	const potentialPaths = [
-		path.join(__dirname, '..', '..', '..', '..', 'target', 'release', 'screenpipe'),
-		path.join(__dirname, '..', '..', '..', '..', 'target', 'x86_64-unknown-linux-gnu', 'release', 'screenpipe'),
-                path.join(__dirname, '..', '..', 'target', 'x86_64-unknown-linux-gnu', 'release', 'screenpipe'),
-		path.join(__dirname, '..', '..', '..', 'target', 'release', 'screenpipe'),
-		path.join(__dirname, '..', '..', 'target', 'release', 'screenpipe'),
-		path.join(__dirname, '..', 'target', 'release', 'screenpipe'),
-		'/home/runner/work/screenpipe/screenpipe/target/release/screenpipe',
+		path.join(__dirname, '..', '..', '..', '..', 'target', 'release', 'skyprompt'),
+		path.join(__dirname, '..', '..', '..', '..', 'target', 'x86_64-unknown-linux-gnu', 'release', 'skyprompt'),
+                path.join(__dirname, '..', '..', 'target', 'x86_64-unknown-linux-gnu', 'release', 'skyprompt'),
+		path.join(__dirname, '..', '..', '..', 'target', 'release', 'skyprompt'),
+		path.join(__dirname, '..', '..', 'target', 'release', 'skyprompt'),
+		path.join(__dirname, '..', 'target', 'release', 'skyprompt'),
+		'/home/runner/work/skyprompt/skyprompt/target/release/skyprompt',
 	];
 
 	let copied = false;
-	for (const screenpipeSrc of potentialPaths) {
-		if (process.env['SKIP_SCREENPIPE_SETUP']) {
+	for (const skypromptSrc of potentialPaths) {
+		if (process.env['SKIP_SKYPROMPT_SETUP']) {
 			copied = true;
 			break;
 		}
-		const screenpipeDest = path.join(cwd, 'screenpipe-x86_64-unknown-linux-gnu');
+		const skypromptDest = path.join(cwd, 'skyprompt-x86_64-unknown-linux-gnu');
 		try {
-			await fs.copyFile(screenpipeSrc, screenpipeDest);
-			console.log(`screenpipe binary copied successfully from ${screenpipeSrc}`);
+			await fs.copyFile(skypromptSrc, skypromptDest);
+			console.log(`skyprompt binary copied successfully from ${skypromptSrc}`);
 			copied = true;
 			break;
 		} catch (error) {
-			console.warn(`failed to copy screenpipe binary from ${screenpipeSrc}:`, error);
+			console.warn(`failed to copy skyprompt binary from ${skypromptSrc}:`, error);
 		}
 	}
 
 	if (!copied) {
-		console.error("failed to copy screenpipe binary from any potential path.");
+		console.error("failed to copy skyprompt binary from any potential path.");
 		// uncomment the following line if you want the script to exit on failure
 		// process.exit(1);
 	}
@@ -239,35 +239,35 @@ if (platform == 'linux') {
 if (platform == 'windows') {
 	const wgetPath = await findWget();
 
-	console.log('Copying screenpipe binary...');
+	console.log('Copying skyprompt binary...');
 
 	const potentialPaths = [
-		path.join(__dirname, '..', '..', 'target', 'release', 'screenpipe.exe'),
-		path.join(__dirname, '..', '..', 'target', 'x86_64-pc-windows-msvc', 'release', 'screenpipe.exe'),
-		path.join(__dirname, '..', 'target', 'release', 'screenpipe.exe'),
-		path.join(__dirname, '..', '..', 'target', 'release', 'screenpipe.exe'),
-		'D:\\a\\screenpipe\\screenpipe\\target\\release\\screenpipe.exe',
+		path.join(__dirname, '..', '..', 'target', 'release', 'skyprompt.exe'),
+		path.join(__dirname, '..', '..', 'target', 'x86_64-pc-windows-msvc', 'release', 'skyprompt.exe'),
+		path.join(__dirname, '..', 'target', 'release', 'skyprompt.exe'),
+		path.join(__dirname, '..', '..', 'target', 'release', 'skyprompt.exe'),
+		'D:\\a\\skyprompt\\skyprompt\\target\\release\\skyprompt.exe',
 	];
 
 	let copied = false;
-	for (const screenpipeSrc of potentialPaths) {
-		if (process.env['SKIP_SCREENPIPE_SETUP']) {
+	for (const skypromptSrc of potentialPaths) {
+		if (process.env['SKIP_SKYPROMPT_SETUP']) {
 			copied = true;
 			break;
 		}
-		const screenpipeDest = path.join(cwd, 'screenpipe-x86_64-pc-windows-msvc.exe');
+		const skypromptDest = path.join(cwd, 'skyprompt-x86_64-pc-windows-msvc.exe');
 		try {
-			await fs.copyFile(screenpipeSrc, screenpipeDest);
-			console.log(`Screenpipe binary copied successfully from ${screenpipeSrc}`);
+			await fs.copyFile(skypromptSrc, skypromptDest);
+			console.log(`Skyprompt binary copied successfully from ${skypromptSrc}`);
 			copied = true;
 			break;
 		} catch (error) {
-			console.warn(`Failed to copy screenpipe binary from ${screenpipeSrc}:`, error);
+			console.warn(`Failed to copy skyprompt binary from ${skypromptSrc}:`, error);
 		}
 	}
 
 	if (!copied) {
-		console.error("Failed to copy screenpipe binary from any potential path.");
+		console.error("Failed to copy skyprompt binary from any potential path.");
 		// Uncomment the following line if you want the script to exit on failure
 		// process.exit(1);
 	}
@@ -313,37 +313,37 @@ async function getMostRecentBinaryPath(targetArch, paths) {
 if (platform == 'macos') {
 	const architectures = ['arm64', 'x86_64'];
 	for (const arch of architectures) {
-		if (process.env['SKIP_SCREENPIPE_SETUP']) {
+		if (process.env['SKIP_SKYPROMPT_SETUP']) {
 			break;
 		}
-		console.log(`Setting up screenpipe bin for ${arch}...`);
+		console.log(`Setting up skyprompt bin for ${arch}...`);
 		if (arch === 'arm64') {
 			const paths = [
-				"../../target/aarch64-apple-darwin/release/screenpipe",
-				"../../target/release/screenpipe"
+				"../../target/aarch64-apple-darwin/release/skyprompt",
+				"../../target/release/skyprompt"
 			];
 			const mostRecentPath = await getMostRecentBinaryPath('arm64', paths);
 			if (mostRecentPath) {
-				await $`cp ${mostRecentPath} screenpipe-aarch64-apple-darwin`;
-				console.log(`Copied most recent arm64 screenpipe binary from ${mostRecentPath}`);
+				await $`cp ${mostRecentPath} skyprompt-aarch64-apple-darwin`;
+				console.log(`Copied most recent arm64 skyprompt binary from ${mostRecentPath}`);
 			} else {
-				console.error("No suitable arm64 screenpipe binary found");
+				console.error("No suitable arm64 skyprompt binary found");
 			}
 		} else if (arch === 'x86_64') {
-			// copy screenpipe binary (more recent one)
+			// copy skyprompt binary (more recent one)
 			const paths = [
-				"../../target/x86_64-apple-darwin/release/screenpipe",
-				"../../target/release/screenpipe"
+				"../../target/x86_64-apple-darwin/release/skyprompt",
+				"../../target/release/skyprompt"
 			];
 			const mostRecentPath = await getMostRecentBinaryPath('x86_64', paths);
 			if (mostRecentPath) {
-				await $`cp ${mostRecentPath} screenpipe-x86_64-apple-darwin`;
-				console.log(`Copied most recent x86_64 screenpipe binary from ${mostRecentPath}`);
+				await $`cp ${mostRecentPath} skyprompt-x86_64-apple-darwin`;
+				console.log(`Copied most recent x86_64 skyprompt binary from ${mostRecentPath}`);
 			} else {
-				console.error("No suitable x86_64 screenpipe binary found");
+				console.error("No suitable x86_64 skyprompt binary found");
 			}
 		}
-		console.log(`screenpipe for ${arch} set up successfully.`);
+		console.log(`skyprompt for ${arch} set up successfully.`);
 	}
 
 	// Setup FFMPEG
@@ -362,7 +362,7 @@ if (platform == 'macos') {
 	// Setup Swift UI monitoring
 	console.log('Setting up Swift UI monitoring...');
 	try {
-		const swiftSrc = path.join(cwd, '../../screenpipe-vision/src/ui_monitoring_macos.swift');
+		const swiftSrc = path.join(cwd, '../../skyprompt-vision/src/ui_monitoring_macos.swift');
 		const architectures = ['arm64', 'x86_64'];
 
 		for (const arch of architectures) {
@@ -384,7 +384,7 @@ if (platform == 'macos') {
 	} catch (error) {
 		console.error('Error setting up Swift UI monitoring:', error);
 		console.log('Current working directory:', cwd);
-		console.log('Expected Swift source path:', path.join(cwd, '../../screenpipe-vision/src/ui_monitoring_macos.swift'));
+		console.log('Expected Swift source path:', path.join(cwd, '../../skyprompt-vision/src/ui_monitoring_macos.swift'));
 		throw error; // Rethrow to fail the build if Swift compilation fails
 	}
 }
@@ -394,7 +394,7 @@ if (platform == 'macos') {
 // Development hints
 if (!process.env.GITHUB_ENV) {
 	console.log('\nCommands to build 🔨:')
-	// Get relative path to screenpipe-app-tauri folder
+	// Get relative path to skyprompt-app-tauri folder
 	const relativePath = path.relative(originalCWD, path.join(cwd, '..'))
 	if (originalCWD != cwd && relativePath != '') {
 		console.log(`cd ${relativePath}`)

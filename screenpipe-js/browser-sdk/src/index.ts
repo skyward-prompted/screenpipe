@@ -3,8 +3,8 @@ import type {
   InputAction,
   InputControlResponse,
   NotificationOptions,
-  ScreenpipeQueryParams,
-  ScreenpipeResponse,
+  SkypromptQueryParams,
+  SkypromptResponse,
   TranscriptionChunk,
   TranscriptionStreamResponse,
   VisionEvent,
@@ -119,9 +119,9 @@ async function sendInputControl(action: InputAction): Promise<boolean> {
 
 export interface BrowserPipe {
   sendDesktopNotification(options: NotificationOptions): Promise<boolean>;
-  queryScreenpipe(
-    params: ScreenpipeQueryParams
-  ): Promise<ScreenpipeResponse | null>;
+  querySkyprompt(
+    params: SkypromptQueryParams
+  ): Promise<SkypromptResponse | null>;
   input: {
     type: (text: string) => Promise<boolean>;
     press: (key: string) => Promise<boolean>;
@@ -258,14 +258,14 @@ class BrowserPipeImpl implements BrowserPipe {
   }
 
   /**
-   * Query Screenpipe for content based on various filters.
+   * Query Skyprompt for content based on various filters.
    *
-   * @param params - Query parameters for filtering Screenpipe content
-   * @returns Promise resolving to the Screenpipe response or null
+   * @param params - Query parameters for filtering Skyprompt content
+   * @returns Promise resolving to the Skyprompt response or null
    *
    * @example
    * // Basic search for recent browser activity on a specific website
-   * const githubActivity = await pipe.queryScreenpipe({
+   * const githubActivity = await pipe.querySkyprompt({
    *   browserUrl: "github.com",
    *   contentType: "ocr",
    *   limit: 20,
@@ -274,7 +274,7 @@ class BrowserPipeImpl implements BrowserPipe {
    *
    * @example
    * // Search for specific text on a particular website with date filters
-   * const searchResults = await pipe.queryScreenpipe({
+   * const searchResults = await pipe.querySkyprompt({
    *   q: "authentication",
    *   browserUrl: "auth0.com",
    *   appName: "Chrome",
@@ -292,7 +292,7 @@ class BrowserPipeImpl implements BrowserPipe {
    *   resultDiv.innerHTML = '<p>Searching...</p>';
    *
    *   try {
-   *     const results = await pipe.queryScreenpipe({
+   *     const results = await pipe.querySkyprompt({
    *       browserUrl: domain,
    *       contentType: "ocr",
    *       includeFrames: true,
@@ -328,7 +328,7 @@ class BrowserPipeImpl implements BrowserPipe {
    * @example
    * // Create a React component that displays website visit history
    * import React, { useState, useEffect } from 'react';
-   * import { pipe, ContentType } from '@screenpipe/browser';
+   * import { pipe, ContentType } from '@skyprompt/browser';
    *
    * function WebsiteHistoryViewer({ domain }) {
    *   const [visits, setVisits] = useState([]);
@@ -339,7 +339,7 @@ class BrowserPipeImpl implements BrowserPipe {
    *     async function fetchVisits() {
    *       try {
    *         setLoading(true);
-   *         const results = await pipe.queryScreenpipe({
+   *         const results = await pipe.querySkyprompt({
    *           browserUrl: domain,
    *           contentType: "ocr" as ContentType,
    *           includeFrames: true,
@@ -391,10 +391,10 @@ class BrowserPipeImpl implements BrowserPipe {
    *   );
    * }
    */
-  async queryScreenpipe(
-    params: ScreenpipeQueryParams
-  ): Promise<ScreenpipeResponse | null> {
-    console.log("queryScreenpipe:", params);
+  async querySkyprompt(
+    params: SkypromptQueryParams
+  ): Promise<SkypromptResponse | null> {
+    console.log("querySkyprompt:", params);
     const { userId, email } = await this.initAnalyticsIfNeeded();
     const queryParams = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
@@ -418,12 +418,12 @@ class BrowserPipeImpl implements BrowserPipe {
         let errorJson;
         try {
           errorJson = JSON.parse(errorText);
-          console.error("screenpipe api error:", {
+          console.error("skyprompt api error:", {
             status: response.status,
             error: errorJson,
           });
         } catch {
-          console.error("screenpipe api error:", {
+          console.error("skyprompt api error:", {
             status: response.status,
             error: errorText,
           });
@@ -437,9 +437,9 @@ class BrowserPipeImpl implements BrowserPipe {
         result_count: data.pagination.total,
         email: email,
       });
-      return convertToCamelCase(data) as ScreenpipeResponse;
+      return convertToCamelCase(data) as SkypromptResponse;
     } catch (error) {
-      console.error("error querying screenpipe:", error);
+      console.error("error querying skyprompt:", error);
       throw error;
     }
   }
@@ -594,7 +594,7 @@ class BrowserPipeImpl implements BrowserPipe {
     ): Promise<Result<Record<string, any>>> => {
       try {
         const apiUrl =
-          process.env.SCREENPIPE_SERVER_URL || "http://localhost:3030";
+          process.env.SKYPROMPT_SERVER_URL || "http://localhost:3030";
         const response = await fetch(`${apiUrl}/pipes/download-private`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -619,7 +619,7 @@ class BrowserPipeImpl implements BrowserPipe {
     delete: async (pipeId: string): Promise<boolean> => {
       try {
         const apiUrl =
-          process.env.SCREENPIPE_SERVER_URL || "http://localhost:3030";
+          process.env.SKYPROMPT_SERVER_URL || "http://localhost:3030";
         const response = await fetch(`${apiUrl}/pipes/delete`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -650,7 +650,7 @@ class BrowserPipeImpl implements BrowserPipe {
               id: crypto.randomUUID(),
               object: "text_completion_chunk",
               created: Date.now(),
-              model: "screenpipe-realtime",
+              model: "skyprompt-realtime",
               choices: [
                 {
                   text: chunk.transcription,

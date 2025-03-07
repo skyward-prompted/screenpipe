@@ -1,13 +1,13 @@
 #[cfg(target_os = "windows")]
 #[cfg(test)]
 mod tests {
-    use screenpipe_vision::core::OcrTaskData;
-    use screenpipe_vision::monitor::get_default_monitor;
-    use screenpipe_vision::{process_ocr_task, OcrEngine};
+    use skyprompt_vision::core::OcrTaskData;
+    use skyprompt_vision::monitor::get_default_monitor;
+    use skyprompt_vision::{process_ocr_task, OcrEngine};
     use std::{path::PathBuf, time::Instant};
     use tokio::sync::mpsc;
 
-    use screenpipe_vision::{continuous_capture, CaptureResult};
+    use skyprompt_vision::{continuous_capture, CaptureResult};
     use std::time::Duration;
     use tokio::time::timeout;
 

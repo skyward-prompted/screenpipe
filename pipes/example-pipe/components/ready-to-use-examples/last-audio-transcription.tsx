@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { pipe, type AudioContent, type ContentItem } from "@screenpipe/browser";
+import { pipe, type AudioContent, type ContentItem } from "@skyprompt/browser";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
@@ -30,7 +30,7 @@ export function LastAudioTranscription({ onDataChange }: { onDataChange?: (data:
       };
       
       const startTime = performance.now();
-      const result = await pipe.queryScreenpipe({
+      const result = await pipe.querySkyprompt({
         contentType: "audio",
         limit: 1,
       });

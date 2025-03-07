@@ -1,7 +1,7 @@
 // types.ts
 
 /**
- * Types of content that can be queried in Screenpipe.
+ * Types of content that can be queried in Skyprompt.
  */
 export type ContentType =
   | "all"
@@ -13,9 +13,9 @@ export type ContentType =
   | "audio+ocr";
 
 /**
- * Parameters for querying Screenpipe.
+ * Parameters for querying Skyprompt.
  */
-export interface ScreenpipeQueryParams {
+export interface SkypromptQueryParams {
   /** Optional search query text */
   q?: string;
 
@@ -137,9 +137,9 @@ export interface PaginationInfo {
 }
 
 /**
- * Structure of the response from a Screenpipe query.
+ * Structure of the response from a Skyprompt query.
  */
-export interface ScreenpipeResponse {
+export interface SkypromptResponse {
   data: ContentItem[];
   pagination: PaginationInfo;
 }
@@ -204,7 +204,7 @@ export type AIProviderType =
   | "openai"
   | "custom"
   | "embedded"
-  | "screenpipe-cloud";
+  | "skyprompt-cloud";
 
 export interface EmbeddedLLMConfig {
   enabled: boolean;

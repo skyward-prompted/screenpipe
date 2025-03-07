@@ -11,9 +11,9 @@ export default async function updatePipeConfig(
   }
 
   let cronSchedule = "";
-  const screenpipeDir = process.env.SCREENPIPE_DIR || process.cwd();
+  const skypromptDir = process.env.SKYPROMPT_DIR || process.cwd();
   const pipeConfigPath = path.join(
-    screenpipeDir,
+    skypromptDir,
     "pipes",
     "reddit-auto-posts",
     "pipe.json"

@@ -1,11 +1,11 @@
-import { ContentItem } from "@screenpipe/js";
+import { ContentItem } from "@skyprompt/js";
 import { WorkLog } from "./types";
 import { generateObject } from "ai";
 import { ollama } from "ollama-ai-provider";
 import { z } from "zod";
 import { Client } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
-import { getScreenpipeAppSettings } from "./actions/get-screenpipe-app-settings";
+import { getSkypromptAppSettings } from "./actions/get-skyprompt-app-settings";
 
 export const workLog = z.object({
   title: z.string(),
@@ -18,7 +18,7 @@ async function extractLinkedContent(prompt: string): Promise<string> {
     // Match @[[file]] or @[[folder/file]] patterns
     const linkRegex = /@\[\[(.*?)\]\]/g;
     const matches = [...prompt.matchAll(linkRegex)];
-    const settings = await getScreenpipeAppSettings();
+    const settings = await getSkypromptAppSettings();
     let enrichedPrompt = prompt;
 
     const notion = new Client({

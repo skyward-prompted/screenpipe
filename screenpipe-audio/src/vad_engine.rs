@@ -194,7 +194,7 @@ impl SileroVad {
     fn get_cache_dir() -> anyhow::Result<PathBuf> {
         let proj_dirs =
             dirs::cache_dir().ok_or_else(|| anyhow::anyhow!("failed to get cache dir"))?;
-        Ok(proj_dirs.join("screenpipe").join("vad"))
+        Ok(proj_dirs.join("skyprompt").join("vad"))
     }
 
     fn update_status(&mut self, prob: f32) -> VadStatus {

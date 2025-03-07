@@ -5,7 +5,7 @@ use std::{
 
 use anyhow::Result;
 use dirs::home_dir;
-use screenpipe_server::{cli::OutputFormat, handle_index_command, DatabaseManager};
+use skyprompt_server::{cli::OutputFormat, handle_index_command, DatabaseManager};
 use tempfile::tempdir;
 use tokio::fs;
 use tracing::debug;
@@ -25,13 +25,13 @@ async fn setup_test_db() -> Result<(tempfile::TempDir, Arc<DatabaseManager>)> {
 }
 
 async fn copy_test_video(temp_dir: &Path) -> Result<PathBuf> {
-    // Find a small video file from .screenpipe
-    let screenpipe_dir = home_dir()
+    // Find a small video file from .skyprompt
+    let skyprompt_dir = home_dir()
         .expect("couldn't find home dir")
-        .join(".screenpipe")
+        .join(".skyprompt")
         .join("data");
 
-    let mut entries = fs::read_dir(&screenpipe_dir).await?;
+    let mut entries = fs::read_dir(&skyprompt_dir).await?;
     let mut source_video = None;
 
     while let Some(entry) = entries.next_entry().await? {

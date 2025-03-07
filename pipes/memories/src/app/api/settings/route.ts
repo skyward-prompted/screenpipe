@@ -1,7 +1,7 @@
 // app/api/settings/route.ts
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 import { NextResponse } from "next/server";
-import type { Settings } from "@screenpipe/js";
+import type { Settings } from "@skyprompt/js";
 import { promises as fs } from "fs";
 import path from "path";
 // Force Node.js runtime
@@ -12,15 +12,15 @@ const DEFAULT_INTERVAL_MINUTES = 5;
 
 async function updateCronSchedule(intervalMinutes: number) {
   try {
-    const screenpipeDir = process.env.SCREENPIPE_DIR || process.cwd();
+    const skypromptDir = process.env.SKYPROMPT_DIR || process.cwd();
     const pipeConfigPath = path.join(
-      screenpipeDir,
+      skypromptDir,
       "pipes",
       "obsidian",
       "pipe.json"
     );
     const settingsPath = path.join(
-      screenpipeDir,
+      skypromptDir,
       "pipes",
       "obsidian",
       "settings.json"
@@ -84,9 +84,9 @@ export async function GET() {
     }
 
     // Load persisted settings if they exist
-    const screenpipeDir = process.env.SCREENPIPE_DIR || process.cwd();
+    const skypromptDir = process.env.SKYPROMPT_DIR || process.cwd();
     const settingsPath = path.join(
-      screenpipeDir,
+      skypromptDir,
       "pipes",
       "obsidian",
       "settings.json"

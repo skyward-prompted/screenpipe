@@ -1,6 +1,6 @@
 use clap::Parser;
-use screenpipe_core::Language;
-use screenpipe_vision::{
+use skyprompt_core::Language;
+use skyprompt_vision::{
     capture_screenshot_by_window::WindowFilters, continuous_capture, OcrEngine,
 };
 use std::{sync::Arc, time::Duration};

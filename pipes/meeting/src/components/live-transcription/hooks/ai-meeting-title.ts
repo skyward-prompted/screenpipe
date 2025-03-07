@@ -1,4 +1,4 @@
-import type { Settings } from "@screenpipe/browser"
+import type { Settings } from "@skyprompt/browser"
 import { LiveMeetingData } from "@/components/live-transcription/hooks/storage-for-live-meeting"
 import { callOpenAI, createAiClient } from "./ai-client"
 

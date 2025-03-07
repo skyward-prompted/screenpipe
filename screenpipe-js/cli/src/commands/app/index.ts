@@ -3,6 +3,6 @@ import { createAppCommand } from "./create";
 
 export const appCommands = new Command()
   .name("app")
-  .description("create a new screenpipe application using default templates")
+  .description("create a new skyprompt application using default templates")
 
 appCommands.addCommand(createAppCommand)

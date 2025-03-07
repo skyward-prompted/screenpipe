@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
     const startTime = performance.now();
     const response = await fetch(url, {
       headers: {
-        "User-Agent": "ScreenPipe-Example-Pipe/1.0"
+        "User-Agent": "Skyprompt-Example-Pipe/1.0"
       }
     });
     const endTime = performance.now();

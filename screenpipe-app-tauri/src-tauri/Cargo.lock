@@ -5288,7 +5288,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "screenpipe-app"
+name = "skyprompt-app"
 version = "0.39.4"
 dependencies = [
  "anyhow",

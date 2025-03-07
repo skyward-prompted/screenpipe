@@ -106,7 +106,7 @@ fn install_onnxruntime() {
     if !status.success() {
         panic!("failed to install onnx binary");
     }
-    let target_dir = Path::new("../screenpipe-app-tauri/src-tauri/onnxruntime-win-x64-gpu-1.19.2");
+    let target_dir = Path::new("../skyprompt-app-tauri/src-tauri/onnxruntime-win-x64-gpu-1.19.2");
     if target_dir.exists() {
         fs::remove_dir_all(target_dir).expect("failed to remove existing directory");
     }
@@ -114,5 +114,5 @@ fn install_onnxruntime() {
         "onnxruntime-win-x64-gpu-1.19.2",
         target_dir,
     ).expect("failed to rename");
-    println!("cargo:rustc-link-search=native=../screenpipe-app-tauri/src-tauri/onnxruntime-win-x64-gpu-1.19.2/lib");
+    println!("cargo:rustc-link-search=native=../skyprompt-app-tauri/src-tauri/onnxruntime-win-x64-gpu-1.19.2/lib");
 }

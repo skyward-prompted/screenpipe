@@ -3,17 +3,17 @@ mod tests {
     use anyhow::anyhow;
     use chrono::Utc;
     use log::{debug, LevelFilter};
-    use screenpipe_audio::pyannote::embedding::EmbeddingExtractor;
-    use screenpipe_audio::pyannote::identify::EmbeddingManager;
-    use screenpipe_audio::stt::{prepare_segments, stt};
-    use screenpipe_audio::vad_engine::{SileroVad, VadEngine, VadEngineEnum, VadSensitivity};
-    use screenpipe_audio::whisper::WhisperModel;
-    use screenpipe_audio::{
+    use skyprompt_audio::pyannote::embedding::EmbeddingExtractor;
+    use skyprompt_audio::pyannote::identify::EmbeddingManager;
+    use skyprompt_audio::stt::{prepare_segments, stt};
+    use skyprompt_audio::vad_engine::{SileroVad, VadEngine, VadEngineEnum, VadSensitivity};
+    use skyprompt_audio::whisper::WhisperModel;
+    use skyprompt_audio::{
         default_output_device, list_audio_devices, pcm_decode, AudioInput, AudioStream,
         AudioTranscriptionEngine,
     };
-    use screenpipe_audio::{parse_audio_device, record_and_transcribe};
-    use screenpipe_core::Language;
+    use skyprompt_audio::{parse_audio_device, record_and_transcribe};
+    use skyprompt_core::Language;
     use std::path::{Path, PathBuf};
     use std::process::Command;
     use std::str::FromStr;
@@ -195,7 +195,7 @@ mod tests {
     #[ignore]
     async fn test_audio_transcription() {
         setup();
-        use screenpipe_audio::{create_whisper_channel, record_and_transcribe};
+        use skyprompt_audio::{create_whisper_channel, record_and_transcribe};
         use std::sync::Arc;
         use std::time::Duration;
         use tokio::time::timeout;
@@ -298,14 +298,14 @@ mod tests {
         let vad_engine: Arc<tokio::sync::Mutex<Box<dyn VadEngine + Send>>> = Arc::new(
             tokio::sync::Mutex::new(Box::new(SileroVad::new().await.unwrap())),
         );
-        let audio_data = screenpipe_audio::pcm_decode("test_data/Arifi.wav")
+        let audio_data = skyprompt_audio::pcm_decode("test_data/Arifi.wav")
             .expect("Failed to decode audio file");
 
         let audio_input = AudioInput {
             data: Arc::new(audio_data.0),
             sample_rate: 44100, // hardcoded based on test data sample rate
             channels: 1,
-            device: Arc::new(screenpipe_audio::default_input_device().unwrap()),
+            device: Arc::new(skyprompt_audio::default_input_device().unwrap()),
         };
 
         // Create the missing parameters

@@ -3,7 +3,7 @@
 <details>
   <summary>What's the difference with rewind.ai?</summary>
 
-  screenpipe is for developers to build apps like rewind.ai.
+  skyprompt is for developers to build apps like rewind.ai.
 </details>
 
 <details>
@@ -25,7 +25,7 @@
 </details>
 
 <details>
-  <summary>What are some practical use cases for screenpipe?</summary>
+  <summary>What are some practical use cases for skyprompt?</summary>
   
     - RAG & question answering
     - Automation (write code somewhere else while watching you coding, write docs, fill your CRM, sync company's knowledge, etc.)
@@ -35,12 +35,12 @@
 </details>
 
 <details>
-  <summary>How do I manage screenpipe sessions?</summary>
+  <summary>How do I manage skyprompt sessions?</summary>
   
   - **starting a session**: 
-    - macOS: use the system tray icon or run `screenpipe` in terminal
-    - windows: launch from start menu or run `screenpipe` in command prompt
-    - linux: run `screenpipe` in terminal
+    - macOS: use the system tray icon or run `skyprompt` in terminal
+    - windows: launch from start menu or run `skyprompt` in command prompt
+    - linux: run `skyprompt` in terminal
   
   - **checking if session is running**:
     ```bash
@@ -57,8 +57,8 @@
   - **troubleshooting**:
     - if ctrl+c doesn't work to stop a terminal session, try:
       ```bash
-      # Find screenpipe process ID
-      ps aux | grep screenpipe
+      # Find skyprompt process ID
+      ps aux | grep skyprompt
       # Kill the process
       kill -9 [PID]
       ```
@@ -66,16 +66,16 @@
 </details>
 
 <details>
-  <summary>Can I run screenpipe on remote/virtual machines?</summary>
+  <summary>Can I run skyprompt on remote/virtual machines?</summary>
   
-  - yes! screenpipe works seamlessly with remote desktop solutions
+  - yes! skyprompt works seamlessly with remote desktop solutions
   - microsoft remote desktop: works out of the box, capturing both screen and audio
   - other remote solutions: generally compatible as long as they support audio/video forwarding
   - check our [server setup guide](/docs/server) for detailed instructions
 </details>
 
 <details>
-  <summary>How resource-intensive is screenpipe?</summary>
+  <summary>How resource-intensive is skyprompt?</summary>
   
   - designed to be lightweight and efficient
   - typical cpu usage: 1-2% on modern machines
@@ -87,7 +87,7 @@
 <details>
   <summary>Can I build custom plugins/pipes?</summary>
   
-  - yes! screenpipe is designed to be extensible
+  - yes! skyprompt is designed to be extensible
   - write plugins in typescript + bun
   - full access to captured screen/audio data
   - integrate with any ai model or external service
@@ -95,13 +95,13 @@
 </details>
 
 <details>
-  <summary>Is screenpipe open source?</summary>
+  <summary>Is skyprompt open source?</summary>
   
   - yes! core functionality is open source under MIT license
   - built with rust + tauri for the core
   - plugins system in typescript + bun
   - community contributions welcome
-  - find us on [github](https://github.com/mediar-ai/screenpipe)
+  - find us on [github](https://github.com/mediar-ai/skyprompt)
 </details>
 
 <details>
@@ -116,7 +116,7 @@
 </details>
 
 <details>
-  <summary>Does screenpipe work with frameworks other than Next.js?</summary>
+  <summary>Does skyprompt work with frameworks other than Next.js?</summary>
 
   - yes! while our examples mainly use next.js, you can use any framework:
     - **react**: yes

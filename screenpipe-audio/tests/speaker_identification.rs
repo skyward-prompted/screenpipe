@@ -1,6 +1,6 @@
 mod tests {
     use log::LevelFilter;
-    use screenpipe_audio::pyannote::segment::get_segments;
+    use skyprompt_audio::pyannote::segment::get_segments;
     use std::path::PathBuf;
     use std::sync::{Arc, Mutex};
 
@@ -31,7 +31,7 @@ mod tests {
             .join("segmentation-3.0.onnx");
 
         let embedding_extractor = Arc::new(Mutex::new(
-            screenpipe_audio::pyannote::embedding::EmbeddingExtractor::new(
+            skyprompt_audio::pyannote::embedding::EmbeddingExtractor::new(
                 embedding_model_path
                     .to_str()
                     .ok_or_else(|| anyhow::anyhow!("Invalid embedding model path"))
@@ -40,18 +40,18 @@ mod tests {
             .unwrap()
         ));
         let embedding_manager =
-            screenpipe_audio::pyannote::identify::EmbeddingManager::new(usize::MAX);
+            skyprompt_audio::pyannote::identify::EmbeddingManager::new(usize::MAX);
 
         let multiple_speakers_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("test_data/speaker_identification/6_speakers.wav");
 
         let (mut multiple_speakers_data, multiple_speakers_sample_rate) =
-            screenpipe_audio::pcm_decode(&multiple_speakers_path)
+            skyprompt_audio::pcm_decode(&multiple_speakers_path)
                 .expect("Failed to decode audio file");
 
         // reesample if not 16000
         if multiple_speakers_sample_rate != 16000 {
-            multiple_speakers_data = screenpipe_audio::resample(
+            multiple_speakers_data = skyprompt_audio::resample(
                 &multiple_speakers_data,
                 multiple_speakers_sample_rate,
                 16000,
@@ -63,11 +63,11 @@ mod tests {
             .join("test_data/speaker_identification/obama.wav");
 
         let (mut obama_data, obama_sample_rate) =
-            screenpipe_audio::pcm_decode(&obama_path).expect("Failed to decode audio file");
+            skyprompt_audio::pcm_decode(&obama_path).expect("Failed to decode audio file");
 
         // reesample if not 16000
         if obama_sample_rate != 16000 {
-            obama_data = screenpipe_audio::resample(&obama_data, obama_sample_rate, 16000).unwrap();
+            obama_data = skyprompt_audio::resample(&obama_data, obama_sample_rate, 16000).unwrap();
         }
 
         multiple_speakers_data.extend_from_slice(&obama_data);

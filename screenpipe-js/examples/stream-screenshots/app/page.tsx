@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { pipe } from "@screenpipe/browser";
-import { VisionEvent } from "@screenpipe/browser";
+import { pipe } from "@skyprompt/browser";
+import { VisionEvent } from "@skyprompt/browser";
 
 export default function Home() {
   const [visionEvent, setVisionEvent] = useState<VisionEvent | null>(null);

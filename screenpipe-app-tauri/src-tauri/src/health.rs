@@ -41,18 +41,18 @@ pub async fn start_health_check(app: tauri::AppHandle) -> Result<()> {
 
                     if current_status != last_status {
                         last_status = current_status.to_string();
-                        if let Some(main_tray) = app.tray_by_id("screenpipe_main") {
+                        if let Some(main_tray) = app.tray_by_id("skyprompt_main") {
                             let icon_path = if current_status == "unhealthy" {
                                 app.path()
                                     .resolve(
-                                        "assets/screenpipe-logo-tray-failed.png",
+                                        "assets/skyprompt-logo-tray-failed.png",
                                         BaseDirectory::Resource,
                                     )
                                     .expect("failed to resolve icon path")
                             } else {
                                 app.path()
                                     .resolve(
-                                        "assets/screenpipe-logo-tray-black.png",
+                                        "assets/skyprompt-logo-tray-black.png",
                                         BaseDirectory::Resource,
                                     )
                                     .expect("failed to resolve icon path")
@@ -67,11 +67,11 @@ pub async fn start_health_check(app: tauri::AppHandle) -> Result<()> {
                     if last_status != "error" {
                         println!("health check failed: {}", e);
                         last_status = "error".to_string();
-                        if let Some(main_tray) = app.tray_by_id("screenpipe_main") {
+                        if let Some(main_tray) = app.tray_by_id("skyprompt_main") {
                             let icon_path = app
                                 .path()
                                 .resolve(
-                                    "assets/screenpipe-logo-tray-failed.png",
+                                    "assets/skyprompt-logo-tray-failed.png",
                                     BaseDirectory::Resource,
                                 )
                                 .expect("failed to resolve icon path");

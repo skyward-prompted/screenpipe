@@ -16,7 +16,7 @@ use dashmap::DashMap;
 use log::{debug, error, info};
 #[cfg(target_os = "macos")]
 use objc::rc::autoreleasepool;
-use screenpipe_core::Language;
+use skyprompt_core::Language;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::{
     path::Path,

@@ -4,17 +4,17 @@ import type { AppProps } from "next/app";
 // import Layout from '../components/layout';
 
 export const metadata: Metadata = {
-  title: "screenpipe",
-  description: "AI Screen and Voice Recording Software | screenpipe",
+  title: "skyprompt",
+  description: "AI Screen and Voice Recording Software | skyprompt",
   icons: {
     icon: "/favicon.ico",
   },
   twitter: {
     card: "summary_large_image",
-    title: "screenpipe",
+    title: "skyprompt",
     site: "@screen_pipe",
     creator: "@screen_pipe",
-    description: "AI Screen and Voice Recording Software | screenpipe",
+    description: "AI Screen and Voice Recording Software | skyprompt",
   },
 };
 

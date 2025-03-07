@@ -18,7 +18,7 @@ pub struct AnalyticsManager {
     enabled: Arc<Mutex<bool>>,
     api_host: String,
     local_api_base_url: String,
-    screenpipe_dir_path: PathBuf,
+    skyprompt_dir_path: PathBuf,
 }
 
 impl AnalyticsManager {
@@ -28,7 +28,7 @@ impl AnalyticsManager {
         email: String,
         interval_hours: u64,
         local_api_base_url: String,
-        screenpipe_dir_path: PathBuf,
+        skyprompt_dir_path: PathBuf,
         analytics_enabled: bool,
     ) -> Self {
         Self {
@@ -40,7 +40,7 @@ impl AnalyticsManager {
             enabled: Arc::new(Mutex::new(analytics_enabled)),
             api_host: "https://eu.i.posthog.com".to_string(),
             local_api_base_url,
-            screenpipe_dir_path,
+            skyprompt_dir_path,
         }
     }
 
@@ -73,7 +73,7 @@ impl AnalyticsManager {
         });
 
         // Add disk usage information
-        let disk_usage_result = crate::disk_usage::disk_usage(&self.screenpipe_dir_path).await;
+        let disk_usage_result = crate::disk_usage::disk_usage(&self.skyprompt_dir_path).await;
         
         if let Ok(Some(disk_usage)) = disk_usage_result {
             if let Some(payload_props) = payload["properties"].as_object_mut() {
@@ -138,7 +138,7 @@ impl AnalyticsManager {
 
                 // Track enabled pipes
                 if let Err(e) = self.track_enabled_pipes().await {
-                    warn!("failed to track enabled pipes: {}, is screenpipe up?", e);
+                    warn!("failed to track enabled pipes: {}, is skyprompt up?", e);
                 }
             }
         }
@@ -207,7 +207,7 @@ pub fn start_analytics(
     posthog_api_key: String,
     interval_hours: u64,
     local_api_base_url: String,
-    screenpipe_dir_path: PathBuf,
+    skyprompt_dir_path: PathBuf,
     analytics_enabled: bool,
 ) -> Result<Arc<AnalyticsManager>, Box<dyn std::error::Error>> {
     let is_debug = std::env::var("TAURI_ENV_DEBUG").unwrap_or("false".to_string()) == "true";
@@ -221,7 +221,7 @@ pub fn start_analytics(
         email,
         interval_hours,
         local_api_base_url,
-        screenpipe_dir_path,
+        skyprompt_dir_path,
         should_enable_analytics,
     ));
 

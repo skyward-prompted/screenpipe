@@ -1,5 +1,5 @@
 use futures::StreamExt;
-use screenpipe_events::{send_event, subscribe_to_event};
+use skyprompt_events::{send_event, subscribe_to_event};
 use serde::{Deserialize, Serialize};
 use serial_test::serial;
 // Simulate crate A's types and events

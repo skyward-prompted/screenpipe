@@ -1,5 +1,5 @@
 [package]
-name = "screenpipe-vision"
+name = "skyprompt-vision"
 version = { workspace = true }
 authors = { workspace = true }
 description = { workspace = true }
@@ -32,11 +32,11 @@ clap = { version = "4.0", features = ["derive"] }
 # tokio = { version = "1", features = ["full"] }
 
 # Integrations
-screenpipe-integrations = { path = "../screenpipe-integrations" }
-screenpipe-events = { path = "../screenpipe-events" }
+skyprompt-integrations = { path = "../skyprompt-integrations" }
+skyprompt-events = { path = "../skyprompt-events" }
 
 # Lanuage specification
-screenpipe-core = { path = "../screenpipe-core" }
+skyprompt-core = { path = "../skyprompt-core" }
 
 tracing-subscriber = { workspace = true }
 tracing = { workspace = true }
@@ -65,8 +65,8 @@ serde = "1.0.200"
 framework = ["Vision", "AppKit"]
 
 [[bin]]
-name = "screenpipe-vision"
-path = "src/bin/screenpipe-vision.rs"
+name = "skyprompt-vision"
+path = "src/bin/skyprompt-vision.rs"
 
 [[bench]]
 name = "vision_benchmark"
@@ -81,7 +81,7 @@ name = "apple_leak_bench"
 harness = false
 
 [[example]]
-name = "screenpipe-vision-websocket"
+name = "skyprompt-vision-websocket"
 path = "examples/websocket.rs"
 
 [target.'cfg(target_os = "windows")'.dependencies]

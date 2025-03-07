@@ -1,5 +1,5 @@
 import { OpenAI } from "openai"
-import type { Settings } from "@screenpipe/browser"
+import type { Settings } from "@skyprompt/browser"
 import pThrottle from "p-throttle"
 
 interface RetryOptions {
@@ -22,7 +22,7 @@ const throttle = pThrottle({
 
 export function createAiClient(settings: Settings) {
     return new OpenAI({
-        apiKey: settings.aiProviderType === "screenpipe-cloud" 
+        apiKey: settings.aiProviderType === "skyprompt-cloud" 
             ? settings.user.token 
             : settings.openaiApiKey,
         baseURL: settings.aiUrl,

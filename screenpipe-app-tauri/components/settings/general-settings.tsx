@@ -20,7 +20,7 @@ export default function GeneralSettings() {
           <div className="space-y-1">
             <h4 className="font-medium">enable autostart</h4>
             <p className="text-sm text-muted-foreground">
-              automatically launch screenpipe at startup
+              automatically launch skyprompt at startup
             </p>
           </div>
           <Switch

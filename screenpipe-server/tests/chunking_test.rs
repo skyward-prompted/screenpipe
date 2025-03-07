@@ -1,4 +1,4 @@
-use screenpipe_server::chunking::text_chunking_simple;
+use skyprompt_server::chunking::text_chunking_simple;
 
 #[test]
 fn test_text_chunking_with_chinese_characters() {

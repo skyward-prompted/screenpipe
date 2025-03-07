@@ -3,11 +3,11 @@ import { Tabs, Tab } from 'nextra/components'
 # javascript sdk reference
 
 
-screenpipe provides two sdk packages:
-- `@screenpipe/js` - for node.js environments (nextjs api routes, etc)
-- `@screenpipe/browser` - for browser environments
+skyprompt provides two sdk packages:
+- `@skyprompt/js` - for node.js environments (nextjs api routes, etc)
+- `@skyprompt/browser` - for browser environments
 
-both sdks provide type-safe interfaces to interact with screenpipe's core functionality.
+both sdks provide type-safe interfaces to interact with skyprompt's core functionality.
 
 
 ### installation
@@ -17,22 +17,22 @@ both sdks provide type-safe interfaces to interact with screenpipe's core functi
 <Tabs items={['npm', 'pnpm', 'bun', 'yarn']}>
   <Tab>
     ```bash copy
-    npm install @screenpipe/js
+    npm install @skyprompt/js
     ```
   </Tab>
   <Tab>
     ```bash copy
-    pnpm add @screenpipe/js
+    pnpm add @skyprompt/js
     ```
   </Tab>
   <Tab>
     ```bash copy
-    bun add @screenpipe/js
+    bun add @skyprompt/js
     ```
   </Tab>
   <Tab>
     ```bash copy
-    yarn add @screenpipe/js
+    yarn add @skyprompt/js
     ```
   </Tab>
 </Tabs>
@@ -42,22 +42,22 @@ both sdks provide type-safe interfaces to interact with screenpipe's core functi
 <Tabs items={['npm', 'pnpm', 'bun', 'yarn']}>
   <Tab>
     ```bash copy
-    npm install @screenpipe/browser
+    npm install @skyprompt/browser
     ```
   </Tab>
   <Tab>
     ```bash copy
-    pnpm add @screenpipe/browser
+    pnpm add @skyprompt/browser
     ```
   </Tab>
   <Tab>
     ```bash copy
-    bun add @screenpipe/browser
+    bun add @skyprompt/browser
     ```
   </Tab>
   <Tab>
     ```bash copy
-    yarn add @screenpipe/browser
+    yarn add @skyprompt/browser
     ```
   </Tab>
 </Tabs>
@@ -66,16 +66,16 @@ both sdks provide type-safe interfaces to interact with screenpipe's core functi
 
 ```typescript
 // node.js
-import { pipe } from '@screenpipe/js'
+import { pipe } from '@skyprompt/js'
 
 // browser
-import { pipe } from '@screenpipe/browser'
+import { pipe } from '@skyprompt/browser'
 ```
 
 ### search api
 
 ```typescript
-const results = await pipe.queryScreenpipe({
+const results = await pipe.querySkyprompt({
   q: "john",
   contentType: "ocr", // "ocr" | "audio" | "ui" | "all" | "audio+ui" | "ocr+ui" | "audio+ocr"
   limit: 10,
@@ -89,7 +89,7 @@ const results = await pipe.queryScreenpipe({
   maxLength: 1000,
   speakerIds: [1, 2],
   frameName: "screenshot.png",
-  browserUrl: "github.com/mediar-ai/screenpipe" // Filter by browser URL
+  browserUrl: "github.com/mediar-ai/skyprompt" // Filter by browser URL
 })
 ```
 
@@ -102,7 +102,7 @@ const results = await pipe.queryScreenpipe({
 const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
 const now = new Date().toISOString()
 
-const results = await pipe.queryScreenpipe({
+const results = await pipe.querySkyprompt({
   contentType: "ocr",
   startTime: oneHourAgo,
   endTime: now,
@@ -126,7 +126,7 @@ for (const item of results.data) {
 #### searching for specific content
 
 ```typescript
-const results = await pipe.queryScreenpipe({
+const results = await pipe.querySkyprompt({
   browserUrl: "discord*",
   startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
   limit: 20,
@@ -156,7 +156,7 @@ const endOfDay = new Date()
 endOfDay.setHours(23, 59, 59, 999)
 
 // Get both screen and audio data
-const results = await pipe.queryScreenpipe({
+const results = await pipe.querySkyprompt({
   contentType: "ocr+audio",
   startTime: startOfDay.toISOString(),
   endTime: endOfDay.toISOString(),
@@ -207,7 +207,7 @@ async function getWebsiteCaptures(domain: string, days = 7) {
   const startTime = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
   const endTime = new Date().toISOString();
 
-  const results = await pipe.queryScreenpipe({
+  const results = await pipe.querySkyprompt({
     browserUrl: domain,  // Target specific website
     contentType: "ocr",  // Get both visual content and UI elements
     startTime,
@@ -267,12 +267,12 @@ you need to add a `pipe.json` file to your pipe folder with this config for exam
 
 this will run the `/api/log` route every 5 minutes.
 
-check how the obsidian pipe implements this, [route](https://github.com/mediar-ai/screenpipe/blob/main/pipes/obsidian/src/app/api/log/route.ts) and [pipe.json](https://github.com/mediar-ai/screenpipe/blob/main/pipes/obsidian/pipe.json) for a complete example.
+check how the obsidian pipe implements this, [route](https://github.com/mediar-ai/skyprompt/blob/main/pipes/obsidian/src/app/api/log/route.ts) and [pipe.json](https://github.com/mediar-ai/skyprompt/blob/main/pipes/obsidian/pipe.json) for a complete example.
 
 we recommend using the CLI to add the `update-pipe-config` server action to your pipe. this will allow you to update the pipe's cron schedule using a server action.
 
 ```bash
-bunx @screenpipe/dev@latest components add
+bunx @skyprompt/dev@latest components add
 # select "update-pipe-config" from the menu
 ```
 
@@ -299,14 +299,14 @@ for await (const event of pipe.streamVision(true)) { // true to include images
 ### react hooks sdk support ⚛️
 
   
-screenpipe provides first-class support for React applications through custom hooks, enabling seamless integration with your React components. while you can manually create hooks using libraries like [React Query](https://tanstack.com/query/v5/docs/framework/react/overview), we recommend leveraging our built-in CLI to quickly add pre-built, optimized hooks to your pipes.
+skyprompt provides first-class support for React applications through custom hooks, enabling seamless integration with your React components. while you can manually create hooks using libraries like [React Query](https://tanstack.com/query/v5/docs/framework/react/overview), we recommend leveraging our built-in CLI to quickly add pre-built, optimized hooks to your pipes.
 
 #### using the cli to add hooks
 
 the fastest way to integrate react hooks into your pipe is through our CLI:
 
 ```bash copy
-bunx --bun @screenpipe/dev@latest components add
+bunx --bun @skyprompt/dev@latest components add
 ```
 
 select from the interactive menu to add hooks such as:
@@ -321,7 +321,7 @@ these hooks follow best practices, ensuring type safety, efficient state managem
 
 #### real-time meeting summarizer
 
-⚠️ make sure to enable real time transcription in the screenpipe app settings or CLI args.
+⚠️ make sure to enable real time transcription in the skyprompt app settings or CLI args.
 
 ```typescript
 import OpenAI from 'openai'
@@ -403,20 +403,20 @@ monitorScreenActivity().catch(console.error)
 ### settings management
 
 
-pipes can access and modify screenpipe app settings through the SDK. this is useful for storing pipe-specific configuration and accessing global app settings.
+pipes can access and modify skyprompt app settings through the SDK. this is useful for storing pipe-specific configuration and accessing global app settings.
 
 #### quick start with CLI
 
 the fastest way to add settings management to your pipe is using our CLI:
 
 ```bash copy
-bunx --bun @screenpipe/dev@latest components add
+bunx --bun @skyprompt/dev@latest components add
 # select "use-pipe-settings" from the menu
 ```
 
 this will add the following components to your pipe:
 - `use-pipe-settings` hook for react components
-- `get-screenpipe-app-settings` server action
+- `get-skyprompt-app-settings` server action
 - required typescript types
 
 #### manual setup
@@ -425,31 +425,31 @@ this will add the following components to your pipe:
 
 ```typescript
 // src/lib/types.ts
-import type { Settings as ScreenpipeAppSettings } from '@screenpipe/js'
+import type { Settings as SkypromptAppSettings } from '@skyprompt/js'
 
 export interface Settings {
   // your pipe specific settings
   customSetting?: string
   anotherSetting?: number
   
-  // screenpipe app settings
-  screenpipeAppSettings?: ScreenpipeAppSettings
+  // skyprompt app settings
+  skypromptAppSettings?: SkypromptAppSettings
 }
 ```
 
 2. create server action to access settings:
 
 ```typescript
-// src/lib/actions/get-screenpipe-app-settings.ts
-import { pipe } from '@screenpipe/js'
-import type { Settings as ScreenpipeAppSettings } from '@screenpipe/js'
+// src/lib/actions/get-skyprompt-app-settings.ts
+import { pipe } from '@skyprompt/js'
+import type { Settings as SkypromptAppSettings } from '@skyprompt/js'
 
-export async function getScreenpipeAppSettings() {
+export async function getSkypromptAppSettings() {
   return await pipe.settings.getAll()
 }
 
-export async function updateScreenpipeAppSettings(
-  newSettings: Partial<ScreenpipeAppSettings>
+export async function updateSkypromptAppSettings(
+  newSettings: Partial<SkypromptAppSettings>
 ) {
   return await pipe.settings.update(newSettings)
 }
@@ -462,9 +462,9 @@ export async function updateScreenpipeAppSettings(
 import { useState, useEffect } from 'react'
 import { Settings } from '@/lib/types'
 import {
-  getScreenpipeAppSettings,
-  updateScreenpipeAppSettings,
-} from '@/lib/actions/get-screenpipe-app-settings'
+  getSkypromptAppSettings,
+  updateSkypromptAppSettings,
+} from '@/lib/actions/get-skyprompt-app-settings'
 
 const DEFAULT_SETTINGS: Partial<Settings> = {
   customSetting: 'default value',
@@ -481,13 +481,13 @@ export function usePipeSettings() {
 
   const loadSettings = async () => {
     try {
-      // load screenpipe app settings
-      const screenpipeSettings = await getScreenpipeAppSettings()
+      // load skyprompt app settings
+      const skypromptSettings = await getSkypromptAppSettings()
 
       // get pipe specific settings from customSettings
       const pipeSettings = {
-        ...(screenpipeSettings.customSettings?.yourPipeName && {
-          ...screenpipeSettings.customSettings.yourPipeName,
+        ...(skypromptSettings.customSettings?.yourPipeName && {
+          ...skypromptSettings.customSettings.yourPipeName,
         }),
       }
 
@@ -495,7 +495,7 @@ export function usePipeSettings() {
       setSettings({
         ...DEFAULT_SETTINGS,
         ...pipeSettings,
-        screenpipeAppSettings: screenpipeSettings,
+        skypromptAppSettings: skypromptSettings,
       })
     } catch (error) {
       console.error('failed to load settings:', error)
@@ -507,18 +507,18 @@ export function usePipeSettings() {
   const updateSettings = async (newSettings: Partial<Settings>) => {
     try {
       // split settings
-      const { screenpipeAppSettings, ...pipeSettings } = newSettings
+      const { skypromptAppSettings, ...pipeSettings } = newSettings
 
       const mergedPipeSettings = {
         ...DEFAULT_SETTINGS,
         ...pipeSettings,
       }
 
-      // update screenpipe settings if provided
-      await updateScreenpipeAppSettings({
-        ...screenpipeAppSettings,
+      // update skyprompt settings if provided
+      await updateSkypromptAppSettings({
+        ...skypromptAppSettings,
         customSettings: {
-          ...screenpipeAppSettings?.customSettings,
+          ...skypromptAppSettings?.customSettings,
           yourPipeName: pipeSettings,
         },
       })
@@ -526,8 +526,8 @@ export function usePipeSettings() {
       // update state with everything
       setSettings({
         ...mergedPipeSettings,
-        screenpipeAppSettings:
-          screenpipeAppSettings || settings?.screenpipeAppSettings,
+        skypromptAppSettings:
+          skypromptAppSettings || settings?.skypromptAppSettings,
       })
       return true
     } catch (error) {
@@ -577,7 +577,7 @@ export function SettingsComponent() {
 
 #### best practices
 
-- store pipe-specific settings under `customSettings.yourPipeName` in screenpipe app settings
+- store pipe-specific settings under `customSettings.yourPipeName` in skyprompt app settings
 - use typescript for type safety
 - provide default values for all settings
 - handle loading and error states
@@ -585,15 +585,15 @@ export function SettingsComponent() {
 - use server actions for settings operations
 - consider using shadcn/ui components for consistent UI
 
-see the [obsidian pipe](https://github.com/mediar-ai/screenpipe/tree/main/pipes/obsidian) for a complete example of settings management.
+see the [obsidian pipe](https://github.com/mediar-ai/skyprompt/tree/main/pipes/obsidian) for a complete example of settings management.
 
 
 
 ### integrating with llms
 
-screenpipe's sdk can be easily integrated with various ai providers to analyze and generate insights from screen activity. here are common patterns for connecting context data with llms.
+skyprompt's sdk can be easily integrated with various ai providers to analyze and generate insights from screen activity. here are common patterns for connecting context data with llms.
 
-if the user is using screenpipe-cloud, you can use claude-3-7-sonnet, gemini-2.0-flash-lite or gpt-4o (Anthropic, Google, OpenAI or local models).
+if the user is using skyprompt-cloud, you can use claude-3-7-sonnet, gemini-2.0-flash-lite or gpt-4o (Anthropic, Google, OpenAI or local models).
 
 #### vercel ai sdk integration
 
@@ -602,7 +602,7 @@ the vercel ai sdk offers a streamlined way to work with llms. this example from 
 ```typescript
 import { generateObject, embed } from "ai";
 import { ollama } from "ollama-ai-provider";
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 import { z } from "zod";
 
 // define your output schema
@@ -620,7 +620,7 @@ type WorkLog = z.infer<typeof workLog> & {
 
 async function generateWorkLog(screenData, model, startTime, endTime) {
   // configure the prompt with context and instructions
-  const prompt = `You are analyzing screen recording data from Screenpipe.
+  const prompt = `You are analyzing screen recording data from Skyprompt.
     Based on the following screen data, generate a concise work activity log entry.
     
     Screen data: ${JSON.stringify(screenData)}
@@ -654,8 +654,8 @@ async function handleRequest() {
   const now = new Date();
   const oneHourAgo = new Date(now.getTime() - 3600000);
 
-  // query context from screenpipe
-  const screenData = await pipe.queryScreenpipe({
+  // query context from skyprompt
+  const screenData = await pipe.querySkyprompt({
     startTime: oneHourAgo.toISOString(),
     endTime: now.toISOString(),
     limit: 100,
@@ -674,7 +674,7 @@ async function handleRequest() {
 }
 ```
 
-see the [obsidian pipe](https://github.com/mediar-ai/screenpipe/tree/main/pipes/obsidian) for the complete implementation.
+see the [obsidian pipe](https://github.com/mediar-ai/skyprompt/tree/main/pipes/obsidian) for the complete implementation.
 
 or [irs-agent](https://github.com/different-ai/irs-agent/blob/master/src/services/financial-activity-detector.ts) for a more complex example.
 
@@ -685,7 +685,7 @@ when working with large amounts of screen data, it's useful to remove duplicates
 ```typescript
 import { embed } from "ai";
 import { ollama } from "ollama-ai-provider";
-import { ContentItem } from "@screenpipe/js";
+import { ContentItem } from "@skyprompt/js";
 
 async function deduplicateScreenData(screenData: ContentItem[]): Promise<ContentItem[]> {
   if (!screenData.length) return screenData;
@@ -750,15 +750,15 @@ function cosineSimilarity(a: number[], b: number[]): number {
 for real-time analysis of audio:
 
 ```typescript
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 import { OpenAI } from "openai";
-import type { Settings } from "@screenpipe/js";
+import type { Settings } from "@skyprompt/js";
 
 
 async function streamMeetingInsights(settings: Settings) {
   const openai = new OpenAI({
     apiKey:
-      settings?.aiProviderType === "screenpipe-cloud"
+      settings?.aiProviderType === "skyprompt-cloud"
         ? settings?.user?.token
         : settings?.openaiApiKey,
     baseURL: settings?.aiUrl,
@@ -773,7 +773,7 @@ async function streamMeetingInsights(settings: Settings) {
     // analyze every 30 seconds
     if (transcript.length > 200 && transcript.length % 30 === 0) {
       const response = await openai.chat.completions.create({
-        model: "gpt-4o", // if user is using screenpipe-cloud, you can also use claude-3-7-sonnet or gemini-2.0-flash-lite
+        model: "gpt-4o", // if user is using skyprompt-cloud, you can also use claude-3-7-sonnet or gemini-2.0-flash-lite
         messages: [
           {
             role: "system",
@@ -792,7 +792,7 @@ async function streamMeetingInsights(settings: Settings) {
 }
 ```
 
-check out our [production pipe examples](https://github.com/mediar-ai/screenpipe/tree/main/pipes) on github to see more ai integration patterns.
+check out our [production pipe examples](https://github.com/mediar-ai/skyprompt/tree/main/pipes) on github to see more ai integration patterns.
 
 ### notifications (desktop)
 
@@ -876,7 +876,7 @@ await fillForm()
 
 paste these links into your Cursor chat for context:
 
-- https://github.com/mediar-ai/screenpipe/blob/main/screenpipe-js/browser-sdk/src/index.ts
-- https://github.com/mediar-ai/screenpipe/blob/main/screenpipe-js/node-sdk/src/index.ts
+- https://github.com/mediar-ai/skyprompt/blob/main/skyprompt-js/browser-sdk/src/index.ts
+- https://github.com/mediar-ai/skyprompt/blob/main/skyprompt-js/node-sdk/src/index.ts
 
 

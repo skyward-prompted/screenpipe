@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Settings } from "@/lib/types";
 import {
-  getScreenpipeAppSettings,
-  updateScreenpipeAppSettings,
-} from "../actions/get-screenpipe-app-settings";
+  getSkypromptAppSettings,
+  updateSkypromptAppSettings,
+} from "../actions/get-skyprompt-app-settings";
 
 const DEFAULT_SETTINGS: Partial<Settings> = {
   prompt: `yo, you're my personal data detective! 🕵
@@ -43,14 +43,14 @@ export function usePipeSettings() {
 
   const loadSettings = async () => {
     try {
-      // Load screenpipe app settings
-      const screenpipeSettings = await getScreenpipeAppSettings();
+      // Load skyprompt app settings
+      const skypromptSettings = await getSkypromptAppSettings();
 
-      console.log(screenpipeSettings);
+      console.log(skypromptSettings);
 
       const obsidianSettings = {
-        ...(screenpipeSettings.customSettings?.obsidian && {
-          ...screenpipeSettings.customSettings?.obsidian,
+        ...(skypromptSettings.customSettings?.obsidian && {
+          ...skypromptSettings.customSettings?.obsidian,
         }),
       };
 
@@ -58,7 +58,7 @@ export function usePipeSettings() {
       setSettings({
         ...DEFAULT_SETTINGS,
         ...obsidianSettings,
-        screenpipeAppSettings: screenpipeSettings,
+        skypromptAppSettings: skypromptSettings,
       });
     } catch (error) {
       console.error("failed to load settings:", error);
@@ -70,18 +70,18 @@ export function usePipeSettings() {
   const updateSettings = async (newSettings: Partial<Settings>) => {
     try {
       // Split settings
-      const { screenpipeAppSettings, ...obsidianSettings } = newSettings;
+      const { skypromptAppSettings, ...obsidianSettings } = newSettings;
 
       const mergedObsidianSettings = {
         ...DEFAULT_SETTINGS,
         ...obsidianSettings,
       };
 
-      // Update screenpipe settings if provided
-      await updateScreenpipeAppSettings({
-        ...screenpipeAppSettings,
+      // Update skyprompt settings if provided
+      await updateSkypromptAppSettings({
+        ...skypromptAppSettings,
         customSettings: {
-          ...screenpipeAppSettings?.customSettings,
+          ...skypromptAppSettings?.customSettings,
           obsidian: obsidianSettings,
         },
       });
@@ -89,8 +89,8 @@ export function usePipeSettings() {
       // Update state with everything
       setSettings({
         ...mergedObsidianSettings,
-        screenpipeAppSettings:
-          screenpipeAppSettings || settings?.screenpipeAppSettings,
+        skypromptAppSettings:
+          skypromptAppSettings || settings?.skypromptAppSettings,
       });
       return true;
     } catch (error) {

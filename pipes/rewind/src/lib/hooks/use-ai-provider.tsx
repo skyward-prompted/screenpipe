@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { Settings } from "@screenpipe/js";
+import type { Settings } from "@skyprompt/js";
 
 interface AIProviderStatus {
 	isAvailable: boolean;
@@ -53,11 +53,11 @@ export function useAiProvider(
 						}
 						break;
 
-					case "screenpipe-cloud":
+					case "skyprompt-cloud":
 						if (!settings.user?.token) {
 							setStatus({
 								isAvailable: false,
-								error: "login required for screenpipe cloud",
+								error: "login required for skyprompt cloud",
 							});
 							return;
 						}

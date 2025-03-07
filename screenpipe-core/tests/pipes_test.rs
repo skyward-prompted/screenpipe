@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use chrono::{TimeZone, Utc};
-    use screenpipe_core::{download_pipe, get_last_cron_execution, run_pipe, save_cron_execution};
+    use skyprompt_core::{download_pipe, get_last_cron_execution, run_pipe, save_cron_execution};
     use serde_json::json;
     use std::sync::Arc;
     use std::sync::Once;
@@ -28,10 +28,10 @@ mod tests {
     async fn test_download_pipe_invalid_url() {
         init();
         let temp_dir = TempDir::new().unwrap();
-        let screenpipe_dir = temp_dir.path().to_path_buf();
+        let skyprompt_dir = temp_dir.path().to_path_buf();
 
         let invalid_url = "https://example.com/invalid/url";
-        let result = download_pipe(invalid_url, screenpipe_dir.clone()).await;
+        let result = download_pipe(invalid_url, skyprompt_dir.clone()).await;
 
         assert!(result.is_err(), "Expected an error for invalid URL");
     }
@@ -42,7 +42,7 @@ mod tests {
         println!("Starting test_nextjs_pipe_app_dir");
         init();
         let temp_dir = TempDir::new().unwrap();
-        let screenpipe_dir = temp_dir.path().to_path_buf();
+        let skyprompt_dir = temp_dir.path().to_path_buf();
         println!("Temp dir created: {:?}", temp_dir.path());
 
         // Set up a minimal Next.js project structure with App Router
@@ -109,7 +109,7 @@ mod tests {
             .unwrap();
 
         // Run the pipe in a separate task
-        let pipe_task = tokio::spawn(run_pipe("nextjs-test-pipe", screenpipe_dir.clone()));
+        let pipe_task = tokio::spawn(run_pipe("nextjs-test-pipe", skyprompt_dir.clone()));
 
         // Wait for a short time to allow the server to start
         sleep(Duration::from_secs(10)).await;
@@ -244,7 +244,7 @@ mod tests {
     async fn test_download_pipe_windows_path() {
         init();
         let temp_dir = TempDir::new().unwrap();
-        let screenpipe_dir = temp_dir.path().to_path_buf();
+        let skyprompt_dir = temp_dir.path().to_path_buf();
 
         // Create a source directory with a simple pipe
         let source_dir = temp_dir.path().join("source_pipe");
@@ -263,7 +263,7 @@ mod tests {
         println!("Testing Windows path: {}", source_path);
 
         // Try to download the pipe using the Windows path
-        let result = download_pipe(&source_path, screenpipe_dir.clone()).await;
+        let result = download_pipe(&source_path, skyprompt_dir.clone()).await;
 
         // The function should succeed with a Windows path
         assert!(
@@ -274,7 +274,7 @@ mod tests {
 
         // Verify the pipe was copied correctly
         let pipe_name = source_dir.file_name().unwrap().to_str().unwrap();
-        let dest_path = screenpipe_dir
+        let dest_path = skyprompt_dir
             .join("pipes")
             .join(format!("{}_local", pipe_name));
         assert!(dest_path.exists(), "Destination pipe directory not found");

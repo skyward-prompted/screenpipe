@@ -72,7 +72,7 @@ export function ExampleSearchCards({ onSelect }: ExampleSearchCardsProps) {
 
   const isHealthError = !health || health?.status === "error";
   const isAiDisabled =
-    !settings.user?.token && settings.aiProviderType === "screenpipe-cloud";
+    !settings.user?.token && settings.aiProviderType === "skyprompt-cloud";
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -125,17 +125,17 @@ export function ExampleSearchCards({ onSelect }: ExampleSearchCardsProps) {
                   {(isAiDisabled && isHealthError) ? (
                     <>
                       <AlertCircle className="mr-1 h-4 w-4 text-red-500 inline" />
-                      you don't have access to screenpipe-cloud, <br /> and screenpipe backend is not running!
+                      you don't have access to skyprompt-cloud, <br /> and skyprompt backend is not running!
                     </>
                   ) : isHealthError ? (
                     <>
                       <AlertCircle className="mr-1 h-4 w-4 text-red-500 inline" />
-                      screenpipe is not running. examples are disabled!
+                      skyprompt is not running. examples are disabled!
                     </>
                   ) : isAiDisabled ? (
                     <>
                       <AlertCircle className="mr-1 h-4 w-4 text-red-500 inline" />
-                      you don't have access to screenpipe-cloud :( <br/> please consider login!
+                      you don't have access to skyprompt-cloud :( <br/> please consider login!
                     </>
                   ) : (
                     ""

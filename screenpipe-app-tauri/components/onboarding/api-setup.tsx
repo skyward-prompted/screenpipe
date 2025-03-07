@@ -66,7 +66,7 @@ const OnboardingAPISetup: React.FC<OnboardingAPISetupProps> = ({
             {
               role: "user",
               content:
-                "Tell me a very short joke (1-2 sentences) about screen recording, AI, and screenpipe, answer in lower case only.",
+                "Tell me a very short joke (1-2 sentences) about screen recording, AI, and skyprompt, answer in lower case only.",
             },
           ],
           max_tokens: 60,
@@ -143,7 +143,7 @@ const OnboardingAPISetup: React.FC<OnboardingAPISetupProps> = ({
         <img
           className="w-24 h-24 justify-center"
           src="/128x128.png"
-          alt="screenpipe-logo"
+          alt="skyprompt-logo"
         />
         <DialogTitle className="text-center text-2xl">
           setup your ai settings

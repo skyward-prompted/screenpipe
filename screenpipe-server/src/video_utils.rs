@@ -4,7 +4,7 @@ use chrono::NaiveDateTime;
 use chrono::{DateTime, Utc};
 use image::DynamicImage;
 use oasgen::OaSchema;
-use screenpipe_core::find_ffmpeg_path;
+use skyprompt_core::find_ffmpeg_path;
 use serde::{Deserialize, Serialize};
 use std::path::Path;
 use std::path::PathBuf;
@@ -556,7 +556,7 @@ pub async fn extract_frame_from_video(file_path: &str, offset_index: i64) -> Res
     let offset_str = format!("{:.3}", offset_seconds);
 
     // Create a temporary directory for frames if it doesn't exist
-    let frames_dir = PathBuf::from("/tmp/screenpipe_frames");
+    let frames_dir = PathBuf::from("/tmp/skyprompt_frames");
     tokio::fs::create_dir_all(&frames_dir).await?;
 
     // Generate unique filename for the frame

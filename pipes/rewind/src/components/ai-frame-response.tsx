@@ -42,7 +42,7 @@ export const AIFrameResponse = () => {
 			// Initialize OpenAI
 			const openai = new OpenAI({
 				apiKey:
-					settings?.aiProviderType === "screenpipe-cloud"
+					settings?.aiProviderType === "skyprompt-cloud"
 						? settings?.user?.token
 						: settings?.openaiApiKey,
 				baseURL: settings?.aiUrl,

@@ -1,6 +1,6 @@
-# screenpipe-cli
+# skyprompt-cli
 
-a cli for adding screenpipe components to your project.
+a cli for adding skyprompt components to your project.
 
 ## Usage
 
@@ -9,24 +9,24 @@ a cli for adding screenpipe components to your project.
 use the `add` command to adds a component to your project and install all required dependencies.
 
 ```bash
-bunx --bun @screenpipe/dev@latest components add [component]
+bunx --bun @skyprompt/dev@latest components add [component]
 ```
 
 ### Example
 
 ```bash
-bunx --bun @screenpipe/dev@latest components use-health
+bunx --bun @skyprompt/dev@latest components use-health
 ```
 
 you can also run the command without any arguments to view a list of all available components:
 
 ```bash
-bunx --bun @screenpipe/dev@latest components add
+bunx --bun @skyprompt/dev@latest components add
 ```
 
 ### Registry
 
-the registry, which you can find at `src/registry/registry.json`, holds important static information about screenpipe's components. each component follows the following schema:
+the registry, which you can find at `src/registry/registry.json`, holds important static information about skyprompt's components. each component follows the following schema:
 
 ```ts
 export const registryComponentSchema = z.object({

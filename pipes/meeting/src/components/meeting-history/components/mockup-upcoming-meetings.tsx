@@ -6,10 +6,10 @@ import { LiveMeetingData } from "@/components/live-transcription/hooks/storage-f
 const MOCK_UPCOMING_MEETINGS: LiveMeetingData[] = [
   {
     id: "1",
-    title: "Recording demo for screenpipe",
+    title: "Recording demo for skyprompt",
     startTime: "2024-01-30T15:00:00",
     endTime: "2024-01-30T17:00:00",
-    agenda: "screenpipe intelligence showcasing example app of meeting assistant called granola 2.0. Participants record a studio quality demo of the product, talking about its feature and overall company advancements",
+    agenda: "skyprompt intelligence showcasing example app of meeting assistant called granola 2.0. Participants record a studio quality demo of the product, talking about its feature and overall company advancements",
     analysis: null,
     participants_invited: ["louis beaumont", "matt diakonov"],
     recurrence: "weekly on thursday",

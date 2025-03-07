@@ -176,7 +176,7 @@ export const publishCommand = new Command("publish")
             `${
               symbols.error
             } not logged in. please login first using ${colors.highlight(
-              "screenpipe login"
+              "skyprompt login"
             )}`
           )
         );

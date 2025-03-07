@@ -4,17 +4,17 @@ use crate::{DatabaseManager, VideoCapture};
 use anyhow::Result;
 use dashmap::DashMap;
 use futures::future::join_all;
-use screenpipe_audio::vad_engine::VadSensitivity;
-use screenpipe_audio::{
+use skyprompt_audio::vad_engine::VadSensitivity;
+use skyprompt_audio::{
     create_whisper_channel, record_and_transcribe, vad_engine::VadEngineEnum, AudioDevice,
     AudioInput, AudioTranscriptionEngine, DeviceControl, TranscriptionResult,
 };
-use screenpipe_audio::{start_realtime_recording, AudioStream};
-use screenpipe_core::pii_removal::remove_pii;
-use screenpipe_core::Language;
-use screenpipe_events::{poll_meetings_events, send_event};
-use screenpipe_vision::core::WindowOcr;
-use screenpipe_vision::OcrEngine;
+use skyprompt_audio::{start_realtime_recording, AudioStream};
+use skyprompt_core::pii_removal::remove_pii;
+use skyprompt_core::Language;
+use skyprompt_events::{poll_meetings_events, send_event};
+use skyprompt_vision::core::WindowOcr;
+use skyprompt_vision::OcrEngine;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -122,7 +122,7 @@ pub async fn start_continuous_recording(
         .await
         .map_err(|e| {
             if e.to_string().contains("ORT API") {
-                anyhow::anyhow!("ONNX Runtime initialization failed. This is likely due to missing Visual C++ Redistributable packages. Please install the latest Visual C++ Redistributable from https://aka.ms/vs/17/release/vc_redist.x64.exe and restart your computer. For more information, see: https://github.com/mediar-ai/screenpipe/issues/1034")
+                anyhow::anyhow!("ONNX Runtime initialization failed. This is likely due to missing Visual C++ Redistributable packages. Please install the latest Visual C++ Redistributable from https://aka.ms/vs/17/release/vc_redist.x64.exe and restart your computer. For more information, see: https://github.com/mediar-ai/skyprompt/issues/1034")
             } else {
                 e
             }

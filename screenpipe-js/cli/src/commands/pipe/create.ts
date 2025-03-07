@@ -15,7 +15,7 @@ import { Readable } from "stream";
 
 const PIPE_ADDITIONS = {
   dependencies: {
-    "@screenpipe/js": "latest",
+    "@skyprompt/js": "latest",
   },
   devDependencies: {
     "bun-types": "latest",
@@ -41,7 +41,7 @@ async function downloadAndExtractSubdir(subdir: string, destPath: string) {
 
     // Use GitHub's API to download just the specific subdirectory as a tarball
     const repoOwner = "mediar-ai";
-    const repoName = "screenpipe";
+    const repoName = "skyprompt";
     const branch = "main"; // or whatever branch you need
     const tarballUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/tarball/${branch}`;
 
@@ -146,12 +146,12 @@ export const createPipeCommand = new Command()
   .name("create")
   .description("create a new pipe")
   .action(async () => {
-    p.intro(chalk.bold("\nwelcome to screenpipe!\n"));
+    p.intro(chalk.bold("\nwelcome to skyprompt!\n"));
 
     // Get pipe name
     const pipeNameInput = await p.text({
       message: "what is your pipe name?",
-      placeholder: "my-screenpipe",
+      placeholder: "my-skyprompt",
       validate: (value) => {
         if (value.trim().length === 0) return "pipe name is required";
         return undefined;

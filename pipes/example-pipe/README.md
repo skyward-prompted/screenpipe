@@ -1,4 +1,4 @@
-# screenpipe playground
+# skyprompt playground
 
 a flexible playground for displaying, testing, and exploring components with their associated code, documentation, and ai prompts.
 

@@ -1,4 +1,4 @@
-# screenpipe testing procedure
+# skyprompt testing procedure
 
 ### prerequisites
 - fresh computer or VM with:
@@ -14,7 +14,7 @@
 - record your screen before starting the test
 
 ### installation
-1. download latest screenpipe from https://web.crabnebula.cloud/mediar/screenpipe/releases
+1. download latest skyprompt from https://web.crabnebula.cloud/mediar/skyprompt/releases
 2. install and launch the app
 3. skip the onboarding flow
 
@@ -33,7 +33,7 @@
 3. test search functionality
    - go to main page
    - enable search
-   - type "screenpipe" in search bar
+   - type "skyprompt" in search bar
    - set time range to last 30 minutes
    - press enter
    - request summary
@@ -45,7 +45,7 @@
    - play for exactly 120 seconds
 
 2. verify transcription
-   - return to screenpipe main page
+   - return to skyprompt main page
    - click on meeting
    - open transcript
    - request summary
@@ -54,13 +54,13 @@
 
 ### clean exit test
 1. close application
-   - right click screenpipe icon in system tray
+   - right click skyprompt icon in system tray
    - select quit
 
 2. verify process cleanup
    - open activity monitor (macos) or task manager (windows)
-   - search for "screenpipe"
-   - verify no screenpipe processes running
+   - search for "skyprompt"
+   - verify no skyprompt processes running
    - search for "bun"
    - verify no bun processes running
 
@@ -74,4 +74,4 @@
 - [ ] clean process exit
 - [ ] share screen recording
 
-report any failures or unexpected behavior to https://github.com/mediar-ai/screenpipe/issues
+report any failures or unexpected behavior to https://github.com/mediar-ai/skyprompt/issues

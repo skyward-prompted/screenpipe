@@ -25,7 +25,7 @@ export function StatusAlerts({ serviceStatus, minimal = false }: StatusAlertsPro
       <Alert className="mb-4 border-red-500">
         <AlertTriangle className="h-4 w-4 text-red-500" />
         <AlertDescription className="text-red-500 font-medium">
-          please subscribe to screenpipe cloud in settings.
+          please subscribe to skyprompt cloud in settings.
         </AlertDescription>
       </Alert>
     )
@@ -36,7 +36,7 @@ export function StatusAlerts({ serviceStatus, minimal = false }: StatusAlertsPro
       <Alert className="mb-4 border-red-500">
         <AlertTriangle className="h-4 w-4 text-red-500" />
         <AlertDescription className="text-red-500 font-medium">
-          real-time transcription is disabled. please enable it in screenpipe settings.
+          real-time transcription is disabled. please enable it in skyprompt settings.
         </AlertDescription>
       </Alert>
     )

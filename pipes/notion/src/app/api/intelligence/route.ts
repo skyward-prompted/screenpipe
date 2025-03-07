@@ -4,7 +4,7 @@ import { generateObject } from "ai";
 import { ollama } from "ollama-ai-provider";
 import { Client } from "@notionhq/client";
 import { NotionClient } from "@/lib/notion/client";
-import { getScreenpipeAppSettings } from "@/lib/actions/get-screenpipe-app-settings";
+import { getSkypromptAppSettings } from "@/lib/actions/get-skyprompt-app-settings";
 
 // rich schema for relationship intelligence
 const contactSchema = z.object({
@@ -121,7 +121,7 @@ async function readRecentLogs(
 
 export async function GET() {
 	try {
-		const settings = (await getScreenpipeAppSettings())["customSettings"]![
+		const settings = (await getSkypromptAppSettings())["customSettings"]![
 			"notion"
 		];
 

@@ -6,18 +6,18 @@ use tracing::{error, info};
 
 #[tauri::command]
 pub fn set_tray_unhealth_icon(app_handle: tauri::AppHandle<tauri::Wry>) {
-    if let Some(main_tray) = app_handle.tray_by_id("screenpipe_main") {
+    if let Some(main_tray) = app_handle.tray_by_id("skyprompt_main") {
         let _ = main_tray.set_icon(Some(
-            tauri::image::Image::from_path("icons/screenpipe-logo-tray-failed.png").unwrap(),
+            tauri::image::Image::from_path("icons/skyprompt-logo-tray-failed.png").unwrap(),
         ));
     }
 }
 
 #[tauri::command]
 pub fn set_tray_health_icon(app_handle: tauri::AppHandle<tauri::Wry>) {
-    if let Some(main_tray) = app_handle.tray_by_id("screenpipe_main") {
+    if let Some(main_tray) = app_handle.tray_by_id("skyprompt_main") {
         let _ = main_tray.set_icon(Some(
-            tauri::image::Image::from_path("icons/screenpipe-logo-tray-black.png").unwrap(),
+            tauri::image::Image::from_path("icons/skyprompt-logo-tray-black.png").unwrap(),
         ));
     }
 }
@@ -30,7 +30,7 @@ pub async fn load_pipe_config(
     info!("Loading pipe config for {}", pipe_name);
     let default_path = get_data_dir(&app_handle)
         .map(|path| path.join("pipes"))
-        .unwrap_or_else(|_| dirs::home_dir().unwrap().join(".screenpipe").join("pipes"));
+        .unwrap_or_else(|_| dirs::home_dir().unwrap().join(".skyprompt").join("pipes"));
 
     let config_path = default_path.join(pipe_name).join("pipe.json");
     info!("Config path: {}", config_path.to_string_lossy());
@@ -51,7 +51,7 @@ pub async fn save_pipe_config(
     info!("Saving pipe config for {}", pipe_name);
     let default_path = get_data_dir(&app_handle)
         .map(|path| path.join("pipes"))
-        .unwrap_or_else(|_| dirs::home_dir().unwrap().join(".screenpipe").join("pipes"));
+        .unwrap_or_else(|_| dirs::home_dir().unwrap().join(".skyprompt").join("pipes"));
     let config_path = default_path.join(pipe_name).join("pipe.json");
     info!("Config path: {}", config_path.to_string_lossy());
     let config_content = serde_json::to_string_pretty(&config)
@@ -67,7 +67,7 @@ pub async fn reset_all_pipes(app_handle: tauri::AppHandle<tauri::Wry>) -> Result
     info!("Resetting all pipes");
     let pipes_path = get_data_dir(&app_handle)
         .map(|path| path.join("pipes"))
-        .unwrap_or_else(|_| dirs::home_dir().unwrap().join(".screenpipe").join("pipes"));
+        .unwrap_or_else(|_| dirs::home_dir().unwrap().join(".skyprompt").join("pipes"));
 
     if pipes_path.exists() {
         tokio::fs::remove_dir_all(&pipes_path)
@@ -116,7 +116,7 @@ pub fn show_main_window(app_handle: &tauri::AppHandle<tauri::Wry>, overlay: bool
             "main",
             tauri::WebviewUrl::App("index.html".into()),
         )
-        .title("Screenpipe")
+        .title("Skyprompt")
         .build();
     }
 }
@@ -134,7 +134,7 @@ pub fn hide_main_window(app_handle: &tauri::AppHandle<tauri::Wry>) {
 const DEFAULT_SHORTCUT: &str = "Super+Alt+S";
 
 #[tauri::command(rename_all = "snake_case")]
-pub fn update_show_screenpipe_shortcut(
+pub fn update_show_skyprompt_shortcut(
     app_handle: tauri::AppHandle<tauri::Wry>,
     new_shortcut: String,
     enabled: bool,
@@ -282,9 +282,9 @@ pub async fn open_pipe_window(
 pub async fn get_disk_usage(
     app_handle: tauri::AppHandle<tauri::Wry>,
 ) -> Result<serde_json::Value, String> {
-    let screenpipe_dir_path =
-        get_data_dir(&app_handle).unwrap_or_else(|_| dirs::home_dir().unwrap().join(".screenpipe"));
-    match crate::disk_usage::disk_usage(&screenpipe_dir_path).await {
+    let skyprompt_dir_path =
+        get_data_dir(&app_handle).unwrap_or_else(|_| dirs::home_dir().unwrap().join(".skyprompt"));
+    match crate::disk_usage::disk_usage(&skyprompt_dir_path).await {
         Ok(Some(disk_usage)) => match serde_json::to_value(&disk_usage) {
             Ok(json_value) => Ok(json_value),
             Err(e) => {

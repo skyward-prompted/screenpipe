@@ -8,7 +8,7 @@ import { SearchChat } from "@/components/search-chat";
 export default function SearchPage() {
 
   const { settings } = useSettings();
-  const aiDisabled = settings.aiProviderType === "screenpipe-cloud" && !settings.user.token;
+  const aiDisabled = settings.aiProviderType === "skyprompt-cloud" && !settings.user.token;
 
   return (
     <div className={`flex flex-col gap-4 items-center justify-center h-full ${aiDisabled ? "mt-2" : "mt-12"}`}>
@@ -17,7 +17,7 @@ export default function SearchPage() {
           <Terminal className="h-4 w-4" />
           <AlertTitle>heads up!</AlertTitle>
           <AlertDescription className="text-muted-foreground">
-            your ai provider is set to &apos;screenpipe-cloud&apos; and you don&apos;t have logged in <br/>
+            your ai provider is set to &apos;skyprompt-cloud&apos; and you don&apos;t have logged in <br/>
             please login to use this pipe, go to app &gt; settings &gt; login
           </AlertDescription>
         </Alert>

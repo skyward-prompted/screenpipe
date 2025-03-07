@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Simple Next.js • Screenpipe",
-  description: "View most used keywords in your screenpipe recordings",
+  title: "Simple Next.js • Skyprompt",
+  description: "View most used keywords in your skyprompt recordings",
 };
 
 export default function RootLayout({

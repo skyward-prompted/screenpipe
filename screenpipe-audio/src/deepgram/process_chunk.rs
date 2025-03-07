@@ -2,7 +2,7 @@ use anyhow::Result;
 use hound::{WavSpec, WavWriter};
 use log::{debug, error, info};
 use reqwest::Client;
-use screenpipe_core::Language;
+use skyprompt_core::Language;
 use serde_json::Value;
 use std::io::Cursor;
 

@@ -63,9 +63,9 @@ rm -rf venv app.py
 #[cfg(test)]
 mod tests {
     use image::GenericImageView;
-    use screenpipe_core::Language;
-    use screenpipe_vision::custom_ocr::{perform_ocr_custom, CustomOcrConfig};
-    use screenpipe_vision::utils::OcrEngine;
+    use skyprompt_core::Language;
+    use skyprompt_vision::custom_ocr::{perform_ocr_custom, CustomOcrConfig};
+    use skyprompt_vision::utils::OcrEngine;
     use std::path::PathBuf;
 
     #[tokio::test]

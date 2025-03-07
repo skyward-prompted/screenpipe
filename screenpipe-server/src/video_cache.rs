@@ -2,7 +2,7 @@ use anyhow::Result;
 use bincode;
 use chrono::{DateTime, Duration, Utc};
 use dirs::cache_dir;
-use screenpipe_core::find_ffmpeg_path;
+use skyprompt_core::find_ffmpeg_path;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap};
@@ -430,15 +430,15 @@ async fn run_cache_manager(mut cache: FrameDiskCache, mut rx: mpsc::Receiver<Cac
 
 #[derive(Clone)]
 pub struct FrameCache {
-    pub screenpipe_dir: PathBuf,
+    pub skyprompt_dir: PathBuf,
     cache_tx: mpsc::Sender<CacheMessage>,
     db: Arc<DatabaseManager>,
 }
 
 impl FrameCache {
-    pub async fn new(screenpipe_dir: PathBuf, db: Arc<DatabaseManager>) -> Result<Self> {
+    pub async fn new(skyprompt_dir: PathBuf, db: Arc<DatabaseManager>) -> Result<Self> {
         let cache_config = CacheConfig {
-            cache_dir: cache_dir().unwrap().join("screenpipe").join("frames"),
+            cache_dir: cache_dir().unwrap().join("skyprompt").join("frames"),
             ..Default::default()
         };
 
@@ -450,7 +450,7 @@ impl FrameCache {
         tokio::spawn(run_cache_manager(disk_cache, cache_rx));
 
         Ok(Self {
-            screenpipe_dir,
+            skyprompt_dir,
             cache_tx,
             db,
         })

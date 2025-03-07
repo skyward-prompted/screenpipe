@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { pipe } from "@screenpipe/browser";
+import { pipe } from "@skyprompt/browser";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { UiContent } from "@screenpipe/browser";
+import { UiContent } from "@skyprompt/browser";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function LastUiRecord({ onDataChange }: { onDataChange?: (data: any, error: string | null) => void }) {
@@ -18,7 +18,7 @@ export function LastUiRecord({ onDataChange }: { onDataChange?: (data: any, erro
       setError(null);
       
       const startTime = performance.now();
-      const response = await pipe.queryScreenpipe({
+      const response = await pipe.querySkyprompt({
         contentType: "ui",
         limit: 1,
         // Sort by most recent

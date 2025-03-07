@@ -6,8 +6,8 @@ import { logger, spinner } from "../components/commands/add/utils/logger";
 import { handleError } from "../components/commands/add/utils/handle-error";
 
 const TEMPLATE_REPOS = {
-  electron: "https://github.com/neo773/screenpipe-electron",
-  tauri: "https://github.com/LorenzoBloedow/screenpipe-tauri-template-dev",
+  electron: "https://github.com/neo773/skyprompt-electron",
+  tauri: "https://github.com/LorenzoBloedow/skyprompt-tauri-template-dev",
 };
 
 export const createAppCommand = new Command()

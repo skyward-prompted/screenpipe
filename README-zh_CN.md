@@ -8,9 +8,9 @@
    <a href="README.md">English</a> | <a href="README-zh_CN.md">简体中文</a> | <a href="README-ja.md">日本語</a>
 </p>
 
-<!-- ScreenPipe 标题和副标题 -->
+<!-- Skyprompt 标题和副标题 -->
 <p align="center" style="font-family: 'Press Start 2P', monospace;">
-   <h1 align="center">[ screenpipe ]</h1>
+   <h1 align="center">[ skyprompt ]</h1>
    <p align="center">一个获取所有用户桌面数据的API（本地、跨平台、全天候、屏幕、语音、键盘、鼠标、摄像头录制）</p>
    <p align="center">沙盒化的JS插件系统，键盘和鼠标控制</p>
 </p>
@@ -49,20 +49,20 @@
 
 *新闻* 🔥
 - [2024/12] pipe商店stripe集成：开发者用几行JS代码构建酷炫功能并获得被动收入（已有Loom pipe、LinkedIn代理等）
-- [2024/11] [screenpipe再次成为GitHub趋势榜第一](https://x.com/louis030195/status/1859628763425931479)
-- [2024/10] screenpipe获得[Founders, Inc](https://f.inc/)支持
-- [2024/09] [screenpipe登上GitHub趋势榜第一并登上Hacker News！](https://x.com/louis030195/status/1840859691754344483)
+- [2024/11] [skyprompt再次成为GitHub趋势榜第一](https://x.com/louis030195/status/1859628763425931479)
+- [2024/10] skyprompt获得[Founders, Inc](https://f.inc/)支持
+- [2024/09] [skyprompt登上GitHub趋势榜第一并登上Hacker News！](https://x.com/louis030195/status/1840859691754344483)
 - [2024/08] 现在任何人都可以通过应用界面基于GitHub仓库/目录[创建、分享、安装pipes](https://docs.screenpi.pe/docs/plugins)（插件）
-- [2024/08] 我们正在进行赏金计划！为screenpipe做贡献并赚钱，[查看issues](https://github.com/mediar-ai/screenpipe/issues)
+- [2024/08] 我们正在进行赏金计划！为skyprompt做贡献并赚钱，[查看issues](https://github.com/mediar-ai/skyprompt/issues)
 - [2024/08] 我们发布了Apple和Windows原生OCR
-- [2024/07] 🎁 screenpipe在AGI House赢得Friends（AI项链）黑客马拉松（即将推出集成）
+- [2024/07] 🎁 skyprompt在AGI House赢得Friends（AI项链）黑客马拉松（即将推出集成）
 - [2024/07] **我们刚刚发布了桌面应用！[立即下载！](https://screenpi.pe)**
 
 ---
 
 # 工作原理
 
-我们每天都在更新，欢迎提出建议、报告bug、[提供反馈](mailto:louis@screenpi.pe?subject=Screenpipe%20反馈&body=我想使用Screenpipe来...%0D%0A%0D%0A我遇到的问题是...%0D%0A%0D%0A我们也可以通过视频通话交流，预约时间：https://cal.com/louis030195/screenpipe)。
+我们每天都在更新，欢迎提出建议、报告bug、[提供反馈](mailto:louis@screenpi.pe?subject=Skyprompt%20反馈&body=我想使用Skyprompt来...%0D%0A%0D%0A我遇到的问题是...%0D%0A%0D%0A我们也可以通过视频通话交流，预约时间：https://cal.com/louis030195/skyprompt)。
 
 ![diagram](./content/diagram2.png)
 
@@ -77,19 +77,19 @@
 macOS, Linux:
 
 ```bash
-brew install screenpipe
+brew install skyprompt
 ```
 
 Windows:
 
 ```bash
-irm https://raw.githubusercontent.com/mediar-ai/screenpipe/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/mediar-ai/skyprompt/main/install.ps1 | iex
 ```
 
 然后运行：
 
 ```bash
-screenpipe
+skyprompt
 ```
 
 - [获取桌面应用](https://screenpi.pe/)
@@ -98,10 +98,10 @@ screenpipe
 ## 创建插件
 
 ```bash
-bunx --bun @screenpipe/dev@latest pipe create
+bunx --bun @skyprompt/dev@latest pipe create
 ```
 
-screenpipe有一个名为"pipe"的插件系统，允许你在Rust代码的沙盒环境中运行代码，[了解更多](https://docs.screenpi.pe/docs/plugins)
+skyprompt有一个名为"pipe"的插件系统，允许你在Rust代码的沙盒环境中运行代码，[了解更多](https://docs.screenpi.pe/docs/plugins)
 
 ## Star历史
 

@@ -691,7 +691,7 @@ export function ObsidianSettings() {
                       }
                     />
                     <p className="text-xs text-muted-foreground">
-                      how often screenpipe will create a new log entry about
+                      how often skyprompt will create a new log entry about
                       your activity
                     </p>
                   </div>
@@ -702,7 +702,7 @@ export function ObsidianSettings() {
                       className="flex items-center gap-2"
                     >
                       <LineChart className="h-4 w-4" />
-                      screenpipe page size
+                      skyprompt page size
                     </Label>
                     <Input
                       disabled={!pathValidation.isValid}
@@ -714,7 +714,7 @@ export function ObsidianSettings() {
                       defaultValue={settings?.logPageSize || 100}
                     />
                     <p className="text-xs text-muted-foreground">
-                      how many screenpipe results to include in the AI prompt
+                      how many skyprompt results to include in the AI prompt
                       for log generation
                     </p>
                   </div>

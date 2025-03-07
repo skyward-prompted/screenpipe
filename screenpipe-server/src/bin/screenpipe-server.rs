@@ -5,12 +5,12 @@ use dashmap::DashMap;
 use dirs::home_dir;
 use futures::pin_mut;
 use port_check::is_local_ipv4_port_free;
-use screenpipe_audio::{
+use skyprompt_audio::{
     default_input_device, default_output_device, list_audio_devices, parse_audio_device,
     AudioDevice, DeviceControl,
 };
-use screenpipe_core::find_ffmpeg_path;
-use screenpipe_server::{
+use skyprompt_core::find_ffmpeg_path;
+use skyprompt_server::{
     cli::{
         AudioCommand, Cli, CliAudioTranscriptionEngine, CliOcrEngine, Command, MigrationSubCommand,
         OutputFormat, PipeCommand, VisionCommand,
@@ -20,9 +20,9 @@ use screenpipe_server::{
     start_continuous_recording, watch_pid, DatabaseManager, MigrationCommand, MigrationConfig,
     MigrationStatus, PipeManager, ResourceMonitor, SCServer,
 };
-use screenpipe_vision::monitor::list_monitors;
+use skyprompt_vision::monitor::list_monitors;
 #[cfg(target_os = "macos")]
-use screenpipe_vision::run_ui;
+use skyprompt_vision::run_ui;
 use serde_json::{json, Value};
 use std::{
     collections::HashMap,
@@ -55,7 +55,7 @@ const DISPLAY: &str = r"
 fn get_base_dir(custom_path: &Option<String>) -> anyhow::Result<PathBuf> {
     let default_path = home_dir()
         .ok_or_else(|| anyhow::anyhow!("failed to get home directory"))?
-        .join(".screenpipe");
+        .join(".skyprompt");
 
     let base_dir = custom_path
         .as_ref()
@@ -70,7 +70,7 @@ fn get_base_dir(custom_path: &Option<String>) -> anyhow::Result<PathBuf> {
 fn setup_logging(local_data_dir: &PathBuf, cli: &Cli) -> anyhow::Result<WorkerGuard> {
     let file_appender = RollingFileAppender::builder()
         .rotation(Rotation::DAILY)
-        .filename_prefix("screenpipe")
+        .filename_prefix("skyprompt")
         .filename_suffix("log")
         .max_log_files(5)
         .build(local_data_dir)?;
@@ -91,7 +91,7 @@ fn setup_logging(local_data_dir: &PathBuf, cli: &Cli) -> anyhow::Result<WorkerGu
         .add_directive("xcap::platform::impl_monitor=off".parse().unwrap())
         .add_directive("xcap::platform::utils=off".parse().unwrap());
 
-    let env_filter = env::var("SCREENPIPE_LOG")
+    let env_filter = env::var("SKYPROMPT_LOG")
         .unwrap_or_default()
         .split(',')
         .filter(|s| !s.is_empty())
@@ -110,7 +110,7 @@ fn setup_logging(local_data_dir: &PathBuf, cli: &Cli) -> anyhow::Result<WorkerGu
         );
 
     let env_filter = if cli.debug {
-        env_filter.add_directive("screenpipe=debug".parse().unwrap())
+        env_filter.add_directive("skyprompt=debug".parse().unwrap())
     } else {
         env_filter
     };
@@ -140,7 +140,7 @@ fn setup_logging(local_data_dir: &PathBuf, cli: &Cli) -> anyhow::Result<WorkerGu
 #[tokio::main]
 #[tracing::instrument]
 async fn main() -> anyhow::Result<()> {
-    debug!("starting screenpipe server");
+    debug!("starting skyprompt server");
     let cli = Cli::parse();
 
     // Initialize Sentry only if telemetry is enabled
@@ -266,10 +266,10 @@ async fn main() -> anyhow::Result<()> {
                 return Ok(());
             }
             Command::Setup {} => {
-                use screenpipe_audio::{
+                use skyprompt_audio::{
                     trigger_audio_permission, vad_engine::SileroVad, whisper::WhisperModel,
                 };
-                use screenpipe_vision::core::trigger_screen_capture_permission;
+                use skyprompt_vision::core::trigger_screen_capture_permission;
 
                 // Trigger audio permission request
                 if let Err(e) = trigger_audio_permission() {
@@ -315,7 +315,7 @@ async fn main() -> anyhow::Result<()> {
                     }
                 }
 
-                info!("screenpipe setup complete");
+                info!("skyprompt setup complete");
                 return Ok(());
             }
             Command::Migrate {
@@ -521,7 +521,7 @@ async fn main() -> anyhow::Result<()> {
                         tracing_subscriber::registry()
                             .with(
                                 EnvFilter::from_default_env()
-                                    .add_directive("screenpipe=debug".parse().unwrap()),
+                                    .add_directive("skyprompt=debug".parse().unwrap()),
                             )
                             .with(fmt::layer().with_writer(std::io::stdout)),
                     )
@@ -566,7 +566,7 @@ async fn main() -> anyhow::Result<()> {
 
     if !is_local_ipv4_port_free(cli.port) {
         error!(
-            "you're likely already running screenpipe instance in a different environment, e.g. terminal/ide, close it and restart or use different port"
+            "you're likely already running skyprompt instance in a different environment, e.g. terminal/ide, close it and restart or use different port"
         );
         return Err(anyhow::anyhow!("port already in use"));
     }
@@ -779,8 +779,8 @@ async fn main() -> anyhow::Result<()> {
     #[cfg(feature = "llm")]
     let _llm = {
         match cli.enable_llm {
-            true => Some(screenpipe_core::LLM::new(
-                screenpipe_core::ModelName::Llama,
+            true => Some(skyprompt_core::LLM::new(
+                skyprompt_core::ModelName::Llama,
             )?),
             false => None,
         }
@@ -841,7 +841,7 @@ async fn main() -> anyhow::Result<()> {
         }
     }
 
-    // print screenpipe in gradient
+    // print skyprompt in gradient
     println!("\n\n{}", DISPLAY.truecolor(147, 112, 219).bold());
     println!(
         "\n{}",
@@ -1121,7 +1121,7 @@ async fn main() -> anyhow::Result<()> {
     // Add changelog link
     println!(
         "\n{}",
-        "check latest changes here: https://github.com/mediar-ai/screenpipe/releases"
+        "check latest changes here: https://github.com/mediar-ai/skyprompt/releases"
             .bright_blue()
             .italic()
     );

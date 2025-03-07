@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 
 export const metadata: Metadata = {
-  title: "Identify Speakers • Screenpipe",
+  title: "Identify Speakers • Skyprompt",
   description: "Identify speakers in your audio recordings and assign names to them",
 };
 

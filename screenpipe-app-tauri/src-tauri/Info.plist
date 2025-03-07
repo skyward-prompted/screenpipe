@@ -11,7 +11,7 @@
     <key>NSSystemExtensionUsageDescription</key>
     <string>This app requires system extension access to capture audio output.</string>
     <key>NSAccessibilityUsageDescription</key>
-    <string>Screenpipe needs accessibility permissions to monitor UI elements and their interactions.</string>
+    <string>Skyprompt needs accessibility permissions to monitor UI elements and their interactions.</string>
     <key>LSUIElement</key>
     <true/>
 </dict>

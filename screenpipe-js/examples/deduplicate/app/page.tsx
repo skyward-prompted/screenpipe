@@ -1,6 +1,6 @@
 "use client";
 
-import { pipe, ScreenpipeQueryParams } from "@screenpipe/browser";
+import { pipe, SkypromptQueryParams } from "@skyprompt/browser";
 import { useState } from "react";
 
 export default function Home() {
@@ -14,14 +14,14 @@ export default function Home() {
     setLoading(true);
     try {
       // query last 24h of data
-      const params: ScreenpipeQueryParams = {
+      const params: SkypromptQueryParams = {
         q: "",
         contentType: "ocr",
         limit: 10,
         startTime: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
       };
 
-      const response = await pipe.queryScreenpipe(params);
+      const response = await pipe.querySkyprompt(params);
       console.log(response);
       if (response) {
         setResults(response.data);
@@ -47,7 +47,7 @@ export default function Home() {
       <div className="max-w-6xl mx-auto">
         {/* header */}
         <h3 className="text-2xl mb-8 font-bold text-gray-800">
-          screenpipe deduplication demo
+          skyprompt deduplication demo
         </h3>
 
         {/* search input */}
@@ -64,8 +64,8 @@ export default function Home() {
         <div className="my-12 p-4 bg-gray-800 text-gray-300 rounded-lg">
           <div className="text-sm font-bold mb-2">sdk usage:</div>
           <pre className="text-xs overflow-x-auto">
-            {`// query screenpipe
-const results = await pipe.queryScreenpipe({
+            {`// query skyprompt
+const results = await pipe.querySkyprompt({
   query: "",
   contentType: "ocr",
   limit: 100,

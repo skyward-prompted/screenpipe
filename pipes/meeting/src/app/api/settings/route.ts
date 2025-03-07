@@ -1,8 +1,8 @@
 // app/api/settings/route.ts
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 import { NextResponse } from "next/server";
-import type { Settings } from "@screenpipe/js";
-import { getDefaultSettings } from "@screenpipe/browser";
+import type { Settings } from "@skyprompt/js";
+import { getDefaultSettings } from "@skyprompt/browser";
 // Force Node.js runtime
 export const runtime = "nodejs"; // Add this line
 export const dynamic = "force-dynamic";

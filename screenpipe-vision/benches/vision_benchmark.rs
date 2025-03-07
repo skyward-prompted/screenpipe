@@ -6,9 +6,9 @@
 use std::sync::Arc;
 
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
-use screenpipe_vision::capture_screenshot_by_window::WindowFilters;
-use screenpipe_vision::monitor::get_default_monitor;
-use screenpipe_vision::{continuous_capture, OcrEngine};
+use skyprompt_vision::capture_screenshot_by_window::WindowFilters;
+use skyprompt_vision::monitor::get_default_monitor;
+use skyprompt_vision::{continuous_capture, OcrEngine};
 use tokio::sync::mpsc;
 use tokio::time::Duration;
 

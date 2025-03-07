@@ -1,4 +1,4 @@
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
@@ -17,12 +17,12 @@ export async function GET() {
     const homeDir = process.env.HOME;
 
     // Load persisted settings if they exist
-    const screenpipeDir =
-      process.env.SCREENPIPE_DIR ||
-      (homeDir && path.join(homeDir, ".screenpipe")) ||
+    const skypromptDir =
+      process.env.SKYPROMPT_DIR ||
+      (homeDir && path.join(homeDir, ".skyprompt")) ||
       process.cwd();
     const settingsPath = path.join(
-      screenpipeDir,
+      skypromptDir,
       "pipes",
       "obsidian",
       "pipe.json"

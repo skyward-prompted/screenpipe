@@ -1,3 +1,3 @@
 #!/bin/bash
-kill $(cat screenpipe.pid)
+kill $(cat skyprompt.pid)
 sleep 5

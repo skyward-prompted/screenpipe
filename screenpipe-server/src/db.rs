@@ -1,8 +1,8 @@
 use chrono::{DateTime, Utc};
 use image::DynamicImage;
 use libsqlite3_sys::sqlite3_auto_extension;
-use screenpipe_audio::{AudioDevice, DeviceType};
-use screenpipe_vision::OcrEngine;
+use skyprompt_audio::{AudioDevice, DeviceType};
+use skyprompt_vision::OcrEngine;
 use sqlite_vec::sqlite3_vec_init;
 use sqlx::migrate::MigrateDatabase;
 use sqlx::sqlite::{SqlitePool, SqlitePoolOptions};

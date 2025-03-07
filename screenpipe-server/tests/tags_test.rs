@@ -5,14 +5,14 @@ use axum::{
 };
 use chrono::Utc;
 use lru::LruCache;
-use screenpipe_audio::{AudioDevice, DeviceType};
-use screenpipe_vision::OcrEngine;
+use skyprompt_audio::{AudioDevice, DeviceType};
+use skyprompt_vision::OcrEngine;
 use serde_json::json;
 use std::{num::NonZeroUsize, path::PathBuf, sync::Arc};
 use tokio::sync::Mutex;
 use tower::ServiceExt;
 
-use screenpipe_server::{
+use skyprompt_server::{
     create_router, video_cache::FrameCache, AppState, ContentItem, DatabaseManager,
     PaginatedResponse, PipeManager,
 };
@@ -30,7 +30,7 @@ async fn setup_test_app() -> (Router, Arc<AppState>) {
         vision_disabled: false,
         audio_disabled: false,
         app_start_time: Utc::now(),
-        screenpipe_dir: PathBuf::from(""),
+        skyprompt_dir: PathBuf::from(""),
         pipe_manager: Arc::new(PipeManager::new(PathBuf::from(""))),
         frame_cache: Some(Arc::new(
             FrameCache::new(PathBuf::from(""), db).await.unwrap(),

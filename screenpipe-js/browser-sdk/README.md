@@ -1,4 +1,4 @@
-# screenpipe-js
+# skyprompt-js
 
 To install dependencies:
 

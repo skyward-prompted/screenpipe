@@ -1,4 +1,4 @@
-import { ContentItem } from "@screenpipe/js";
+import { ContentItem } from "@skyprompt/js";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import levenshtein from "js-levenshtein";
@@ -46,4 +46,4 @@ export const removeDuplicateSelections = (
 	return newSelectedResults;
 };
 
-export const INTEGRATION_NAME = "Screenpipe Logger";
+export const INTEGRATION_NAME = "Skyprompt Logger";

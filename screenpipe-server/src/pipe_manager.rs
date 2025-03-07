@@ -1,5 +1,5 @@
 use anyhow::Result;
-use screenpipe_core::{download_pipe, download_pipe_private, PipeState};
+use skyprompt_core::{download_pipe, download_pipe_private, PipeState};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -30,21 +30,21 @@ struct PipeHandle {
 }
 
 pub struct PipeManager {
-    screenpipe_dir: PathBuf,
+    skyprompt_dir: PathBuf,
     running_pipes: Arc<RwLock<HashMap<String, PipeHandle>>>,
 }
 
 impl PipeManager {
-    pub fn new(screenpipe_dir: PathBuf) -> Self {
+    pub fn new(skyprompt_dir: PathBuf) -> Self {
         PipeManager {
-            screenpipe_dir,
+            skyprompt_dir,
             running_pipes: Arc::new(RwLock::new(HashMap::new())),
         }
     }
 
     pub async fn update_config(&self, id: &str, new_config: Value) -> Result<()> {
         debug!("Updating config for pipe: {}", id);
-        let pipe_dir = self.screenpipe_dir.join("pipes").join(id);
+        let pipe_dir = self.skyprompt_dir.join("pipes").join(id);
 
         if !pipe_dir.exists() {
             return Err(anyhow::anyhow!("pipe '{}' does not exist", id));
@@ -180,7 +180,7 @@ impl PipeManager {
     }
 
     pub async fn list_pipes(&self) -> Vec<PipeInfo> {
-        let pipe_dir = self.screenpipe_dir.join("pipes");
+        let pipe_dir = self.skyprompt_dir.join("pipes");
         let mut pipe_infos = Vec::new();
 
         if let Ok(mut entries) = tokio::fs::read_dir(pipe_dir).await {
@@ -208,7 +208,7 @@ impl PipeManager {
         // Remove any surrounding quotes and normalize backslashes
         let normalized_url = url.trim_matches('"').replace("\\", "/");
 
-        let pipe_dir = download_pipe(&normalized_url, self.screenpipe_dir.clone()).await?;
+        let pipe_dir = download_pipe(&normalized_url, self.skyprompt_dir.clone()).await?;
 
         // update the config with the source url
         self.update_config(
@@ -234,7 +234,7 @@ impl PipeManager {
         pipe_name: &str,
         pipe_id: &str,
     ) -> Result<String> {
-        let pipe_dir = download_pipe_private(&pipe_name, &url, self.screenpipe_dir.clone()).await?;
+        let pipe_dir = download_pipe_private(&pipe_name, &url, self.skyprompt_dir.clone()).await?;
 
         let package_json_path = pipe_dir.join("package.json");
         let version = if package_json_path.exists() {
@@ -293,7 +293,7 @@ impl PipeManager {
             // wait a little
             tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
 
-            let pipe_dir = self.screenpipe_dir.join("pipes");
+            let pipe_dir = self.skyprompt_dir.join("pipes");
             if pipe_dir.exists() {
                 match tokio::fs::remove_dir_all(&pipe_dir).await {
                     Ok(_) => {
@@ -333,7 +333,7 @@ impl PipeManager {
         self.stop_pipe(id).await?;
 
         // Then delete the directory
-        let pipe_dir = self.screenpipe_dir.join("pipes").join(id);
+        let pipe_dir = self.skyprompt_dir.join("pipes").join(id);
         if pipe_dir.exists() {
             tokio::fs::remove_dir_all(pipe_dir).await?;
             debug!("deleted pipe: {}", id);
@@ -352,7 +352,7 @@ impl PipeManager {
             handle.kill_tx.send(()).await?;
 
             // Clean up any running cron jobs
-            screenpipe_core::pipes::cleanup_pipe_crons(id).await?;
+            skyprompt_core::pipes::cleanup_pipe_crons(id).await?;
 
             // Wait a bit for the process to actually terminate
             tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
@@ -382,7 +382,7 @@ impl PipeManager {
                     .arg("hidden")
                     .arg("-Command")
                     .arg(format!(
-                        r#"Get-WmiObject Win32_Process | Where-Object {{ $_.CommandLine -like "*.screenpipe\pipes\{}*" }} | ForEach-Object {{ taskkill.exe /T /F /PID $_.ProcessId }}"#,
+                        r#"Get-WmiObject Win32_Process | Where-Object {{ $_.CommandLine -like "*.skyprompt\pipes\{}*" }} | ForEach-Object {{ taskkill.exe /T /F /PID $_.ProcessId }}"#,
                         &id.to_string()
                     ))
                     .creation_flags(CREATE_NO_WINDOW)
@@ -509,7 +509,7 @@ impl PipeManager {
             }
 
             // Clean up cron jobs
-            screenpipe_core::pipes::cleanup_pipe_crons(id).await?;
+            skyprompt_core::pipes::cleanup_pipe_crons(id).await?;
 
             info!("stopped pipe: {}", id);
         }
@@ -517,12 +517,12 @@ impl PipeManager {
     }
 
     pub async fn start_pipe_task(&self, id: String) -> Result<impl Future<Output = Result<()>>> {
-        let screenpipe_dir = self.screenpipe_dir.clone();
+        let skyprompt_dir = self.skyprompt_dir.clone();
         let running_pipes = self.running_pipes.clone();
         let id_for_map = id.clone();
 
         Ok(async move {
-            match screenpipe_core::run_pipe(&id, screenpipe_dir.clone()).await {
+            match skyprompt_core::run_pipe(&id, skyprompt_dir.clone()).await {
                 Ok((mut child, pipe_state)) => {
                     let (kill_tx, mut kill_rx) = mpsc::channel::<()>(1);
 
@@ -577,7 +577,7 @@ impl PipeManager {
 
     pub async fn update_pipe_version(&self, id: &str, source: &str) -> Result<()> {
         debug!("updating pipe: {}", id);
-        let pipe_dir = self.screenpipe_dir.join("pipes").join(id);
+        let pipe_dir = self.skyprompt_dir.join("pipes").join(id);
 
         // 1. Get source URL from existing config
         let pipe_json_path = pipe_dir.join("pipe.json");
@@ -585,7 +585,7 @@ impl PipeManager {
         let mut config: Value = serde_json::from_str(&config)?;
 
         // Create temp directory outside of pipes dir
-        let tmp_dir = std::env::temp_dir().join(format!("screenpipe_update_{}", id));
+        let tmp_dir = std::env::temp_dir().join(format!("skyprompt_update_{}", id));
         tokio::fs::create_dir_all(&tmp_dir).await?;
         debug!("created temp dir: {:?}", tmp_dir);
 

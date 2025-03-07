@@ -2,14 +2,14 @@ import { invoke } from "@tauri-apps/api/core";
 import { Shortcut } from "./hooks/use-settings";
 
 export async function registerShortcuts({
-  showScreenpipeShortcut,
+  showSkypromptShortcut,
   disabledShortcuts,
 }: {
-  showScreenpipeShortcut: string;
+  showSkypromptShortcut: string;
   disabledShortcuts: Shortcut[];
 }) {
-  invoke("update_show_screenpipe_shortcut", {
-    new_shortcut: showScreenpipeShortcut,
-    enabled: !disabledShortcuts.includes(Shortcut.SHOW_SCREENPIPE),
+  invoke("update_show_skyprompt_shortcut", {
+    new_shortcut: showSkypromptShortcut,
+    enabled: !disabledShortcuts.includes(Shortcut.SHOW_SKYPROMPT),
   });
 }

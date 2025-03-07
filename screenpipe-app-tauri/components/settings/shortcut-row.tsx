@@ -86,7 +86,7 @@ const ShortcutRow = ({
   }, [isRecording]);
 
   const syncShortcuts = async (updatedShortcuts: {
-    showScreenpipeShortcut: string;
+    showSkypromptShortcut: string;
     startRecordingShortcut: string;
     stopRecordingShortcut: string;
     startAudioShortcut: string;
@@ -95,7 +95,7 @@ const ShortcutRow = ({
     pipeShortcuts: Record<string, string>;
   }) => {
     console.log("syncing shortcuts:", {
-      showShortcut: updatedShortcuts.showScreenpipeShortcut,
+      showShortcut: updatedShortcuts.showSkypromptShortcut,
       startShortcut: updatedShortcuts.startRecordingShortcut,
       stopShortcut: updatedShortcuts.stopRecordingShortcut,
       startAudioShortcut: updatedShortcuts.startAudioShortcut,
@@ -106,7 +106,7 @@ const ShortcutRow = ({
     // wait 1 second
     await new Promise((resolve) => setTimeout(resolve, 1000));
     await invoke("update_global_shortcuts", {
-      showShortcut: updatedShortcuts.showScreenpipeShortcut,
+      showShortcut: updatedShortcuts.showSkypromptShortcut,
       startShortcut: updatedShortcuts.startRecordingShortcut,
       stopShortcut: updatedShortcuts.stopRecordingShortcut,
       startAudioShortcut: updatedShortcuts.startAudioShortcut,

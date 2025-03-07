@@ -1,7 +1,7 @@
 use anyhow::Result;
 use base64::{engine::general_purpose, Engine as _};
 use image::DynamicImage;
-use screenpipe_core::Language;
+use skyprompt_core::Language;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

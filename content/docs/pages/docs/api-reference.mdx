@@ -1,17 +1,17 @@
 import MotionDiv from '../../components/motion-div'
 
-# api reference for screenpipe
+# api reference for skyprompt
 
 we highly recommend just copy pasting these into your cursor chat for context:
 
-- [server API](https://github.com/mediar-ai/screenpipe/blob/main/screenpipe-server/src/server.rs)
-- [app API](https://github.com/mediar-ai/screenpipe/blob/main/screenpipe-app-tauri/src-tauri/src/server.rs)
+- [server API](https://github.com/mediar-ai/skyprompt/blob/main/skyprompt-server/src/server.rs)
+- [app API](https://github.com/mediar-ai/skyprompt/blob/main/skyprompt-app-tauri/src-tauri/src/server.rs)
 
 and ask questions as needed.
 
 <MotionDiv>
 
-below is the detailed api reference for screenpipe's core functionality.
+below is the detailed api reference for skyprompt's core functionality.
 
 </MotionDiv>
 
@@ -21,7 +21,7 @@ below is the detailed api reference for screenpipe's core functionality.
 
 - **endpoint**: `/search`
 - **method**: `get`
-- **description**: searches captured data (ocr, audio transcriptions, etc.) stored in screenpipe's local database.
+- **description**: searches captured data (ocr, audio transcriptions, etc.) stored in skyprompt's local database.
 
 #### query parameters:
 
@@ -135,7 +135,7 @@ curl "http://localhost:3030/search?content_type=ui+audio&q=meeting"
   curl "http://localhost:3030/search?content_type=ocr&browser_url=github.com"
   
   # Filter content from a specific page
-  curl "http://localhost:3030/search?content_type=ocr&browser_url=github.com/mediar-ai/screenpipe"
+  curl "http://localhost:3030/search?content_type=ocr&browser_url=github.com/mediar-ai/skyprompt"
   ```
 
 - **timestamp formats**: use ISO 8601 format for timestamps
@@ -607,6 +607,6 @@ or
 
 paste these links into your Cursor chat for context:
 
-- https://github.com/mediar-ai/screenpipe/blob/main/screenpipe-server/src/server.rs
-- https://github.com/mediar-ai/screenpipe/blob/main/screenpipe-server/src/db.rs
+- https://github.com/mediar-ai/skyprompt/blob/main/skyprompt-server/src/server.rs
+- https://github.com/mediar-ai/skyprompt/blob/main/skyprompt-server/src/db.rs
 

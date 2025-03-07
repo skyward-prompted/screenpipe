@@ -3,7 +3,7 @@ use anyhow::Result;
 #[cfg(feature = "llm")]
 fn main() -> Result<()> {
     use candle::Device;
-    use screenpipe_core::{generate_text_streaming, load_llama_model};
+    use skyprompt_core::{generate_text_streaming, load_llama_model};
     use std::env;
 
     let device = Device::new_metal(0).unwrap_or(Device::new_cuda(0).unwrap_or(Device::Cpu));

@@ -155,7 +155,7 @@ export function AccountSection() {
         : "$20/mo",
       features: settings.user?.cloud_subscribed
         ? [
-            "unlimited screenpipe cloud",
+            "unlimited skyprompt cloud",
             "priority support",
             <a
               key="portal"
@@ -176,7 +176,7 @@ export function AccountSection() {
             </a>,
           ]
         : [
-            "unlimited screenpipe cloud",
+            "unlimited skyprompt cloud",
             "priority support",
             isAnnual ? "17% discount applied" : "switch to annual for 17% off",
           ],
@@ -195,7 +195,7 @@ export function AccountSection() {
         "consulting",
         "custom features",
       ],
-      url: "https://cal.com/louis030195/screenpipe-for-businesses",
+      url: "https://cal.com/louis030195/skyprompt-for-businesses",
     },
   ];
 

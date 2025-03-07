@@ -137,7 +137,7 @@ export function parseApiDocs(htmlContent: string): string {
     const $ = load(htmlContent);
     
     // Initialize the formatted output
-    let formattedDocs = "# Screenpipe API Reference\n\n";
+    let formattedDocs = "# Skyprompt API Reference\n\n";
     
     // Extract main API sections (h3 elements)
     $('h3').each((_, element) => {
@@ -200,7 +200,7 @@ export function parseApiDocs(htmlContent: string): string {
 export function extractEndpoints(htmlContent: string): string {
   try {
     const $ = load(htmlContent);
-    let endpoints = "# Available Screenpipe API Endpoints\n\n";
+    let endpoints = "# Available Skyprompt API Endpoints\n\n";
     
     $('h3').each((_, section) => {
       const sectionName = $(section).text().trim();

@@ -1,5 +1,5 @@
 [package]
-name = "screenpipe-integrations"
+name = "skyprompt-integrations"
 version = { workspace = true }
 authors = { workspace = true }
 description = { workspace = true }
@@ -16,4 +16,4 @@ log = "0.4"
 tempfile = "3.2"
 anyhow = "1.0"
 mime_guess = "2.0.5"
-screenpipe-core = { path = "../screenpipe-core" }
+skyprompt-core = { path = "../skyprompt-core" }

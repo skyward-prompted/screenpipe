@@ -899,35 +899,35 @@ export const PipeStore: React.FC = () => {
     }
   };
 
-  const handleRestartScreenpipe = async () => {
+  const handleRestartSkyprompt = async () => {
     setIsRestarting(true);
     const toastId = toast({
-      title: "restarting screenpipe",
+      title: "restarting skyprompt",
       description: "please wait...",
       duration: Infinity,
     });
 
     try {
       // First stop
-      await invoke("stop_screenpipe");
+      await invoke("stop_skyprompt");
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Then start
-      await invoke("spawn_screenpipe");
+      await invoke("spawn_skyprompt");
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       toastId.update({
         id: toastId.id,
-        title: "screenpipe restarted",
-        description: "screenpipe has been restarted successfully.",
+        title: "skyprompt restarted",
+        description: "skyprompt has been restarted successfully.",
         duration: 3000,
       });
     } catch (error) {
-      console.error("failed to restart screenpipe:", error);
+      console.error("failed to restart skyprompt:", error);
       toastId.update({
         id: toastId.id,
         title: "error",
-        description: "failed to restart screenpipe.",
+        description: "failed to restart skyprompt.",
         variant: "destructive",
         duration: 3000,
       });
@@ -1084,21 +1084,21 @@ export const PipeStore: React.FC = () => {
     return (
       <div className="flex flex-col items-center justify-center h-screen p-4 space-y-4">
         <div className="text-center space-y-4 max-w-md mx-auto justify-center items-center">
-          <h3 className="text-lg font-medium">screenpipe is not recording</h3>
+          <h3 className="text-lg font-medium">skyprompt is not recording</h3>
           <p className="text-sm text-muted-foreground">
-            please start the screenpipe service to browse and manage pipes
+            please start the skyprompt service to browse and manage pipes
           </p>
           <div className="flex flex-col gap-2">
             <Button
               variant="outline"
-              onClick={handleRestartScreenpipe}
+              onClick={handleRestartSkyprompt}
               disabled={isRestarting}
               className="gap-2"
             >
               <RefreshCw
                 className={`h-4 w-4 ${isRestarting ? "animate-spin" : ""}`}
               />
-              {isRestarting ? "restarting..." : "restart screenpipe"}
+              {isRestarting ? "restarting..." : "restart skyprompt"}
             </Button>
             <Button
               variant="outline"

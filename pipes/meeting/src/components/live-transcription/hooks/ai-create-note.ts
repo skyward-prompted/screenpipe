@@ -1,4 +1,4 @@
-import type { Settings } from "@screenpipe/browser"
+import type { Settings } from "@skyprompt/browser"
 import { Note } from "../../meeting-history/types"
 import { callOpenAI, createAiClient } from "./ai-client"
 

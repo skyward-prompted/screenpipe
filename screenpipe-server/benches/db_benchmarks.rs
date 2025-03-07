@@ -2,9 +2,9 @@
 
 use criterion::{criterion_group, criterion_main, Criterion};
 use rand::Rng;
-use screenpipe_audio::AudioDevice;
-use screenpipe_server::{db_types::ContentType, DatabaseManager};
-use screenpipe_vision::OcrEngine;
+use skyprompt_audio::AudioDevice;
+use skyprompt_server::{db_types::ContentType, DatabaseManager};
+use skyprompt_vision::OcrEngine;
 use std::sync::Arc;
 use tokio::runtime::Runtime;
 
@@ -41,7 +41,7 @@ async fn setup_large_db(size: usize) -> DatabaseManager {
             "test_engine",
             &AudioDevice::new(
                 "test_device".to_string(),
-                screenpipe_audio::DeviceType::Input,
+                skyprompt_audio::DeviceType::Input,
             ),
             None,
             None,

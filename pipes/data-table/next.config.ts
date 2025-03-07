@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@screenpipe/js"],
+  transpilePackages: ["@skyprompt/js"],
   webpack: (config, { }) => {
     return config;
   },

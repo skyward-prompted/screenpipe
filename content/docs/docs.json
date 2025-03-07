@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Screenpipe Documentation",
+  "name": "Skyprompt Documentation",
   "colors": {
     "primary": "#000000",
     "light": "#333333",
@@ -37,18 +37,18 @@
     "links": [
       {
         "label": "support",
-        "href": "mailto:support@screenpipe.co"
+        "href": "mailto:support@skyprompt.co"
       }
     ],
     "primary": {
       "type": "button",
       "label": "download",
-      "href": "https://screenpipe.co/download"
+      "href": "https://skyprompt.co/download"
     }
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/screenpipe"
+      "github": "https://github.com/skyprompt"
     }
   },
   "modeToggle": {

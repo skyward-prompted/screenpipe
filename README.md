@@ -10,13 +10,13 @@
 </p>
 
 <p align="center">
-   <a href="https://trendshift.io/repositories/11785" target="_blank"><img src="https://trendshift.io/api/badge/repositories/11785" alt="mediar-ai%2Fscreenpipe | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+   <a href="https://trendshift.io/repositories/11785" target="_blank"><img src="https://trendshift.io/api/badge/repositories/11785" alt="mediar-ai%2Fskyprompt | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </p>
 
 
-<!-- ScreenPipe Title and Subtitle -->
+<!-- Skyprompt Title and Subtitle -->
 <p align="center" style="font-family: 'Press Start 2P', monospace;">
-   <h1 align="center">[ screenpipe ]</h1>
+   <h1 align="center">[ skyprompt ]</h1>
    <p align="center">AI app store powered by 24/7 desktop history</p>
    <p align="center">open source | 100% local | dev friendly | 24/7 screen, mic recording</p>
 </p>
@@ -76,14 +76,14 @@ https://github.com/user-attachments/assets/973ee8e5-5240-4d36-83fe-d38c53efe6a9
 ---
 
 *news* 🔥
-- [2025/02] we're throwing an [hackathon](https://www.nosu.io/hackathons/screenpipe), $12k in cash prizes, 28 Feb
+- [2025/02] we're throwing an [hackathon](https://www.nosu.io/hackathons/skyprompt), $12k in cash prizes, 28 Feb
 - [2025/01] we're partnering with Different AI to bring you [financial automations based on your screen](https://github.com/different-ai/hypr-v0) and [drop-in replacement for granola within obsidian](https://github.com/different-ai/file-organizer-2000)
 - [2024/12] pipe store stripe integration: devs build cool shit - few lines of JS and make passive income (available Reddit agent, LinkedIn agent, Timeline ...)
-- [2024/11] [screenpipe is number 1 github trending repo (again)](https://x.com/louis030195/status/1859628763425931479)
-- [2024/10] screenpipe has been backed by [Founders, Inc](https://f.inc/)
-- [2024/09] [screenpipe is number 1 github trending repo & on hackernews!](https://x.com/louis030195/status/1840859691754344483)
+- [2024/11] [skyprompt is number 1 github trending repo (again)](https://x.com/louis030195/status/1859628763425931479)
+- [2024/10] skyprompt has been backed by [Founders, Inc](https://f.inc/)
+- [2024/09] [skyprompt is number 1 github trending repo & on hackernews!](https://x.com/louis030195/status/1840859691754344483)
 - [2024/08] anyone can now [create, share, install pipes](https://docs.screenpi.pe/docs/plugins) (plugins) from the app interface based on a github repo/dir
-- [2024/08] we're running bounties! contribute to screenpipe & make money, [check issues](https://github.com/mediar-ai/screenpipe/issues)
+- [2024/08] we're running bounties! contribute to skyprompt & make money, [check issues](https://github.com/mediar-ai/skyprompt/issues)
 - [2024/08] we released Apple & Windows Native OCR.
 - [2024/07] **we just launched the desktop app! [Download now!](https://screenpi.pe)**
 
@@ -125,7 +125,7 @@ iwr get.screenpi.pe/cli.ps1 | iex
 then
 
 ```bash
-screenpipe
+skyprompt
 ```
 
 make sure to allow permissions on macos (screen, mic)
@@ -136,24 +136,24 @@ make sure to allow permissions on macos (screen, mic)
 ## create plugins
 
 ```bash
-bunx --bun @screenpipe/dev@latest pipe create
+bunx --bun @skyprompt/dev@latest pipe create
 ```
 
-screenpipe has a plugin system called "pipe" which lets you create desktop app in nextjs in a sandboxed environment within our Rust code, [read more](https://docs.screenpi.pe/docs/plugins)
+skyprompt has a plugin system called "pipe" which lets you create desktop app in nextjs in a sandboxed environment within our Rust code, [read more](https://docs.screenpi.pe/docs/plugins)
 
 you can then publish these to our store and make money:
 
 ```bash
 cd foo
-bunx --bun @screenpipe/dev@latest pipe register --name foo [--paid --price 50] # subscription
+bunx --bun @skyprompt/dev@latest pipe register --name foo [--paid --price 50] # subscription
 bun run build
-bunx --bun @screenpipe/dev@latest pipe publish --name foo
+bunx --bun @skyprompt/dev@latest pipe publish --name foo
 ```
 
 ## community 
 
-- [template to build screenpipe-powered desktop native app using Tauri](https://github.com/LorenzoBloedow/screenpipe-tauri-template-dev)
-- [template to build screenpipe-powered desktop native app using Electron](https://github.com/neo773/screenpipe-electron)
+- [template to build skyprompt-powered desktop native app using Tauri](https://github.com/LorenzoBloedow/skyprompt-tauri-template-dev)
+- [template to build skyprompt-powered desktop native app using Electron](https://github.com/neo773/skyprompt-electron)
 
 ## star history
 

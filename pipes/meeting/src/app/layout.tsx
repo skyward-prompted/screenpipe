@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Meeting • Screenpipe",
+  title: "Meeting • Skyprompt",
   description: "The AI notepad for people in back-to-back meetings"
 }
 

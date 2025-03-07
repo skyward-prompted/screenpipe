@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Settings } from "@/lib/types";
 import {
-  getScreenpipeAppSettings,
-  updateScreenpipeAppSettings,
-} from "../actions/get-screenpipe-app-settings";
+  getSkypromptAppSettings,
+  updateSkypromptAppSettings,
+} from "../actions/get-skyprompt-app-settings";
 
 const DEFAULT_SETTINGS: Partial<Settings> = {
   exampleSetting: "default value",
@@ -44,16 +44,16 @@ export function usePipeSettings() {
 
   const loadSettings = async () => {
     try {
-      // Load screenpipe app settings
-      const screenpipeSettings = await getScreenpipeAppSettings();
+      // Load skyprompt app settings
+      const skypromptSettings = await getSkypromptAppSettings();
       
-      console.log("loaded settings:", screenpipeSettings);
+      console.log("loaded settings:", skypromptSettings);
 
       // Merge with defaults
       setSettings({
         ...DEFAULT_SETTINGS,
-        ...screenpipeSettings.customSettings?.pipe,
-        screenpipeAppSettings: screenpipeSettings,
+        ...skypromptSettings.customSettings?.pipe,
+        skypromptAppSettings: skypromptSettings,
       });
     } catch (error) {
       console.error("failed to load settings:", error);
@@ -65,13 +65,13 @@ export function usePipeSettings() {
   const updateSettings = async (newSettings: Partial<Settings>) => {
     try {
       // Split settings
-      const { screenpipeAppSettings, ...pipeSettings } = newSettings;
+      const { skypromptAppSettings, ...pipeSettings } = newSettings;
 
-      // Update screenpipe settings
-      await updateScreenpipeAppSettings({
-        ...screenpipeAppSettings,
+      // Update skyprompt settings
+      await updateSkypromptAppSettings({
+        ...skypromptAppSettings,
         customSettings: {
-          ...screenpipeAppSettings?.customSettings,
+          ...skypromptAppSettings?.customSettings,
           pipe: pipeSettings,
         },
       });
@@ -80,7 +80,7 @@ export function usePipeSettings() {
       setSettings({
         ...DEFAULT_SETTINGS,
         ...pipeSettings,
-        screenpipeAppSettings: screenpipeAppSettings || settings?.screenpipeAppSettings,
+        skypromptAppSettings: skypromptAppSettings || settings?.skypromptAppSettings,
       });
       
       console.log("settings updated successfully");

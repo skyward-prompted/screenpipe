@@ -1,5 +1,5 @@
 {
-  "name": "@screenpipe/browser",
+  "name": "@skyprompt/browser",
   "version": "0.1.36",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -44,7 +44,7 @@
       ]
     }
   },
-  "description": "screenpipe browser test sdk",
+  "description": "skyprompt browser test sdk",
   "directories": {
     "test": "tests"
   },

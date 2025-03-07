@@ -27,10 +27,10 @@ const OnboardingInstructions: React.FC<OnboardingInstructionsProps> = ({
         <img
           className="w-24 h-24 justify-center"
           src="/128x128.png"
-          alt="screenpipe-logo"
+          alt="skyprompt-logo"
         />
         <DialogTitle className="text-center text-2xl">
-          screenpipe tips
+          skyprompt tips
         </DialogTitle>
       </DialogHeader>
       <div className="flex justify-center">
@@ -42,7 +42,7 @@ const OnboardingInstructions: React.FC<OnboardingInstructionsProps> = ({
           <h2 className="font-semibold text-md">search functionality:</h2>
           <p className="text-muted-foreground text-[14px]">
             <span className="font-medium text-nowrap text-[14px] prose mr-1">
-              on screenpipe&apos;s main menu,
+              on skyprompt&apos;s main menu,
             </span>
             you&apos;ll find an advanced search interface to query your 24/7 screen & mic recordings. it
             lets you select specific results for ai summarization and chatting,
@@ -65,7 +65,7 @@ const OnboardingInstructions: React.FC<OnboardingInstructionsProps> = ({
           <h2 className="font-medium text-md">status menu:</h2>
           <p className="text-muted-foreground text-[14px]">
             <span className="font-medium text-nowrap text-[14px] prose mr-1">
-              screenpipe status menu serves
+              skyprompt status menu serves
             </span>
             as a health and process monitor and allows you to adjust advanced
             preferences for the recording processes
@@ -95,7 +95,7 @@ const OnboardingInstructions: React.FC<OnboardingInstructionsProps> = ({
           </h2>
           <p className="text-muted-foreground text-[14px]">
             <span className="font-medium text-nowrap text-[14px] prose mr-1">
-              this features of screenpipe
+              this features of skyprompt
             </span>
             tracks your meetings and generates
             summaries for you using ai
@@ -105,7 +105,7 @@ const OnboardingInstructions: React.FC<OnboardingInstructionsProps> = ({
           <h2 className="font-medium text-md">pipe store (experimental):</h2>
           <p className="text-muted-foreground text-[14px]">
             <span className="font-medium text-nowrap text-[14px] prose mr-1">
-              this features of screenpipe
+              this features of skyprompt
             </span>
             extend your 24/7 data through plugins you can install in seconds,
             create, share and sell your own

@@ -1,4 +1,4 @@
-use screenpipe_core::find_ffmpeg_path;
+use skyprompt_core::find_ffmpeg_path;
 use std::io::Write;
 use std::{
     path::Path,

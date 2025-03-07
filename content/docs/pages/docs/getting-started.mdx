@@ -20,31 +20,31 @@ import Image from 'next/image'
   <Tab>
     ```bash copy
     curl -fsSL get.screenpi.pe/cli | sh
-    screenpipe
+    skyprompt
     ```
   </Tab>
   <Tab>
     ```powershell copy
     iwr get.screenpi.pe/cli.ps1 | iex
-    screenpipe.exe
+    skyprompt.exe
     ```
   </Tab>
 </Tabs>
 
 ### verify installation
-- run `screenpipe` or `screenpipe.exe` to verify successful installation.
+- run `skyprompt` or `skyprompt.exe` to verify successful installation.
 
 ### query data with javascript sdk
 then query the data using our javaScript sdk:
 
 ```typescript copy
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 
-async function queryScreenpipe() {
+async function querySkyprompt() {
   // get content from last 5 minutes
   const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
 
-  const results = await pipe.queryScreenpipe({
+  const results = await pipe.querySkyprompt({
     startTime: fiveMinutesAgo,
     limit: 10,
     contentType: "all", // can be "ocr", "audio", or "all"
@@ -67,14 +67,14 @@ async function queryScreenpipe() {
   }
 }
 
-queryScreenpipe().catch(console.error);
+querySkyprompt().catch(console.error);
 ```
 
 now download the [desktop app](https://screenpi.pe) and use pipes (plugins) to add more features!
 
 ### connect to AI providers
 
-screenpipe can connect to various AI providers to process your data. here's how to set up popular local AI providers:
+skyprompt can connect to various AI providers to process your data. here's how to set up popular local AI providers:
 
 <Tabs items={['ollama', 'lmstudio']}>
   <Tab>
@@ -83,9 +83,9 @@ screenpipe can connect to various AI providers to process your data. here's how 
     # start ollama with your preferred model
     ollama run phi4:14b-q4_K_M
     ```
-    2. then configure screenpipe to use ollama in your settings with model phi4:14b-q4_K_M
+    2. then configure skyprompt to use ollama in your settings with model phi4:14b-q4_K_M
     
-    that's it! screenpipe will now use ollama for AI like search, rewind, and more. you can change the model in settings.
+    that's it! skyprompt will now use ollama for AI like search, rewind, and more. you can change the model in settings.
   </Tab>
   <Tab>
     to use LMStudio:
@@ -122,11 +122,11 @@ verify your ai provider using any pipe in the store!
 
 ### for developers
 
-if you're interested in building from source or contributing to screenpipe, please check our [contributing guide](https://github.com/mediar-ai/screenpipe/blob/main/CONTRIBUTING.md).
+if you're interested in building from source or contributing to skyprompt, please check our [contributing guide](https://github.com/mediar-ai/skyprompt/blob/main/CONTRIBUTING.md).
 
 ### for businesses
 
-some of our customers use screenpipe in the following ways:
+some of our customers use skyprompt in the following ways:
 
 - have existing screen recording software and want enterprise screen search engine 
 - want to integrate team's scale meeting transcriptions
@@ -137,4 +137,4 @@ some of our customers use screenpipe in the following ways:
 - running the CLI in the cloud and forward the video/audio through SSH
 - using our Microsoft Remote Desktop / SSH integration
 
-[book a call to discuss your business needs](https://cal.com/louis030195/screenpipe-for-businesses)
+[book a call to discuss your business needs](https://cal.com/louis030195/skyprompt-for-businesses)

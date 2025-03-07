@@ -7,16 +7,16 @@ const themeConfig = {
         className="w-32 h-auto"
         width={50}
       />
-      <h1 className="text-xl font-bold">screenpipe</h1>
+      <h1 className="text-xl font-bold">skyprompt</h1>
     </>
   ),
   // Other configurations
   project: {
-    link: "https://github.com/mediar-ai/screenpipe", // Project link
+    link: "https://github.com/mediar-ai/skyprompt", // Project link
   },
-  docsRepositoryBase: "https://github.com/mediar-ai/screenpipe/tree/main/content/docs", // Documentation repo link
+  docsRepositoryBase: "https://github.com/mediar-ai/skyprompt/tree/main/content/docs", // Documentation repo link
   footer: {
-    text: "screenpipe docs",
+    text: "skyprompt docs",
   },
   // Other config options...
 };

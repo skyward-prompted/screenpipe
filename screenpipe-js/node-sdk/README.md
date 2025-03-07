@@ -1,4 +1,4 @@
-# test-screenpipe-node-sdk
+# test-skyprompt-node-sdk
 
 To install dependencies:
 

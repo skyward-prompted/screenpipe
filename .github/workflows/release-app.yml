@@ -56,7 +56,7 @@ jobs:
         id: get_version
         run: |
           if [ -z "${{ github.event.inputs.version }}" ]; then
-            VERSION=$(grep '^version = ' screenpipe-app-tauri/src-tauri/Cargo.toml | sed 's/version = "\(.*\)"/\1/')
+            VERSION=$(grep '^version = ' skyprompt-app-tauri/src-tauri/Cargo.toml | sed 's/version = "\(.*\)"/\1/')
             echo "VERSION=$VERSION" >> $GITHUB_ENV
           else
             echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
@@ -92,9 +92,9 @@ jobs:
         if: github.event.inputs.commit_hash && github.event.inputs.version
         run: |
           if [[ "$OSTYPE" == "darwin"* ]]; then
-            sed -i '' 's/^version = ".*"/version = "${{ github.event.inputs.version }}"/' screenpipe-app-tauri/src-tauri/Cargo.toml
+            sed -i '' 's/^version = ".*"/version = "${{ github.event.inputs.version }}"/' skyprompt-app-tauri/src-tauri/Cargo.toml
           else
-            sed -i 's/^version = ".*"/version = "${{ github.event.inputs.version }}"/' screenpipe-app-tauri/src-tauri/Cargo.toml
+            sed -i 's/^version = ".*"/version = "${{ github.event.inputs.version }}"/' skyprompt-app-tauri/src-tauri/Cargo.toml
           fi
 
       - name: create draft release
@@ -177,15 +177,15 @@ jobs:
         if: github.event.inputs.commit_hash && github.event.inputs.version && matrix.platform != 'macos-latest'
         shell: pwsh
         run: |
-          $content = Get-Content screenpipe-app-tauri/src-tauri/Cargo.toml
+          $content = Get-Content skyprompt-app-tauri/src-tauri/Cargo.toml
           $content = $content -replace '^version = ".*"', ('version = "' + '${{ github.event.inputs.version }}' + '"')
-          $content | Set-Content screenpipe-app-tauri/src-tauri/Cargo.toml -Force
+          $content | Set-Content skyprompt-app-tauri/src-tauri/Cargo.toml -Force
 
       - name: Update version in Cargo.toml
         if: github.event.inputs.commit_hash && github.event.inputs.version && matrix.platform == 'macos-latest'
         shell: bash
         run: |
-          sed -i '' 's/^version = ".*"/version = "${{ github.event.inputs.version }}"/' screenpipe-app-tauri/src-tauri/Cargo.toml
+          sed -i '' 's/^version = ".*"/version = "${{ github.event.inputs.version }}"/' skyprompt-app-tauri/src-tauri/Cargo.toml
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -229,7 +229,7 @@ jobs:
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
             target/${{ matrix.target }}
-            screenpipe-app-tauri/src-tauri/target
+            skyprompt-app-tauri/src-tauri/target
           # Shared cache across branches
           shared-key: "rust-cache-${{ matrix.target }}"
           # Save cache even on failed builds
@@ -243,7 +243,7 @@ jobs:
             ~/.cargo/.crates.toml
             ~/.cargo/.crates2.json
             target/${{ matrix.target }}/release
-            screenpipe-app-tauri/src-tauri/target/release
+            skyprompt-app-tauri/src-tauri/target/release
           key: ${{ runner.os }}-artifacts-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-artifacts-${{ matrix.target }}-
@@ -265,23 +265,23 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            screenpipe-app-tauri/src-tauri/ffmpeg
-            screenpipe-app-tauri/src-tauri/tesseract-*
-            screenpipe-app-tauri/node_modules
-            screenpipe-app-tauri/src-tauri/target
-            screenpipe-app-tauri/.tauri
-            screenpipe-app-tauri/src-tauri/WixTools
-            screenpipe-app-tauri/src-tauri/mkl
+            skyprompt-app-tauri/src-tauri/ffmpeg
+            skyprompt-app-tauri/src-tauri/tesseract-*
+            skyprompt-app-tauri/node_modules
+            skyprompt-app-tauri/src-tauri/target
+            skyprompt-app-tauri/.tauri
+            skyprompt-app-tauri/src-tauri/WixTools
+            skyprompt-app-tauri/src-tauri/mkl
             # Ollama binaries and libs
-            screenpipe-app-tauri/src-tauri/ollama-*
-            screenpipe-app-tauri/src-tauri/lib/ollama
+            skyprompt-app-tauri/src-tauri/ollama-*
+            skyprompt-app-tauri/src-tauri/lib/ollama
             # Swift UI monitoring binaries
-            screenpipe-app-tauri/src-tauri/ui_monitor-*
+            skyprompt-app-tauri/src-tauri/ui_monitor-*
             # FFmpeg downloads
-            screenpipe-app-tauri/src-tauri/ffmpeg-*
+            skyprompt-app-tauri/src-tauri/ffmpeg-*
             # Platform specific bins
-            screenpipe-app-tauri/src-tauri/bun-*
-            screenpipe-app-tauri/src-tauri/screenpipe-*
+            skyprompt-app-tauri/src-tauri/bun-*
+            skyprompt-app-tauri/src-tauri/skyprompt-*
           key: ${{ matrix.platform }}-${{ matrix.target }}-pre-build-${{ hashFiles('**/Cargo.lock', '**/bun.lockb') }}
           restore-keys: |
             ${{ matrix.platform }}-${{ matrix.target }}-pre-build-
@@ -334,7 +334,7 @@ jobs:
             patchelf
 
       - name: Install frontend dependencies
-        working-directory: ./screenpipe-app-tauri
+        working-directory: ./skyprompt-app-tauri
         run: bun install
 
       - name: Install vcpkg
@@ -405,7 +405,7 @@ jobs:
         if: matrix.os_type == 'windows'
         shell: powershell
         env:
-          SKIP_SCREENPIPE_SETUP: true
+          SKIP_SKYPROMPT_SETUP: true
         run: |
           # Remove wget alias if it exists
           if (Test-Path Alias:wget) {
@@ -435,9 +435,9 @@ jobs:
 
       - name: Run pre_build.js
         env:
-          SKIP_SCREENPIPE_SETUP: true
+          SKIP_SKYPROMPT_SETUP: true
         run: bun ./scripts/pre_build.js ${{ matrix.pre-build-args }}
-        working-directory: ./screenpipe-app-tauri
+        working-directory: ./skyprompt-app-tauri
 
       - name: Build CLI
         if: matrix.os_type != 'windows'
@@ -447,7 +447,7 @@ jobs:
             export PKG_CONFIG_PATH="/usr/local/opt/ffmpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
             export PKG_CONFIG_ALLOW_CROSS=1
           fi
-          cargo build --release -p screenpipe-server ${{ matrix.args }}
+          cargo build --release -p skyprompt-server ${{ matrix.args }}
 
       - name: Build CLI on Windows
         if: matrix.os_type == 'windows'
@@ -456,13 +456,13 @@ jobs:
           CARGO_PROFILE_RELEASE_STRIP: symbols
           CARGO_PROFILE_RELEASE_PANIC: abort
           CARGO_PROFILE_RELEASE_INCREMENTAL: false
-        run: cargo build --release -p screenpipe-server ${{ matrix.args }}
+        run: cargo build --release -p skyprompt-server ${{ matrix.args }}
 
         # Run pre build again to copy the CLI into app
       - name: Run pre_build.js
         run: |
           bun ./scripts/pre_build.js ${{ matrix.pre-build-args }}
-        working-directory: ./screenpipe-app-tauri
+        working-directory: ./skyprompt-app-tauri
 
       - uses: actions/setup-python@v5
         if: matrix.os_type == 'windows'
@@ -474,7 +474,7 @@ jobs:
         shell: powershell
         run: |
           # Create target directory
-          $mkl_dir = "screenpipe-app-tauri/src-tauri/mkl"
+          $mkl_dir = "skyprompt-app-tauri/src-tauri/mkl"
           New-Item -ItemType Directory -Force -Path $mkl_dir | Out-Null
 
           # Install and copy Intel OpenMP
@@ -505,7 +505,7 @@ jobs:
         shell: powershell
         run: |
           # Create target directory
-          $vcredist_dir = "screenpipe-app-tauri/src-tauri/vcredist"
+          $vcredist_dir = "skyprompt-app-tauri/src-tauri/vcredist"
           New-Item -ItemType Directory -Force -Path $vcredist_dir | Out-Null
 
           # Install and copy VcRedist
@@ -555,7 +555,7 @@ jobs:
           KNF_STATIC_CRT: ${{ matrix.os_type == 'windows' && '1' || '' }}
         with:
           args: ${{ matrix.tauri-args }}
-          projectPath: "./screenpipe-app-tauri"
+          projectPath: "./skyprompt-app-tauri"
           tauriScript: bunx tauri -vvv
           retryAttempts: 3
 
@@ -580,7 +580,7 @@ jobs:
           Invoke-WebRequest -Uri $cliUrl -UserAgent $env:USER_AGENT -OutFile $cliExe
 
           # move to the directory we want to upload from
-          cd screenpipe-app-tauri/src-tauri
+          cd skyprompt-app-tauri/src-tauri
 
           # upload assets with retry logic
           $cliFullPath = Join-Path $cliDir "cn.exe"
@@ -622,7 +622,7 @@ jobs:
         with:
           command: release upload ${{ secrets.CN_APP_SLUG }} --framework tauri -vv
           api-key: ${{ secrets.CN_API_KEY }}
-          path: ./screenpipe-app-tauri/src-tauri
+          path: ./skyprompt-app-tauri/src-tauri
 
   retry-win:
     needs: publish-tauri
@@ -651,9 +651,9 @@ jobs:
         if: github.event.inputs.commit_hash && github.event.inputs.version && matrix.platform != 'macos-latest'
         shell: pwsh
         run: |
-          $content = Get-Content screenpipe-app-tauri/src-tauri/Cargo.toml
+          $content = Get-Content skyprompt-app-tauri/src-tauri/Cargo.toml
           $content = $content -replace '^version = ".*"', ('version = "' + '${{ github.event.inputs.version }}' + '"')
-          $content | Set-Content screenpipe-app-tauri/src-tauri/Cargo.toml -Force
+          $content | Set-Content skyprompt-app-tauri/src-tauri/Cargo.toml -Force
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -688,29 +688,29 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            screenpipe-app-tauri/src-tauri/ffmpeg
-            screenpipe-app-tauri/src-tauri/tesseract-*
-            screenpipe-app-tauri/node_modules
-            screenpipe-app-tauri/src-tauri/target
-            screenpipe-app-tauri/.tauri
-            screenpipe-app-tauri/src-tauri/WixTools
-            screenpipe-app-tauri/src-tauri/mkl
+            skyprompt-app-tauri/src-tauri/ffmpeg
+            skyprompt-app-tauri/src-tauri/tesseract-*
+            skyprompt-app-tauri/node_modules
+            skyprompt-app-tauri/src-tauri/target
+            skyprompt-app-tauri/.tauri
+            skyprompt-app-tauri/src-tauri/WixTools
+            skyprompt-app-tauri/src-tauri/mkl
             # Ollama binaries and libs
-            screenpipe-app-tauri/src-tauri/ollama-*
-            screenpipe-app-tauri/src-tauri/lib/ollama
+            skyprompt-app-tauri/src-tauri/ollama-*
+            skyprompt-app-tauri/src-tauri/lib/ollama
             # Swift UI monitoring binaries
-            screenpipe-app-tauri/src-tauri/ui_monitor-*
+            skyprompt-app-tauri/src-tauri/ui_monitor-*
             # FFmpeg downloads
-            screenpipe-app-tauri/src-tauri/ffmpeg-*
+            skyprompt-app-tauri/src-tauri/ffmpeg-*
             # Platform specific bins
-            screenpipe-app-tauri/src-tauri/bun-*
-            screenpipe-app-tauri/src-tauri/screenpipe-*
+            skyprompt-app-tauri/src-tauri/bun-*
+            skyprompt-app-tauri/src-tauri/skyprompt-*
           key: ${{ matrix.platform }}-${{ matrix.target }}-pre-build-${{ hashFiles('**/Cargo.lock', '**/bun.lockb') }}
           restore-keys: |
             ${{ matrix.platform }}-${{ matrix.target }}-pre-build-
 
       - name: Install frontend dependencies
-        working-directory: ./screenpipe-app-tauri
+        working-directory: ./skyprompt-app-tauri
         run: bun install
 
       - name: Install vcpkg
@@ -754,9 +754,9 @@ jobs:
 
       - name: Run pre_build.js
         env:
-          SKIP_SCREENPIPE_SETUP: true
+          SKIP_SKYPROMPT_SETUP: true
         run: bun ./scripts/pre_build.js ${{ matrix.pre-build-args }}
-        working-directory: ./screenpipe-app-tauri
+        working-directory: ./skyprompt-app-tauri
 
       - name: Build CLI on Windows
         if: matrix.os_type == 'windows'
@@ -765,13 +765,13 @@ jobs:
           CARGO_PROFILE_RELEASE_STRIP: symbols
           CARGO_PROFILE_RELEASE_PANIC: abort
           CARGO_PROFILE_RELEASE_INCREMENTAL: false
-        run: cargo build --release -p screenpipe-server ${{ matrix.args }}
+        run: cargo build --release -p skyprompt-server ${{ matrix.args }}
 
         # Run pre build again to copy the CLI into app
       - name: Run pre_build.js
         run: |
           bun ./scripts/pre_build.js ${{ matrix.pre-build-args }}
-        working-directory: ./screenpipe-app-tauri
+        working-directory: ./skyprompt-app-tauri
 
       - name: Install pip
         if: matrix.os_type == 'windows'
@@ -784,7 +784,7 @@ jobs:
         shell: pwsh
         run: |
           # Create target directory
-          $mkl_dir = "screenpipe-app-tauri/src-tauri/mkl"
+          $mkl_dir = "skyprompt-app-tauri/src-tauri/mkl"
           New-Item -ItemType Directory -Force -Path $mkl_dir | Out-Null
 
           # Install and copy Intel OpenMP
@@ -815,7 +815,7 @@ jobs:
         shell: powershell
         run: |
           # Create target directory
-          $vcredist_dir = "screenpipe-app-tauri/src-tauri/"
+          $vcredist_dir = "skyprompt-app-tauri/src-tauri/"
           New-Item -ItemType Directory -Force -Path $vcredist_dir | Out-Null
 
           # Install and copy VcRedist
@@ -865,7 +865,7 @@ jobs:
           KNF_STATIC_CRT: ${{ matrix.os_type == 'windows' && '1' || '' }}
         with:
           args: ${{ matrix.tauri-args }}
-          projectPath: "./screenpipe-app-tauri"
+          projectPath: "./skyprompt-app-tauri"
           tauriScript: bunx tauri -v
 
       - name: Upload Assets to CrabNebula Cloud
@@ -873,7 +873,7 @@ jobs:
         with:
           command: release upload ${{ secrets.CN_APP_SLUG }} --framework tauri
           api-key: ${{ secrets.CN_API_KEY }}
-          path: ./screenpipe-app-tauri/src-tauri
+          path: ./skyprompt-app-tauri/src-tauri
 
   publish-release:
     needs: [check_commit, publish-tauri, retry-win]
@@ -885,7 +885,7 @@ jobs:
       - name: Get version from Cargo.toml
         id: get_version
         run: |
-          VERSION=$(grep '^version = ' screenpipe-app-tauri/src-tauri/Cargo.toml | sed 's/version = "\(.*\)"/\1/')
+          VERSION=$(grep '^version = ' skyprompt-app-tauri/src-tauri/Cargo.toml | sed 's/version = "\(.*\)"/\1/')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Publish Release on CrabNebula Cloud

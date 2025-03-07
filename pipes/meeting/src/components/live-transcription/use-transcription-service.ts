@@ -1,11 +1,11 @@
-import { useRecentChunks } from './hooks/pull-meetings-from-screenpipe'
-import { useTranscriptionStream } from './hooks/screenpipe-stream-transcription-api'
+import { useRecentChunks } from './hooks/pull-meetings-from-skyprompt'
+import { useTranscriptionStream } from './hooks/skyprompt-stream-transcription-api'
 import { useBrowserTranscriptionStream } from './hooks/browser-stream-transcription-api'
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useMeetingContext } from './hooks/storage-for-live-meeting'
 import { usePostHog } from 'posthog-js/react'
 
-type TranscriptionMode = 'browser' | 'screenpipe'
+type TranscriptionMode = 'browser' | 'skyprompt'
 
 // Update GLOBAL_STATE to include health check result
 const GLOBAL_STATE = {
@@ -17,7 +17,7 @@ const GLOBAL_STATE = {
 export function useTranscriptionService(mode?: TranscriptionMode) {
   const { chunks, setChunks, isLoading, fetchRecentChunks } = useRecentChunks()
   const { onNewChunk } = useMeetingContext()
-  const { startTranscriptionScreenpipe, stopTranscriptionScreenpipe } = useTranscriptionStream(onNewChunk)
+  const { startTranscriptionSkyprompt, stopTranscriptionSkyprompt } = useTranscriptionStream(onNewChunk)
   const { startTranscriptionBrowser, stopTranscriptionBrowser } = useBrowserTranscriptionStream(onNewChunk)
   const modeRef = useRef<TranscriptionMode | null>(null)
   const posthog = usePostHog()
@@ -36,8 +36,8 @@ export function useTranscriptionService(mode?: TranscriptionMode) {
       const health = await response.json()
       
       if (health.status === 'healthy') {
-        console.log('transcription-service: health check passed, using screenpipe')
-        return 'screenpipe'
+        console.log('transcription-service: health check passed, using skyprompt')
+        return 'skyprompt'
       } else {
         console.log('transcription-service: health check failed, using browser')
         return 'browser'
@@ -60,9 +60,9 @@ export function useTranscriptionService(mode?: TranscriptionMode) {
       if (!GLOBAL_STATE.healthChecked) {
         healthMode = await checkHealth()
         GLOBAL_STATE.healthChecked = true
-        GLOBAL_STATE.isHealthy = healthMode === 'screenpipe'
+        GLOBAL_STATE.isHealthy = healthMode === 'skyprompt'
       } else {
-        healthMode = GLOBAL_STATE.isHealthy ? 'screenpipe' : 'browser'
+        healthMode = GLOBAL_STATE.isHealthy ? 'skyprompt' : 'browser'
         console.log('transcription-service: using cached health status:', healthMode)
       }
 
@@ -82,7 +82,7 @@ export function useTranscriptionService(mode?: TranscriptionMode) {
 
     initializeTranscription()
     // No more interval needed
-  }, [mode, startTranscriptionScreenpipe, stopTranscriptionScreenpipe, startTranscriptionBrowser, stopTranscriptionBrowser, posthog])
+  }, [mode, startTranscriptionSkyprompt, stopTranscriptionSkyprompt, startTranscriptionBrowser, stopTranscriptionBrowser, posthog])
 
   // Handle transcription mode initialization and changes
   useEffect(() => {
@@ -103,7 +103,7 @@ export function useTranscriptionService(mode?: TranscriptionMode) {
         if (modeRef.current === 'browser') {
           stopTranscriptionBrowser()
         } else {
-          stopTranscriptionScreenpipe()
+          stopTranscriptionSkyprompt()
         }
       }
       
@@ -111,10 +111,10 @@ export function useTranscriptionService(mode?: TranscriptionMode) {
       modeRef.current = mode
       
       // Start new transcription based on mode
-      if (mode === 'screenpipe') {
-        console.log('transcription-service: starting screenpipe transcription')
-        posthog.capture('meeting_web_app_transcription_started', { mode: 'screenpipe' })
-        startTranscriptionScreenpipe()
+      if (mode === 'skyprompt') {
+        console.log('transcription-service: starting skyprompt transcription')
+        posthog.capture('meeting_web_app_transcription_started', { mode: 'skyprompt' })
+        startTranscriptionSkyprompt()
       } else {
         console.log('transcription-service: starting browser transcription')
         posthog.capture('meeting_web_app_transcription_started', { mode: 'browser' })
@@ -129,14 +129,14 @@ export function useTranscriptionService(mode?: TranscriptionMode) {
       console.log('transcription-service: cleanup for mode:', modeRef.current)
       if (modeRef.current === 'browser') {
         stopTranscriptionBrowser()
-      } else if (modeRef.current === 'screenpipe') {
-        stopTranscriptionScreenpipe()
+      } else if (modeRef.current === 'skyprompt') {
+        stopTranscriptionSkyprompt()
       }
       if (modeRef.current) {
         posthog.capture('meeting_web_app_transcription_stopped', { mode: modeRef.current })
       }
     }
-  }, [mode, isHealthChecking, startTranscriptionScreenpipe, stopTranscriptionScreenpipe, startTranscriptionBrowser, stopTranscriptionBrowser, posthog])
+  }, [mode, isHealthChecking, startTranscriptionSkyprompt, stopTranscriptionSkyprompt, startTranscriptionBrowser, stopTranscriptionBrowser, posthog])
 
   // Add toggle functionality
   const toggleRecording = useCallback(async (newState?: boolean) => {
@@ -162,7 +162,7 @@ export function useTranscriptionService(mode?: TranscriptionMode) {
         if (currentMode === 'browser') {
           startTranscriptionBrowser()
         } else {
-          startTranscriptionScreenpipe()
+          startTranscriptionSkyprompt()
         }
         GLOBAL_STATE.isInitialized = true
       }
@@ -172,14 +172,14 @@ export function useTranscriptionService(mode?: TranscriptionMode) {
         if (modeRef.current === 'browser') {
           stopTranscriptionBrowser()
         } else {
-          stopTranscriptionScreenpipe()
+          stopTranscriptionSkyprompt()
         }
         GLOBAL_STATE.isInitialized = false
       }
     }
     setIsRecording(nextState)
-  }, [isRecording, mode, startTranscriptionBrowser, startTranscriptionScreenpipe, 
-      stopTranscriptionBrowser, stopTranscriptionScreenpipe])
+  }, [isRecording, mode, startTranscriptionBrowser, startTranscriptionSkyprompt, 
+      stopTranscriptionBrowser, stopTranscriptionSkyprompt])
 
   // Better cleanup on unmount
   useEffect(() => {
@@ -193,13 +193,13 @@ export function useTranscriptionService(mode?: TranscriptionMode) {
         if (modeRef.current === 'browser') {
           stopTranscriptionBrowser()
         } else {
-          stopTranscriptionScreenpipe()
+          stopTranscriptionSkyprompt()
         }
         GLOBAL_STATE.isInitialized = false
         console.log('transcription service cleanup complete')
       }
     }
-  }, [stopTranscriptionBrowser, stopTranscriptionScreenpipe])
+  }, [stopTranscriptionBrowser, stopTranscriptionSkyprompt])
 
   // Keep transcription active on tab visibility change
   useEffect(() => {

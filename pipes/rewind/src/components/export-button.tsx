@@ -3,8 +3,8 @@ import { Button } from "./ui/button";
 import { Loader2, Video } from "lucide-react";
 import { useTimelineSelection } from "@/lib/hooks/use-timeline-selection";
 import { toast } from "./ui/use-toast";
-import { getScreenpipeAppSettings } from "@/lib/actions/get-screenpipe-app-settings";
-import { Settings } from "@screenpipe/js";
+import { getSkypromptAppSettings } from "@/lib/actions/get-skyprompt-app-settings";
+import { Settings } from "@skyprompt/js";
 import { parseInt } from "lodash";
 
 export function ExportButton() {
@@ -24,7 +24,7 @@ export function ExportButton() {
 		setIsExporting(true);
 		setProgress(0);
 		try {
-			const settings = (await getScreenpipeAppSettings()) as Settings & {
+			const settings = (await getSkypromptAppSettings()) as Settings & {
 				fps: number;
 			};
 			let isClosingManually = false;
@@ -88,7 +88,7 @@ export function ExportButton() {
 						case "completed":
 							if (data.video_data) {
 								closeWebSocket();
-								const filename = `screenpipe_export_${new Date()
+								const filename = `skyprompt_export_${new Date()
 									.toISOString()
 									.replace(/[:.]/g, "-")}.mp4`;
 

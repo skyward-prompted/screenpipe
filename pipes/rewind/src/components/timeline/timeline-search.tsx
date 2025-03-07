@@ -494,7 +494,7 @@ export function TimelineSearch({
 			.map(([window, count]) => `${window} (${count} occurrences)`)
 			.join(", ");
 
-		return `you are a search assistant for screenpipe, a system that continuously records screens & mics.
+		return `you are a search assistant for skyprompt, a system that continuously records screens & mics.
 
 your task is to analyze search queries and extract key information to find specific moments in the timeline.
 be extremely strict about matches - all keywords must be present in the correct context.
@@ -529,7 +529,7 @@ search guidelines:
 
 examples of strict matching:
 - query: "coding db.rs in cursor"
-  ✓ good match: {app_name: "Cursor", window_name: "db.rs - screenpipe", ocr_text: "fn main() {..."}
+  ✓ good match: {app_name: "Cursor", window_name: "db.rs - skyprompt", ocr_text: "fn main() {..."}
   ✗ bad match: {app_name: "Cursor", window_name: "meeting notes", ocr_text: "discussing db.rs"}
 
 - query: "watching rust video on youtube"
@@ -561,7 +561,7 @@ prioritize precision over recall - better to return no match than a wrong match.
 
 			const openai = new OpenAI({
 				apiKey:
-					settings?.aiProviderType === "screenpipe-cloud"
+					settings?.aiProviderType === "skyprompt-cloud"
 						? settings?.user?.token
 						: settings?.openaiApiKey,
 				baseURL: settings?.aiUrl,
@@ -611,7 +611,7 @@ prioritize precision over recall - better to return no match than a wrong match.
 
 		const openai = new OpenAI({
 			apiKey:
-				settings?.aiProviderType === "screenpipe-cloud"
+				settings?.aiProviderType === "skyprompt-cloud"
 					? settings?.user?.token
 					: settings?.openaiApiKey,
 			baseURL: settings?.aiUrl,
@@ -658,7 +658,7 @@ prioritize precision over recall - better to return no match than a wrong match.
 		setIsLoadingSuggestions(true);
 		const openai = new OpenAI({
 			apiKey:
-				settings?.aiProviderType === "screenpipe-cloud"
+				settings?.aiProviderType === "skyprompt-cloud"
 					? settings?.user?.token
 					: settings?.openaiApiKey,
 			baseURL: settings?.aiUrl,

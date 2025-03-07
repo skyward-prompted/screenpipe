@@ -1,8 +1,8 @@
 import type {
   InputAction,
   InputControlResponse,
-  ScreenpipeQueryParams,
-  ScreenpipeResponse,
+  SkypromptQueryParams,
+  SkypromptResponse,
   NotificationOptions,
 } from "../../common/types";
 import { toSnakeCase, convertToCamelCase } from "../../common/utils";
@@ -63,7 +63,7 @@ class NodePipe {
 
   public async sendInputControl(action: InputAction): Promise<boolean> {
     await this.initAnalyticsIfNeeded();
-    const apiUrl = process.env.SCREENPIPE_SERVER_URL || "http://localhost:3030";
+    const apiUrl = process.env.SKYPROMPT_SERVER_URL || "http://localhost:3030";
     try {
       const response = await fetch(`${apiUrl}/experimental/input_control`, {
         method: "POST",
@@ -82,14 +82,14 @@ class NodePipe {
   }
 
   /**
-   * Query Screenpipe for content based on various filters.
+   * Query Skyprompt for content based on various filters.
    *
-   * @param params - Query parameters for filtering Screenpipe content
-   * @returns Promise resolving to the Screenpipe response or null
+   * @param params - Query parameters for filtering Skyprompt content
+   * @returns Promise resolving to the Skyprompt response or null
    *
    * @example
    * // Basic search for recent browser activity on a specific website
-   * const githubActivity = await pipe.queryScreenpipe({
+   * const githubActivity = await pipe.querySkyprompt({
    *   browserUrl: "github.com",
    *   contentType: "ocr",
    *   limit: 20,
@@ -98,7 +98,7 @@ class NodePipe {
    *
    * @example
    * // Search for specific text on a particular website with date filters
-   * const searchResults = await pipe.queryScreenpipe({
+   * const searchResults = await pipe.querySkyprompt({
    *   q: "authentication",
    *   browserUrl: "auth0.com",
    *   appName: "Chrome",
@@ -119,7 +119,7 @@ class NodePipe {
    *
    * async function getAppUsageHistory(domain: string): Promise<VisitSession[]> {
    *   try {
-   *     const results = await pipe.queryScreenpipe({
+   *     const results = await pipe.querySkyprompt({
    *       browserUrl: domain,
    *       contentType: "ocr",
    *       includeFrames: true,
@@ -146,7 +146,7 @@ class NodePipe {
    *
    * @example
    * // Combining browserUrl with speaker filters for meeting recordings in browser
-   * import { pipe, ContentType, ScreenpipeResponse } from '@screenpipe/js';
+   * import { pipe, ContentType, SkypromptResponse } from '@skyprompt/js';
    *
    * interface MeetingData {
    *   url: string;
@@ -160,7 +160,7 @@ class NodePipe {
    *   speakerIds: number[]
    * ): Promise<MeetingData[]> {
    *   try {
-   *     const results = await pipe.queryScreenpipe({
+   *     const results = await pipe.querySkyprompt({
    *       browserUrl: meetingUrl,
    *       contentType: "audio" as ContentType,
    *       speakerIds: speakerIds,
@@ -184,9 +184,9 @@ class NodePipe {
    *   }
    * }
    */
-  public async queryScreenpipe(
-    params: ScreenpipeQueryParams
-  ): Promise<ScreenpipeResponse | null> {
+  public async querySkyprompt(
+    params: SkypromptQueryParams
+  ): Promise<SkypromptResponse | null> {
     await this.initAnalyticsIfNeeded();
     const queryParams = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
@@ -210,12 +210,12 @@ class NodePipe {
         let errorJson;
         try {
           errorJson = JSON.parse(errorText);
-          console.error("screenpipe api error:", {
+          console.error("skyprompt api error:", {
             status: response.status,
             error: errorJson,
           });
         } catch {
-          console.error("screenpipe api error:", {
+          console.error("skyprompt api error:", {
             status: response.status,
             error: errorText,
           });
@@ -227,9 +227,9 @@ class NodePipe {
         content_type: params.contentType,
         result_count: data.pagination.total,
       });
-      return convertToCamelCase(data) as ScreenpipeResponse;
+      return convertToCamelCase(data) as SkypromptResponse;
     } catch (error) {
-      console.error("error querying screenpipe:", error);
+      console.error("error querying skyprompt:", error);
       throw error;
     }
   }

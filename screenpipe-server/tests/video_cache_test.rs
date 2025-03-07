@@ -4,7 +4,7 @@ use dirs::home_dir;
 use std::sync::Arc;
 use tracing::{debug, error};
 
-use screenpipe_server::{video_cache::FrameCache, DatabaseManager};
+use skyprompt_server::{video_cache::FrameCache, DatabaseManager};
 
 async fn setup_test_env() -> Result<(FrameCache, Arc<DatabaseManager>)> {
     // enabled tracing logging
@@ -12,18 +12,18 @@ async fn setup_test_env() -> Result<(FrameCache, Arc<DatabaseManager>)> {
         .with_max_level(tracing::Level::DEBUG)
         .init();
 
-    let screenpipe_dir = home_dir()
+    let skyprompt_dir = home_dir()
         .expect("couldn't find home dir")
-        .join(".screenpipe")
+        .join(".skyprompt")
         .join("data");
 
-    debug!("using real screenpipe data dir: {:?}", screenpipe_dir);
+    debug!("using real skyprompt data dir: {:?}", skyprompt_dir);
 
     let db = Arc::new(
         DatabaseManager::new(
             home_dir()
                 .unwrap()
-                .join(".screenpipe")
+                .join(".skyprompt")
                 .join("db.sqlite")
                 .to_str()
                 .unwrap(),
@@ -32,7 +32,7 @@ async fn setup_test_env() -> Result<(FrameCache, Arc<DatabaseManager>)> {
         .unwrap(),
     );
 
-    let cache = FrameCache::new(screenpipe_dir, db.clone()).await?;
+    let cache = FrameCache::new(skyprompt_dir, db.clone()).await?;
     Ok((cache, db))
 }
 

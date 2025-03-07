@@ -22,14 +22,14 @@ const DEV_OPTIONS = [
     icon: UserRound,
     title: "standard mode",
     description:
-      "screenpipe takes care of everything for you, making it easy and stress-free.",
+      "skyprompt takes care of everything for you, making it easy and stress-free.",
   },
   {
     key: "devMode",
     icon: Wrench,
     title: "dev mode",
     description:
-      "run the CLI on top of the UI, and customize screenpipe to fit your needs.",
+      "run the CLI on top of the UI, and customize skyprompt to fit your needs.",
   },
 ];
 
@@ -86,11 +86,11 @@ const OnboardingDevOrNonDev: React.FC<OnboardingDevOrNonDevProps> = ({
         setLocalSettings({ ...localSettings, devMode: false });
         toast({
           title: "success",
-          description: "screenpipe backend is in standard mode",
+          description: "skyprompt backend is in standard mode",
           variant: "default",
         });
         // TODO: should give better user feedback
-        await invoke("spawn_screenpipe");
+        await invoke("spawn_skyprompt");
       }
     } catch (error: any) {
       toast({
@@ -109,10 +109,10 @@ const OnboardingDevOrNonDev: React.FC<OnboardingDevOrNonDevProps> = ({
         <img
           className="w-24 h-24 justify-center"
           src="/128x128.png"
-          alt="screenpipe-logo"
+          alt="skyprompt-logo"
         />
         <DialogTitle className="text-center text-2xl">
-          how do you prefer to use screenpipe?
+          how do you prefer to use skyprompt?
         </DialogTitle>
       </DialogHeader>
       <div className="flex w-full justify-around mt-12">

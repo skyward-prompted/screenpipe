@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { generateObject, generateText, jsonSchema } from "ai";
 import { ollama } from "ollama-ai-provider";
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 import * as fs from "fs/promises";
 import * as path from "path";
 import { extractLinkedContent } from "@/lib/actions/obsidian";

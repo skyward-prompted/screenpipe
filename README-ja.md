@@ -9,7 +9,7 @@
 </p>
 
 <p align="center" style="font-family: 'Press Start 2P', monospace;">
-   <h1 align="center">[ screenpipe ]</h1>
+   <h1 align="center">[ skyprompt ]</h1>
    <p align="center">AIアプリを構築、配布、収益化するためのライブラリ＆プラットフォーム（Rewind、Granolaなどと同様）</p>
    <p align="center">オープンソース | 100% ローカル | 開発者フレンドリー | 24/7画面、マイク、キーボードの記録と制御</p>
 </p>
@@ -59,7 +59,7 @@
 - [2024/10] [Founders, Inc.](https://f.inc/)から支援を受ける
 - [2024/09] [GitHubトレンド1位、Hacker Newsに掲載！](https://x.com/louis030195/status/1840859691754344483)
 - [2024/08] アプリインターフェースからGitHubリポジトリ/ディレクトリに基づいて[パイプの作成、共有、インストール](https://docs.screenpi.pe/docs/plugins)が可能に
-- [2024/08] バウンティプログラム開始！ScreenPipeに貢献して収益を得られます。[課題を確認](https://github.com/mediar-ai/screenpipe/issues)
+- [2024/08] バウンティプログラム開始！Skypromptに貢献して収益を得られます。[課題を確認](https://github.com/mediar-ai/skyprompt/issues)
 - [2024/08] Apple & Windows ネイティブOCRをリリース
 - [2024/07] 🎁 AGI Houseのハッカソンでスクリーンパイプが受賞（近日統合予定）
 - [2024/07] **デスクトップアプリをリリース！ [今すぐダウンロード！](https://screenpi.pe)**
@@ -86,19 +86,19 @@
 macOS、Linux:
 
 ```bash
-curl -fsSL raw.githubusercontent.com/mediar-ai/screenpipe/main/install.sh | sh
+curl -fsSL raw.githubusercontent.com/mediar-ai/skyprompt/main/install.sh | sh
 ```
 
 Windowsの場合
 
 ```bash
-irm https://raw.githubusercontent.com/mediar-ai/screenpipe/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/mediar-ai/skyprompt/main/install.ps1 | iex
 ```
 
 その後
 
 ```bash
-screenpipe
+skyprompt
 ```
 
 macOSでは画面とマイクの許可を必ず設定してください
@@ -109,10 +109,10 @@ macOSでは画面とマイクの許可を必ず設定してください
 ## プラグインの作成
 
 ```bash
-bunx --bun @screenpipe/dev@latest pipe create
+bunx --bun @skyprompt/dev@latest pipe create
 ```
 
-ScreenPipeには「パイプ」と呼ばれるプラグインシステムがあり、Rustコード内のサンドボックス環境でNext.jsデスクトップアプリを作成できます。[詳細はこちら](https://docs.screenpi.pe/docs/plugins)
+Skypromptには「パイプ」と呼ばれるプラグインシステムがあり、Rustコード内のサンドボックス環境でNext.jsデスクトップアプリを作成できます。[詳細はこちら](https://docs.screenpi.pe/docs/plugins)
 
 ## スター履歴
 

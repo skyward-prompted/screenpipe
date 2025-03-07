@@ -76,11 +76,11 @@ impl User {
 }
 
 #[tauri::command]
-pub async fn stop_screenpipe(
+pub async fn stop_skyprompt(
     state: State<'_, SidecarState>,
     _app: tauri::AppHandle,
 ) -> Result<(), String> {
-    debug!("Killing screenpipe");
+    debug!("Killing skyprompt");
 
     #[cfg(not(target_os = "windows"))]
     {
@@ -99,17 +99,17 @@ pub async fn stop_screenpipe(
         match tokio::process::Command::new("pkill")
             .arg("-9")
             .arg("-f")
-            .arg("screenpipe")
+            .arg("skyprompt")
             .output()
             .await
         {
             Ok(_) => {
-                debug!("Successfully killed screenpipe processes");
+                debug!("Successfully killed skyprompt processes");
                 Ok(())
             }
             Err(e) => {
-                error!("Failed to kill screenpipe processes: {}", e);
-                Err(format!("Failed to kill screenpipe processes: {}", e))
+                error!("Failed to kill skyprompt processes: {}", e);
+                Err(format!("Failed to kill skyprompt processes: {}", e))
             }
         }
     }
@@ -123,25 +123,25 @@ pub async fn stop_screenpipe(
             .arg("-WindowStyle")
             .arg("hidden")
             .arg("-Command")
-            .arg(r#"taskkill.exe /F /T /IM screenpipe.exe"#)
+            .arg(r#"taskkill.exe /F /T /IM skyprompt.exe"#)
             .creation_flags(CREATE_NO_WINDOW)
             .output()
             .await
         {
             Ok(_) => {
-                debug!("Successfully killed screenpipe processes");
+                debug!("Successfully killed skyprompt processes");
                 Ok(())
             }
             Err(e) => {
-                error!("Failed to kill screenpipe processes: {}", e);
-                Err(format!("Failed to kill screenpipe processes: {}", e))
+                error!("Failed to kill skyprompt processes: {}", e);
+                Err(format!("Failed to kill skyprompt processes: {}", e))
             }
         }
     }
 }
 
 #[tauri::command]
-pub async fn spawn_screenpipe(
+pub async fn spawn_skyprompt(
     state: tauri::State<'_, SidecarState>,
     app: tauri::AppHandle,
     override_args: Option<Vec<String>>,
@@ -290,7 +290,7 @@ fn spawn_sidecar(app: &tauri::AppHandle, override_args: Option<Vec<String>>) -> 
 
     if audio_transcription_engine != "default" {
         args.push("--audio-transcription-engine");
-        let model = if audio_transcription_engine == "screenpipe-cloud" {
+        let model = if audio_transcription_engine == "skyprompt-cloud" {
             "deepgram"
         } else {
             audio_transcription_engine.as_str()
@@ -418,7 +418,7 @@ fn spawn_sidecar(app: &tauri::AppHandle, override_args: Option<Vec<String>>) -> 
     let override_args_as_vec = override_args.unwrap_or_default();
 
     if cfg!(windows) {
-        let mut c = app.shell().sidecar("screenpipe").unwrap();
+        let mut c = app.shell().sidecar("skyprompt").unwrap();
         if use_chinese_mirror {
             c = c.env("HF_ENDPOINT", "https://hf-mirror.com");
         }
@@ -432,7 +432,7 @@ fn spawn_sidecar(app: &tauri::AppHandle, override_args: Option<Vec<String>>) -> 
                 "https://ai-proxy.i-f9f.workers.dev/v1/listen",
             );
             c = c.env("DEEPGRAM_WEBSOCKET_URL", "wss://ai-proxy.i-f9f.workers.dev");
-            // Add token if screenpipe-cloud is selected and user has a token
+            // Add token if skyprompt-cloud is selected and user has a token
             if user.id.is_some() {
                 c = c.env("CUSTOM_DEEPGRAM_API_TOKEN", user.id.as_ref().unwrap());
                 args.push("--deepgram-api-key");
@@ -458,7 +458,7 @@ fn spawn_sidecar(app: &tauri::AppHandle, override_args: Option<Vec<String>>) -> 
         return Ok(child);
     }
 
-    let mut c = app.shell().sidecar("screenpipe").unwrap();
+    let mut c = app.shell().sidecar("skyprompt").unwrap();
 
     if use_chinese_mirror {
         c = c.env("HF_ENDPOINT", "https://hf-mirror.com");
@@ -476,7 +476,7 @@ fn spawn_sidecar(app: &tauri::AppHandle, override_args: Option<Vec<String>>) -> 
             "https://ai-proxy.i-f9f.workers.dev/v1/listen",
         );
         c = c.env("DEEPGRAM_WEBSOCKET_URL", "wss://ai-proxy.i-f9f.workers.dev");
-        // Add token if screenpipe-cloud is selected and user has a token
+        // Add token if skyprompt-cloud is selected and user has a token
         if user.id.is_some() {
             c = c.env("CUSTOM_DEEPGRAM_API_TOKEN", user.id.as_ref().unwrap());
             args.push("--deepgram-api-key");

@@ -6,8 +6,8 @@
     "start": "bun run index.ts"
   },
   "dependencies": {
-    "@screenpipe/js": "workspace:*",
-    "@screenpipe/browser": "workspace:*"
+    "@skyprompt/js": "workspace:*",
+    "@skyprompt/browser": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest"

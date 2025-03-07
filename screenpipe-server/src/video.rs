@@ -1,8 +1,8 @@
 use chrono::Utc;
 use crossbeam::queue::ArrayQueue;
 use image::ImageFormat::{self};
-use screenpipe_core::{find_ffmpeg_path, Language};
-use screenpipe_vision::{
+use skyprompt_core::{find_ffmpeg_path, Language};
+use skyprompt_vision::{
     capture_screenshot_by_window::WindowFilters, continuous_capture, CaptureResult, OcrEngine,
 };
 use std::borrow::Cow;

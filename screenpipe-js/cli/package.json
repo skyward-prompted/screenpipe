@@ -1,11 +1,11 @@
 {
-  "name": "@screenpipe/dev",
+  "name": "@skyprompt/dev",
   "version": "1.1.33",
-  "description": "screenpipe development CLI",
+  "description": "skyprompt development CLI",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "screenpipe-dev": "./dist/index.js"
+    "skyprompt-dev": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --target node18 --clean && chmod +x ./dist/index.js && bun link",
@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.10.0",
-    "@screenpipe/browser": "^0.1.36",
-    "@screenpipe/js": "^1.0.17",
+    "@skyprompt/browser": "^0.1.36",
+    "@skyprompt/js": "^1.0.17",
     "@types/inquirer": "^9.0.7",
     "@types/tar-stream": "^3.1.3",
     "archiver": "^7.0.1",

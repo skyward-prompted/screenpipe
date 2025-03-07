@@ -4,8 +4,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Loom • Screenpipe",
-  description: "Turn your screenpipe recordings into a loom video",
+  title: "Loom • Skyprompt",
+  description: "Turn your skyprompt recordings into a loom video",
 };
 
 const inter = Inter({ subsets: ["latin"] });

@@ -1,4 +1,4 @@
-use crate::stop_screenpipe;
+use crate::stop_skyprompt;
 use crate::SidecarState;
 use anyhow::Error;
 use log::{error, info};
@@ -28,7 +28,7 @@ impl UpdatesManager {
             update_available: Arc::new(Mutex::new(false)),
             update_installed: Arc::new(Mutex::new(false)),
             app: app.clone(),
-            update_menu_item: MenuItemBuilder::with_id("update_now", "screenpipe is up to date")
+            update_menu_item: MenuItemBuilder::with_id("update_now", "skyprompt is up to date")
                 .enabled(false)
                 .build(app)?,
         })
@@ -66,10 +66,10 @@ impl UpdatesManager {
             {
                 self.update_menu_item.set_enabled(false)?;
                 self.update_menu_item
-                    .set_text("downloading latest version of screenpipe")?;
+                    .set_text("downloading latest version of skyprompt")?;
             }
 
-            if let Some(tray) = self.app.tray_by_id("screenpipe_main") {
+            if let Some(tray) = self.app.tray_by_id("skyprompt_main") {
                 let path = self.app.path().resolve(
                     "assets/update-logo-black.png",
                     tauri::path::BaseDirectory::Resource,
@@ -95,7 +95,7 @@ impl UpdatesManager {
                     .app
                     .dialog()
                     .message("update available")
-                    .title("screenpipe update")
+                    .title("skyprompt update")
                     .buttons(MessageDialogButtons::OkCancelCustom(
                         "update now".to_string(),
                         "later".to_string(),
@@ -112,10 +112,10 @@ impl UpdatesManager {
 
                         self.update_menu_item.set_enabled(false)?;
                         self.update_menu_item
-                            .set_text("downloading latest version of screenpipe")?;
+                            .set_text("downloading latest version of skyprompt")?;
 
                         if let Err(err) =
-                            stop_screenpipe(self.app.state::<SidecarState>(), self.app.clone())
+                            stop_skyprompt(self.app.state::<SidecarState>(), self.app.clone())
                                 .await
                         {
                             error!("Failed to kill sidecar: {}", err);
@@ -135,13 +135,13 @@ impl UpdatesManager {
                     #[cfg(not(target_os = "windows"))]
                     {
                         if let Err(err) =
-                            stop_screenpipe(self.app.state::<SidecarState>(), self.app.clone())
+                            stop_skyprompt(self.app.state::<SidecarState>(), self.app.clone())
                                 .await
                         {
                             error!("Failed to kill sidecar: {}", err);
                         }
                     }
-                    self.update_screenpipe();
+                    self.update_skyprompt();
                 }
             }
 
@@ -155,7 +155,7 @@ impl UpdatesManager {
         &self.update_menu_item
     }
 
-    pub fn update_screenpipe(&self) -> Option<Error> {
+    pub fn update_skyprompt(&self) -> Option<Error> {
         self.app.restart();
     }
 

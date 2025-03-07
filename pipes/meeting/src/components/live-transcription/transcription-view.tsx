@@ -11,9 +11,9 @@ import { DialogFooter } from "@/components/ui/dialog"
 import { addVocabularyEntry } from './hooks/storage-vocabulary'
 import { generateMeetingNote } from './hooks/ai-create-note-based-on-chunk'
 import { useMeetingContext } from './hooks/storage-for-live-meeting'
-import type { Settings } from "@screenpipe/browser"
+import type { Settings } from "@skyprompt/browser"
 import { cn } from "@/lib/utils"
-import { useRecentChunks } from './hooks/pull-meetings-from-screenpipe'
+import { useRecentChunks } from './hooks/pull-meetings-from-skyprompt'
 import { useAutoScroll } from './hooks/auto-scroll'
 
 interface DiffChunk {

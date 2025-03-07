@@ -86,7 +86,7 @@ export function SearchFilterGenerator({
 
       const openai = new OpenAI({
         apiKey:
-          settings.aiProviderType === "screenpipe-cloud"
+          settings.aiProviderType === "skyprompt-cloud"
             ? settings.user.token
             : settings.openaiApiKey,
         baseURL: settings.aiUrl,
@@ -100,7 +100,7 @@ export function SearchFilterGenerator({
         messages: [
           {
             role: "system",
-            content: `you are a search filter generator for screenpipe's 24/7 recording context database. your task is to generate exactly 3 search filter variations in json format.
+            content: `you are a search filter generator for skyprompt's 24/7 recording context database. your task is to generate exactly 3 search filter variations in json format.
 
 common apps in user's database:
 ${topApps}

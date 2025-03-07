@@ -26,7 +26,7 @@ struct MenuState {
 }
 
 pub fn setup_tray(app: &AppHandle, update_item: &tauri::menu::MenuItem<Wry>) -> Result<()> {
-    if let Some(main_tray) = app.tray_by_id("screenpipe_main") {
+    if let Some(main_tray) = app.tray_by_id("skyprompt_main") {
         // Initial menu setup with empty state
         let menu = create_dynamic_menu(app, &MenuState::default(), update_item)?;
         main_tray.set_menu(Some(menu))?;
@@ -50,7 +50,7 @@ fn create_dynamic_menu(
 
     // Get the show shortcut from store
     let show_shortcut = store
-        .get("showScreenpipeShortcut")
+        .get("showSkypromptShortcut")
         .and_then(|v| v.as_str().map(String::from))
         .unwrap_or_else(|| "Alt+Space".to_string());
 
@@ -58,7 +58,7 @@ fn create_dynamic_menu(
     menu_builder = menu_builder.item(
         &MenuItemBuilder::with_id(
             "show",
-            format!("show screenpipe ({})", format_shortcut(&show_shortcut)),
+            format!("show skyprompt ({})", format_shortcut(&show_shortcut)),
         )
         .build(app)?,
     );
@@ -105,7 +105,7 @@ fn create_dynamic_menu(
         .item(&MenuItemBuilder::with_id("changelog", "changelog").build(app)?)
         .item(&MenuItemBuilder::with_id("status", "status").build(app)?)
         .item(&PredefinedMenuItem::separator(app)?)
-        .item(&MenuItemBuilder::with_id("quit", "quit screenpipe").build(app)?);
+        .item(&MenuItemBuilder::with_id("quit", "quit skyprompt").build(app)?);
 
     menu_builder.build().map_err(Into::into)
 }
@@ -153,25 +153,25 @@ fn handle_menu_event(app_handle: &AppHandle, event: tauri::menu::MenuEvent) {
             let _ = app_handle.get_webview_window("main").unwrap().set_focus();
             let _ = app_handle
                 .opener()
-                .open_url("screenpipe://onboarding", None::<&str>);
+                .open_url("skyprompt://onboarding", None::<&str>);
         }
         "settings" => {
             let _ = app_handle.get_webview_window("main").unwrap().set_focus();
             let _ = app_handle
                 .opener()
-                .open_url("screenpipe://settings", None::<&str>);
+                .open_url("skyprompt://settings", None::<&str>);
         }
         "changelog" => {
             let _ = app_handle.get_webview_window("main").unwrap().set_focus();
             let _ = app_handle
                 .opener()
-                .open_url("screenpipe://changelog", None::<&str>);
+                .open_url("skyprompt://changelog", None::<&str>);
         }
         "status" => {
             let _ = app_handle.get_webview_window("main").unwrap().set_focus();
             let _ = app_handle
                 .opener()
-                .open_url("screenpipe://status", None::<&str>);
+                .open_url("skyprompt://status", None::<&str>);
         }
         "quit" => {
             debug!("Quit requested");
@@ -207,7 +207,7 @@ async fn update_menu_if_needed(
     };
 
     if should_update {
-        if let Some(tray) = app.tray_by_id("screenpipe_main") {
+        if let Some(tray) = app.tray_by_id("skyprompt_main") {
             let menu = create_dynamic_menu(app, &new_state, update_item)?;
             tray.set_menu(Some(menu))?;
             debug!("Updated tray menu with {} pipes", new_state.pipes.len());

@@ -11,7 +11,7 @@ https://github.com/user-attachments/assets/7466a689-7703-4f0b-b3e1-b1cb9ed70cff
 Clone the repo: 
 
 ```bash
-git clone https://github.com/mediar-ai/screenpipe
+git clone https://github.com/mediar-ai/skyprompt
 ```
 
 Edit claude app config
@@ -22,13 +22,13 @@ Edit claude app config
 ```json
 {
     "mcpServers": {
-        "screenpipe": {
+        "skyprompt": {
             "command": "uv",
             "args": [
                 "--directory",
-                "/absolute/path/to/screenpipe-mcp",
+                "/absolute/path/to/skyprompt-mcp",
                 "run",
-                "screenpipe-mcp"
+                "skyprompt-mcp"
             ]
         }
     }
@@ -41,7 +41,7 @@ Note: Restart Claude Desktop after making changes.
 
 1. First test with MCP Inspector:
 ```bash
-npx @modelcontextprotocol/inspector uv run screenpipe-mcp
+npx @modelcontextprotocol/inspector uv run skyprompt-mcp
 ```
 
 2. Example queries in Claude:
@@ -71,8 +71,8 @@ npx @modelcontextprotocol/inspector uv run screenpipe-mcp
 
 ### Notes
 
-1. Make sure screenpipe server is running on port 3030
-2. The server assumes local connection - adjust SCREENPIPE_API if needed
+1. Make sure skyprompt server is running on port 3030
+2. The server assumes local connection - adjust SKYPROMPT_API if needed
 3. All timestamps are handled in UTC
 4. Results are formatted for readability in Claude's interface
 

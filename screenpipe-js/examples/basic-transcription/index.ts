@@ -1,4 +1,4 @@
-import { pipe } from "@screenpipe/browser";
+import { pipe } from "@skyprompt/browser";
 
 async function monitorTranscriptions() {
   console.log("starting transcription monitor...");

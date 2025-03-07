@@ -69,7 +69,7 @@ const HealthStatus = ({ className }: { className?: string }) => {
     uiMonitoringEnabled: boolean
   ) => {
     if (status === "loading")
-      return "screenpipe is starting up. this may take a few minutes...";
+      return "skyprompt is starting up. this may take a few minutes...";
 
     let issues = [];
     if (frameStatus !== "ok" && frameStatus !== "disabled")
@@ -79,7 +79,7 @@ const HealthStatus = ({ className }: { className?: string }) => {
     if (uiMonitoringEnabled && uiStatus !== "ok" && uiStatus !== "disabled")
       issues.push("ui monitoring");
 
-    if (issues.length === 0) return "screenpipe is running smoothly";
+    if (issues.length === 0) return "skyprompt is running smoothly";
     return `there might be an issue with ${issues.join(" and ")}`;
   };
 
@@ -143,7 +143,7 @@ const HealthStatus = ({ className }: { className?: string }) => {
           aria-describedby="status-dialog-description"
         >
           <DialogHeader className="flex flex-row items-center justify-between">
-            <DialogTitle>screenpipe status</DialogTitle>
+            <DialogTitle>skyprompt status</DialogTitle>
             <div className="flex space-x-2">
               <LogFileButton size="10" />
 

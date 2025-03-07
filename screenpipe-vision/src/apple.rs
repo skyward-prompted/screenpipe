@@ -7,7 +7,7 @@ use cidre::{
 use image::DynamicImage;
 use image::GenericImageView;
 use log::error;
-use screenpipe_core::Language;
+use skyprompt_core::Language;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::OnceLock;

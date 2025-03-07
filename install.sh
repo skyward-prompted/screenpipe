@@ -41,7 +41,7 @@ get_os_arch() {
 }
 
 echo "fetching latest version from github..."
-LATEST_RELEASE=$(curl -s https://api.github.com/repos/mediar-ai/screenpipe/releases/latest)
+LATEST_RELEASE=$(curl -s https://api.github.com/repos/mediar-ai/skyprompt/releases/latest)
 # Extract version using grep and sed for cross-platform compatibility
 VERSION=$(echo "$LATEST_RELEASE" | grep -o '"tag_name": *"v[^"]*"' | sed 's/.*"v\([^"]*\)".*/\1/')
 if [ -z "$VERSION" ]; then
@@ -59,8 +59,8 @@ fi
 os=$(echo "$OS_ARCH" | cut -d' ' -f1)
 arch=$(echo "$OS_ARCH" | cut -d' ' -f2)
 
-FILENAME="screenpipe-${VERSION}-${arch}-${os}.tar.gz"
-URL="https://github.com/mediar-ai/screenpipe/releases/download/v${VERSION}/${FILENAME}"
+FILENAME="skyprompt-${VERSION}-${arch}-${os}.tar.gz"
+URL="https://github.com/mediar-ai/skyprompt/releases/download/v${VERSION}/${FILENAME}"
 
 TMP_DIR=$(mktemp -d)
 cd "$TMP_DIR" || exit 1
@@ -195,7 +195,7 @@ if ! command -v bun >/dev/null 2>&1; then
     fi
 fi
 
-echo "downloading screenpipe v${VERSION} for ${arch}-${os}..."
+echo "downloading skyprompt v${VERSION} for ${arch}-${os}..."
 
 # Add debug output for download
 echo "downloading from url: $URL"
@@ -217,20 +217,20 @@ if ! tar xzf "$FILENAME"; then
 fi
 
 echo "installing..."
-INSTALL_DIR="$HOME/.local/screenpipe"
+INSTALL_DIR="$HOME/.local/skyprompt"
 
 # Remove existing installation
 rm -rf "$INSTALL_DIR"
 
 # Create install directory
-if ! mkdir -p "$INSTALL_DIR/screenpipe-vision/lib"; then
+if ! mkdir -p "$INSTALL_DIR/skyprompt-vision/lib"; then
     echo "Failed to create install directory"
     exit 1
 fi
 
 
 # Copy binary
-if ! cp bin/screenpipe "$INSTALL_DIR/"; then
+if ! cp bin/skyprompt "$INSTALL_DIR/"; then
     echo "Failed to copy binary"
     exit 1
 fi
@@ -243,7 +243,7 @@ fi
 
 # Create symlink in user's bin directory
 mkdir -p "$HOME/.local/bin"
-if ! ln -sf "$INSTALL_DIR/screenpipe" "$HOME/.local/bin/screenpipe"; then
+if ! ln -sf "$INSTALL_DIR/skyprompt" "$HOME/.local/bin/skyprompt"; then
     echo "Failed to create symlink"
     exit 1
 fi
@@ -287,7 +287,7 @@ echo "
 echo "installation complete! 🚀"
 echo "to get started:"
 echo "1. restart your terminal or run: source $SHELL_CONFIG"
-echo "2. run: screenpipe"
+echo "2. run: skyprompt"
 echo "3. allow permissions on macos (screen, mic) if needed"
 echo ""
 echo "╭──────────────────────────────────────────╮"

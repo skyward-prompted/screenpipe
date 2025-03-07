@@ -1,1 +1,1 @@
-pub use screenpipe_actions::run;
+pub use skyprompt_actions::run;

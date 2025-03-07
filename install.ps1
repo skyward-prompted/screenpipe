@@ -1,8 +1,8 @@
-Write-Host "installing screenpipe..."
+Write-Host "installing skyprompt..."
 
 try {
     # Get latest version
-    $releases = Invoke-RestMethod "https://api.github.com/repos/mediar-ai/screenpipe/releases"
+    $releases = Invoke-RestMethod "https://api.github.com/repos/mediar-ai/skyprompt/releases"
     $latestRelease = $releases | Where-Object { -not $_.prerelease } | Select-Object -First 1
     if (-not $latestRelease) {
         throw "no releases found"
@@ -16,8 +16,8 @@ try {
 
     $url = $asset.browser_download_url
 
-    $installDir = "$env:USERPROFILE\screenpipe"
-    $tempZip = "$env:TEMP\screenpipe.zip"
+    $installDir = "$env:USERPROFILE\skyprompt"
+    $tempZip = "$env:TEMP\skyprompt.zip"
 
     # Download and extract
     Write-Host "downloading latest version ($($latestRelease.tag_name)) from $url..."
@@ -39,9 +39,9 @@ try {
     }
 
     # Verify installation
-    $binPath = Join-Path $installDir "bin\screenpipe.exe"
+    $binPath = Join-Path $installDir "bin\skyprompt.exe"
     if (!(Test-Path $binPath)) {
-        throw "screenpipe.exe not found in $binPath after installation"
+        throw "skyprompt.exe not found in $binPath after installation"
     }
 
     # Cleanup
@@ -60,7 +60,7 @@ try {
     Write-Host ""
     Write-Host "to get started:"
     Write-Host "1. restart your terminal"
-    Write-Host "2. run: screenpipe"
+    Write-Host "2. run: skyprompt"
     Write-Host ""
     Write-Host "join our discord: https://discord.gg/dU9EBuw7Uq"
     Write-Host "check the docs: https://docs.screenpi.pe"

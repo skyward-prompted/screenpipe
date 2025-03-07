@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Obsidian • Screenpipe",
+  title: "Obsidian • Skyprompt",
   description: "Turn your screen time into a living knowledge base with AI",
 };
 

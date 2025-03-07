@@ -1,7 +1,7 @@
 "use server";
 
 import { OpenAI } from "openai";
-import { ContentItem } from "@screenpipe/js";
+import { ContentItem } from "@skyprompt/js";
 import generateRedditLinks from "./generate-reddit-links";
 
 export default async function generateRedditQuestions(
@@ -33,7 +33,7 @@ export default async function generateRedditQuestions(
   console.log("reddit questions prompt:", prompt);
   const openai = new OpenAI({
     apiKey:
-      aiProviderType === "screenpipe-cloud"
+      aiProviderType === "skyprompt-cloud"
       ? userToken
       : openaiApiKey,
     baseURL: gptApiUrl,

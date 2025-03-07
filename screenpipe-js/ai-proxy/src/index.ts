@@ -112,7 +112,7 @@ export default Sentry.withSentry(
 /*
 terminal 1
 
-cd screenpipe-js/ai-proxy
+cd skyprompt-js/ai-proxy
 wrangler dev
 
 
@@ -121,7 +121,7 @@ HOST=https://ai-proxy.i-f9f.workers.dev
 HOST=http://localhost:8787
 TOKEN=foobar (check app settings)
 in 
-less "$HOME/Library/Application Support/screenpipe/store.bin"
+less "$HOME/Library/Application Support/skyprompt/store.bin"
 
 
 curl $HOST/test
@@ -131,7 +131,7 @@ curl -X POST $HOST/v1/listen \
   -H "Content-Type: audio/wav" \
   -H "detect_language: en" \
   -H "Authorization: Bearer $TOKEN" \
-  --data-binary "@./screenpipe-audio/test_data/poetic_kapil_gupta.wav"
+  --data-binary "@./skyprompt-audio/test_data/poetic_kapil_gupta.wav"
 
 curl -X POST $HOST/v1/chat/completions \
 -H "Content-Type: application/json" \

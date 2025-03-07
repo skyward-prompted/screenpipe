@@ -380,7 +380,7 @@ async fn start_sidecar(
     info!("received request to start sidecar");
 
     let app_handle = state.app_handle.clone();
-    match crate::sidecar::spawn_screenpipe(
+    match crate::sidecar::spawn_skyprompt(
         app_handle.clone().state::<crate::SidecarState>(),
         app_handle,
         None,
@@ -407,7 +407,7 @@ async fn stop_sidecar(
     info!("received request to stop sidecar");
 
     let app_handle = state.app_handle.clone();
-    match crate::sidecar::stop_screenpipe(
+    match crate::sidecar::stop_skyprompt(
         app_handle.clone().state::<crate::SidecarState>(),
         app_handle,
     )

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { pipe, VisionEvent } from "@screenpipe/browser";
+import { pipe, VisionEvent } from "@skyprompt/browser";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 

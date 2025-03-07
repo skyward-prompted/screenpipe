@@ -3,12 +3,12 @@ mod tests {
     use std::sync::Arc;
 
     use chrono::Utc;
-    use screenpipe_audio::{AudioDevice, DeviceType};
-    use screenpipe_server::{
+    use skyprompt_audio::{AudioDevice, DeviceType};
+    use skyprompt_server::{
         db_types::{ContentType, Frame, SearchResult},
         DatabaseManager,
     };
-    use screenpipe_vision::OcrEngine;
+    use skyprompt_vision::OcrEngine;
 
     async fn setup_test_db() -> DatabaseManager {
         // Initialize tracing for debug output

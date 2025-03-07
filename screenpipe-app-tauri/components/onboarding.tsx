@@ -46,12 +46,12 @@ const slideFlow: Record<
   }
 > = {
   intro: {
-    // introduction video of screenpipe
+    // introduction video of skyprompt
     next: () => "status",
     prev: () => null,
   },
   status: {
-    // status of screenpipe (blockage or not)
+    // status of skyprompt (blockage or not)
     next: () => "login",
     prev: () => "intro",
   },

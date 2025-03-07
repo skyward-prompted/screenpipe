@@ -1,8 +1,8 @@
 use anyhow::Result;
 #[cfg(feature = "llm")]
-use screenpipe_core::google::GoogleConfig;
+use skyprompt_core::google::GoogleConfig;
 #[cfg(feature = "llm")]
-use screenpipe_core::google_stream_text;
+use skyprompt_core::google_stream_text;
 
 fn main() -> Result<()> {
     #[cfg(feature = "llm")]

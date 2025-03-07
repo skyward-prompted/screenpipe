@@ -1,6 +1,6 @@
 # contributing to screen pipe
 
-first off, thank you for considering contributing to screen pipe! it's people like you that make screen pipe such a great tool. we're looking for developers who want to create paid pipes, with the potential to easily make $1000/m. let's [schedule a call](https://cal.com/louis030195/screenpipe) to get you onboarded.
+first off, thank you for considering contributing to screen pipe! it's people like you that make screen pipe such a great tool. we're looking for developers who want to create paid pipes, with the potential to easily make $1000/m. let's [schedule a call](https://cal.com/louis030195/skyprompt) to get you onboarded.
 
 btw, we prefer that you don't contribute if you are not using or will use the product and is just there for bounties, thank you.
 
@@ -27,8 +27,8 @@ before you begin:
 
 3. **clone the repository**:
    ```bash
-   git clone https://github.com/mediar-ai/screenpipe
-   cd screenpipe
+   git clone https://github.com/mediar-ai/skyprompt
+   cd skyprompt
    ```
 
 4. **build the project**:
@@ -36,14 +36,14 @@ before you begin:
    cargo build --release --features metal
    ```
 
-5. **run screenpipe**:
+5. **run skyprompt**:
    ```bash
-   ./target/release/screenpipe
+   ./target/release/skyprompt
    ```
 
 6. **build the desktop app**:
    ```bash
-   cd screenpipe-app-tauri
+   cd skyprompt-app-tauri
    bun install
    bun tauri build
    ```
@@ -90,7 +90,7 @@ before you begin:
    
    ```powershell
    # Define the target directory where Intel OpenMP DLLs will be copied 
-   $mkl_dir = (pwd).Path + "\screenpipe-app-tauri\src-tauri\mkl"
+   $mkl_dir = (pwd).Path + "\skyprompt-app-tauri\src-tauri\mkl"
    New-Item -ItemType Directory -Force -Path $mkl_dir | Out-Null
 
    python -m pip install --upgrade pip
@@ -111,10 +111,10 @@ before you begin:
 
 6. **clone and build**:
    ```powershell
-   git clone https://github.com/mediar-ai/screenpipe
-   cd screenpipe
+   git clone https://github.com/mediar-ai/skyprompt
+   cd skyprompt
    cargo build --release
-   cd screenpipe-app-tauri
+   cd skyprompt-app-tauri
    bun install
    bun tauri build
    ```
@@ -134,19 +134,19 @@ before you begin:
 
 3. **clone and build**:
    ```bash
-   git clone https://github.com/mediar-ai/screenpipe
-   cd screenpipe
+   git clone https://github.com/mediar-ai/skyprompt
+   cd skyprompt
    cargo build --release
    ```
 
 4. **run the application**:
    ```bash
-   ./target/release/screenpipe
+   ./target/release/skyprompt
    ```
 
 5. **build the desktop app**:
    ```bash
-   cd screenpipe-app-tauri
+   cd skyprompt-app-tauri
    bun install
    bun tauri build
    ```
@@ -250,7 +250,7 @@ cargo test
 one command i keep using to avoid having to kill my main "production" process is:
 
 ```bash
-./target/release/screenpipe --port 3035 --data-dir /tmp/sp
+./target/release/skyprompt --port 3035 --data-dir /tmp/sp
 ```
 
 it will avoid conflicts with the port and avoid conflicts with the data dir
@@ -277,16 +277,16 @@ using tokio-console:
 
 ```bash
 # terminal 1
-RUST_LOG="tokio=debug,runtime=debug" RUSTFLAGS="--cfg tokio_unstable" cargo run --bin screenpipe --features debug-console
+RUST_LOG="tokio=debug,runtime=debug" RUSTFLAGS="--cfg tokio_unstable" cargo run --bin skyprompt --features debug-console
 # terminal 2
 cargo install tokio-console
 tokio-console
 ```
 
 ```bash
-RUSTFLAGS="-Z sanitizer=address" cargo run --bin screenpipe
+RUSTFLAGS="-Z sanitizer=address" cargo run --bin skyprompt
 # or
-RUSTFLAGS="-Z sanitizer=leak" cargo run --bin screenpipe
+RUSTFLAGS="-Z sanitizer=leak" cargo run --bin skyprompt
 ```
 
 for performance monitoring, you can use the following command:
@@ -294,7 +294,7 @@ for performance monitoring, you can use the following command:
 ```bash
 cargo install cargo-instruments
 # tracking leaks over 60 minutes time limit
-cargo instruments -t Leaks --bin screenpipe --features metal --time-limit 600000 --open
+cargo instruments -t Leaks --bin skyprompt --features metal --time-limit 600000 --open
 ```
 
 then open the file in `target/release/instruments` using xcode -> open developer tool -> instruments.
@@ -305,7 +305,7 @@ then open the file in `target/release/instruments` using xcode -> open developer
 cargo bench
 ```
 
-[check benchmark visuals](https://mediar-ai.github.io/screenpipe/dev/bench/)
+[check benchmark visuals](https://mediar-ai.github.io/skyprompt/dev/bench/)
 
 ### creating new migrations
 
@@ -320,17 +320,17 @@ if you encounter errors with missing migrations (e.g., `migration XXXXXXXXXX was
 
 ```bash
 # remove specific migration
-sqlite3 ~/.screenpipe/db.sqlite "DELETE FROM _sqlx_migrations WHERE version = XXXXXXXXXX;"
+sqlite3 ~/.skyprompt/db.sqlite "DELETE FROM _sqlx_migrations WHERE version = XXXXXXXXXX;"
 
 # verify migrations
-sqlite3 ~/.screenpipe/db.sqlite "SELECT * FROM _sqlx_migrations;"
+sqlite3 ~/.skyprompt/db.sqlite "SELECT * FROM _sqlx_migrations;"
 
 # if issues persist, you can take the nuclear approach:
 # 1. backup your database
-cp ~/.screenpipe/db.sqlite ~/.screenpipe/db.sqlite.backup
+cp ~/.skyprompt/db.sqlite ~/.skyprompt/db.sqlite.backup
 
 # 2. reset migrations table
-sqlite3 ~/.screenpipe/db.sqlite "DROP TABLE _sqlx_migrations;"
+sqlite3 ~/.skyprompt/db.sqlite "DROP TABLE _sqlx_migrations;"
 ```
 
 ### set up azure ubuntu vm with display & audio
@@ -401,7 +401,7 @@ az vm user update \
   --password <new-password>
 ```
 
-now you can either dev screenpipe on linux or run screenpipe in the cloud that record your local macos. make sure to configure microsoft remote desktop to forward audio
+now you can either dev skyprompt on linux or run skyprompt in the cloud that record your local macos. make sure to configure microsoft remote desktop to forward audio
 
 ## join the community
 

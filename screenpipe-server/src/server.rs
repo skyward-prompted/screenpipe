@@ -20,7 +20,7 @@ use futures::{
     SinkExt, StreamExt,
 };
 use image::ImageFormat::{self};
-use screenpipe_events::{send_event, subscribe_to_all_events, Event as ScreenpipeEvent};
+use skyprompt_events::{send_event, subscribe_to_all_events, Event as SkypromptEvent};
 
 use crate::video_utils::extract_frame;
 use crate::{
@@ -36,13 +36,13 @@ use crate::{
     DatabaseManager,
 };
 use chrono::{DateTime, Utc};
-use screenpipe_audio::{
+use skyprompt_audio::{
     default_input_device, default_output_device, list_audio_devices, AudioDevice, DeviceType,
 };
 use tracing::{debug, error, info};
 
-use screenpipe_vision::monitor::{get_monitor_by_id, list_monitors};
-use screenpipe_vision::OcrEngine;
+use skyprompt_vision::monitor::{get_monitor_by_id, list_monitors};
+use skyprompt_vision::OcrEngine;
 use serde::{Deserialize, Deserializer, Serialize};
 use serde_json::{json, Value};
 use std::{
@@ -68,7 +68,7 @@ use tower_http::{cors::CorsLayer, trace::DefaultMakeSpan};
 #[cfg(feature = "experimental")]
 use enigo::{Enigo, Key, Settings};
 
-use screenpipe_audio::LAST_AUDIO_CAPTURE;
+use skyprompt_audio::LAST_AUDIO_CAPTURE;
 
 use std::str::FromStr;
 
@@ -78,7 +78,7 @@ pub struct AppState {
     pub db: Arc<DatabaseManager>,
     // pub device_manager: Arc<DeviceManager>,
     pub app_start_time: DateTime<Utc>,
-    pub screenpipe_dir: PathBuf,
+    pub skyprompt_dir: PathBuf,
     pub pipe_manager: Arc<PipeManager>,
     pub vision_disabled: bool,
     pub audio_disabled: bool,
@@ -933,7 +933,7 @@ pub struct SCServer {
     db: Arc<DatabaseManager>,
     addr: SocketAddr,
     // device_manager: Arc<DeviceManager>,
-    screenpipe_dir: PathBuf,
+    skyprompt_dir: PathBuf,
     pipe_manager: Arc<PipeManager>,
     vision_disabled: bool,
     audio_disabled: bool,
@@ -945,7 +945,7 @@ impl SCServer {
     pub fn new(
         db: Arc<DatabaseManager>,
         addr: SocketAddr,
-        screenpipe_dir: PathBuf,
+        skyprompt_dir: PathBuf,
         pipe_manager: Arc<PipeManager>,
         vision_disabled: bool,
         audio_disabled: bool,
@@ -954,7 +954,7 @@ impl SCServer {
         SCServer {
             db,
             addr,
-            screenpipe_dir,
+            skyprompt_dir,
             pipe_manager,
             vision_disabled,
             audio_disabled,
@@ -967,14 +967,14 @@ impl SCServer {
             db: self.db.clone(),
             // device_manager: self.device_manager.clone(),
             app_start_time: Utc::now(),
-            screenpipe_dir: self.screenpipe_dir.clone(),
+            skyprompt_dir: self.skyprompt_dir.clone(),
             pipe_manager: self.pipe_manager,
             vision_disabled: self.vision_disabled,
             audio_disabled: self.audio_disabled,
             ui_monitoring_enabled: self.ui_monitoring_enabled,
             frame_cache: if enable_frame_cache {
                 Some(Arc::new(
-                    FrameCache::new(self.screenpipe_dir.clone().join("data"), self.db.clone())
+                    FrameCache::new(self.skyprompt_dir.clone().join("data"), self.db.clone())
                         .await
                         .unwrap(),
                 ))
@@ -1079,7 +1079,7 @@ async fn merge_frames_handler(
     State(state): State<Arc<AppState>>,
     JsonResponse(payload): JsonResponse<MergeVideosRequest>,
 ) -> Result<JsonResponse<MergeVideosResponse>, (StatusCode, JsonResponse<Value>)> {
-    let output_dir = state.screenpipe_dir.join("videos");
+    let output_dir = state.skyprompt_dir.join("videos");
 
     match merge_videos(payload, output_dir).await {
         Ok(response) => Ok(JsonResponse(response)),
@@ -1202,7 +1202,7 @@ async fn add_frame_to_db(
                 frame_id,
                 &ocr.text,
                 ocr.text_json.as_deref().unwrap_or(""),
-                Arc::new(OcrEngine::default()), // Ideally could pass any str as ocr_engine since can be run outside of screenpipe
+                Arc::new(OcrEngine::default()), // Ideally could pass any str as ocr_engine since can be run outside of skyprompt
             )
             .await?;
         }
@@ -1287,7 +1287,7 @@ pub(crate) async fn add_to_database(
         "frames" => {
             if let ContentData::Frames(frames) = &payload.content.data {
                 if !frames.is_empty() {
-                    let output_dir = state.screenpipe_dir.join("data");
+                    let output_dir = state.skyprompt_dir.join("data");
                     let time = Utc::now();
                     let formatted_time = time.format("%Y-%m-%d_%H-%M-%S").to_string();
                     let video_file_path = output_dir
@@ -1799,7 +1799,7 @@ pub struct AudioDeviceControlResponse {
 //     }
 
 //     let control = DeviceControl {
-//         device: screenpipe_core::DeviceType::Audio(device.clone()),
+//         device: skyprompt_core::DeviceType::Audio(device.clone()),
 //         is_running: true,
 //         is_paused: false,
 //     };
@@ -1845,7 +1845,7 @@ pub struct AudioDeviceControlResponse {
 //     let _ = state
 //         .device_manager
 //         .update_device(DeviceControl {
-//             device: screenpipe_core::DeviceType::Audio(device.clone()),
+//             device: skyprompt_core::DeviceType::Audio(device.clone()),
 //             is_running: false,
 //             is_paused: false,
 //         })
@@ -1952,7 +1952,7 @@ pub struct VisionDeviceControlResponse {
 //     let _ = state
 //         .device_manager
 //         .update_device(DeviceControl {
-//             device: screenpipe_core::DeviceType::Vision(payload.device_id),
+//             device: skyprompt_core::DeviceType::Vision(payload.device_id),
 //             is_running: true,
 //             is_paused: false,
 //         })
@@ -1986,7 +1986,7 @@ pub struct VisionDeviceControlResponse {
 //     let _ = state
 //         .device_manager
 //         .update_device(DeviceControl {
-//             device: screenpipe_core::DeviceType::Vision(payload.device_id),
+//             device: skyprompt_core::DeviceType::Vision(payload.device_id),
 //             is_running: false,
 //             is_paused: false,
 //         })
@@ -2009,7 +2009,7 @@ async fn handle_socket(socket: WebSocket, query: Query<EventsQuery>) {
     let incoming = tokio::spawn(async move {
         while let Some(Ok(msg)) = receiver.next().await {
             if let Message::Text(t) = msg {
-                if let Ok(event) = serde_json::from_str::<ScreenpipeEvent>(&t) {
+                if let Ok(event) = serde_json::from_str::<SkypromptEvent>(&t) {
                     let _ = send_event(&event.name, event.data);
                 }
             }
@@ -2164,7 +2164,7 @@ async fn handle_video_export(
     }
 
     let output_filename = format!(
-        "screenpipe_export_{}.mp4",
+        "skyprompt_export_{}.mp4",
         chrono::Utc::now().format("%Y%m%d_%H%M%S")
     );
     let output_path = temp_dir.path().join(&output_filename);
@@ -2314,7 +2314,7 @@ async fn get_pipe_build_status(
     Path(pipe_id): Path<String>,
     State(state): State<Arc<AppState>>,
 ) -> Result<JsonResponse<Value>, (StatusCode, JsonResponse<Value>)> {
-    let pipe_dir = state.screenpipe_dir.join("pipes").join(&pipe_id);
+    let pipe_dir = state.skyprompt_dir.join("pipes").join(&pipe_id);
     let temp_dir = pipe_dir.with_extension("_temp");
 
     // First check temp directory if it exists
@@ -2823,7 +2823,7 @@ pub struct PurgePipeRequest {}
 //         let _ = state
 //             .device_manager
 //             .update_device(DeviceControl {
-//                 device: screenpipe_core::DeviceType::Audio(audio_device.clone()),
+//                 device: skyprompt_core::DeviceType::Audio(audio_device.clone()),
 //                 is_running: false,
 //                 is_paused: false,
 //             })
@@ -2836,7 +2836,7 @@ pub struct PurgePipeRequest {}
 //         let _ = state
 //             .device_manager
 //             .update_device(DeviceControl {
-//                 device: screenpipe_core::DeviceType::Audio(audio_device.clone()),
+//                 device: skyprompt_core::DeviceType::Audio(audio_device.clone()),
 //                 is_running: true,
 //                 is_paused: false,
 //             })
@@ -2886,7 +2886,7 @@ pub struct RestartVisionDevicesResponse {
 //         let _ = state
 //             .device_manager
 //             .update_device(DeviceControl {
-//                 device: screenpipe_core::DeviceType::Vision(vision_device.clone()),
+//                 device: skyprompt_core::DeviceType::Vision(vision_device.clone()),
 //                 is_running: false,
 //                 is_paused: false,
 //             })
@@ -2898,7 +2898,7 @@ pub struct RestartVisionDevicesResponse {
 //         let _ = state
 //             .device_manager
 //             .update_device(DeviceControl {
-//                 device: screenpipe_core::DeviceType::Vision(vision_device.clone()),
+//                 device: skyprompt_core::DeviceType::Vision(vision_device.clone()),
 //                 is_running: true,
 //                 is_paused: false,
 //             })

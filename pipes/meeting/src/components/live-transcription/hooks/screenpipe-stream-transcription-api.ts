@@ -1,5 +1,5 @@
 import { useRef, useCallback } from 'react'
-import { pipe } from "@screenpipe/browser"
+import { pipe } from "@skyprompt/browser"
 import { useToast } from "@/hooks/use-toast"
 import { TranscriptionChunk } from '../../meeting-history/types'
 
@@ -16,8 +16,8 @@ export function useTranscriptionStream(
   const abortControllerRef = useRef<AbortController | null>(null)
   const { toast } = useToast()
 
-  const stopTranscriptionScreenpipe = useCallback(() => {
-    console.log('stopping screenpipe transcription', {
+  const stopTranscriptionSkyprompt = useCallback(() => {
+    console.log('stopping skyprompt transcription', {
       isStreaming: streamingRef.current,
       hasAbortController: !!abortControllerRef.current
     })
@@ -32,7 +32,7 @@ export function useTranscriptionStream(
     streamingRef.current = false
   }, [])
 
-  const startTranscriptionScreenpipe = useCallback(async () => {
+  const startTranscriptionSkyprompt = useCallback(async () => {
     if (streamingRef.current) {
       console.log('transcription already streaming')
       return
@@ -98,7 +98,7 @@ export function useTranscriptionStream(
           variant: "destructive"
         })
         console.log('scheduling retry...')
-        setTimeout(startTranscriptionScreenpipe, 1000)
+        setTimeout(startTranscriptionSkyprompt, 1000)
       })
 
     } catch (error) {
@@ -110,13 +110,13 @@ export function useTranscriptionStream(
         variant: "destructive"
       })
       console.log('scheduling retry...')
-      setTimeout(startTranscriptionScreenpipe, 1000)
+      setTimeout(startTranscriptionSkyprompt, 1000)
     }
   }, [onNewChunk, toast])
 
   return { 
-    startTranscriptionScreenpipe, 
-    stopTranscriptionScreenpipe, 
+    startTranscriptionSkyprompt, 
+    stopTranscriptionSkyprompt, 
     isStreaming: streamingRef.current 
   }
 } 

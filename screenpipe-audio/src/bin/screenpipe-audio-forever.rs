@@ -1,18 +1,18 @@
 use anyhow::{anyhow, Result};
 use clap::Parser;
 use log::info;
-use screenpipe_audio::create_whisper_channel;
-use screenpipe_audio::default_input_device;
-use screenpipe_audio::default_output_device;
-use screenpipe_audio::list_audio_devices;
-use screenpipe_audio::parse_audio_device;
-use screenpipe_audio::record_and_transcribe;
-use screenpipe_audio::vad_engine::VadSensitivity;
-use screenpipe_audio::AudioDevice;
-use screenpipe_audio::AudioStream;
-use screenpipe_audio::AudioTranscriptionEngine;
-use screenpipe_audio::VadEngineEnum;
-use screenpipe_core::Language;
+use skyprompt_audio::create_whisper_channel;
+use skyprompt_audio::default_input_device;
+use skyprompt_audio::default_output_device;
+use skyprompt_audio::list_audio_devices;
+use skyprompt_audio::parse_audio_device;
+use skyprompt_audio::record_and_transcribe;
+use skyprompt_audio::vad_engine::VadSensitivity;
+use skyprompt_audio::AudioDevice;
+use skyprompt_audio::AudioStream;
+use skyprompt_audio::AudioTranscriptionEngine;
+use skyprompt_audio::VadEngineEnum;
+use skyprompt_core::Language;
 use std::path::PathBuf;
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
@@ -51,7 +51,7 @@ fn print_devices(devices: &[AudioDevice]) {
     println!("On macOS, it's not intuitive but output devices are your displays");
 }
 
-// ! usage - cargo run --bin screenpipe-audio -- --audio-device "Display 1 (output)"
+// ! usage - cargo run --bin skyprompt-audio -- --audio-device "Display 1 (output)"
 
 #[tokio::main]
 async fn main() -> Result<()> {

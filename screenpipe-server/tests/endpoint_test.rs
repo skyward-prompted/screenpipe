@@ -7,15 +7,15 @@ mod tests {
     use chrono::DateTime;
     use chrono::{Duration, Utc};
     use lru::LruCache;
-    use screenpipe_audio::{AudioDevice, DeviceType};
-    use screenpipe_server::db_types::ContentType;
-    use screenpipe_server::db_types::SearchResult;
-    use screenpipe_server::video_cache::FrameCache;
-    use screenpipe_server::PipeManager;
-    use screenpipe_server::{
+    use skyprompt_audio::{AudioDevice, DeviceType};
+    use skyprompt_server::db_types::ContentType;
+    use skyprompt_server::db_types::SearchResult;
+    use skyprompt_server::video_cache::FrameCache;
+    use skyprompt_server::PipeManager;
+    use skyprompt_server::{
         create_router, AppState, ContentItem, DatabaseManager, PaginatedResponse,
     };
-    use screenpipe_vision::OcrEngine; // Adjust this import based on your actual module structure
+    use skyprompt_vision::OcrEngine; // Adjust this import based on your actual module structure
     use serde::Deserialize;
     use std::num::NonZeroUsize;
     use std::path::PathBuf;
@@ -34,7 +34,7 @@ mod tests {
         let app_state = Arc::new(AppState {
             db: db.clone(),
             app_start_time: Utc::now(),
-            screenpipe_dir: PathBuf::from(""),
+            skyprompt_dir: PathBuf::from(""),
             pipe_manager: Arc::new(PipeManager::new(PathBuf::from(""))),
             vision_disabled: false,
             audio_disabled: false,
@@ -687,7 +687,7 @@ mod tests {
     async fn test_recent_tasks_no_bleeding_production_db() {
         // Get home directory safely
         let home = std::env::var("HOME").expect("HOME environment variable not set");
-        let db_path = format!("{}/.screenpipe/db.sqlite", home);
+        let db_path = format!("{}/.skyprompt/db.sqlite", home);
 
         // Open database in read-only mode for safety
         let db = Arc::new(

@@ -385,8 +385,8 @@ export default function Timeline() {
 									</h3>
 								</div>
 								<p className="text-sm text-muted-foreground">
-									Unable to reach your screenpipe data. Please verify that the
-									screenpipe turned on.
+									Unable to reach your skyprompt data. Please verify that the
+									skyprompt turned on.
 								</p>
 								<button
 									onClick={handleRefresh}

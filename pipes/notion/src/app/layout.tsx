@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Notion • Screenpipe",
+  title: "Notion • Skyprompt",
   description: "Turn your screen time into a living knowledge base with AI",
 };
 

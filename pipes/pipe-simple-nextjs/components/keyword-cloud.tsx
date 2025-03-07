@@ -7,7 +7,7 @@ interface KeywordCount {
   count: number;
 }
 
-interface ScreenpipeQueryParams {
+interface SkypromptQueryParams {
   content_type?: string;
   start_time?: string;
   end_time?: string;

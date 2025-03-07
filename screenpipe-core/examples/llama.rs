@@ -2,12 +2,12 @@ use anyhow::Result;
 
 #[cfg(feature = "llm")]
 fn main() -> Result<()> {
-    use screenpipe_core::LLM;
+    use skyprompt_core::LLM;
 
-    let llm = LLM::new(screenpipe_core::ModelName::Llama)?;
+    let llm = LLM::new(skyprompt_core::ModelName::Llama)?;
 
-    let res = llm.chat(screenpipe_core::ChatRequest {
-        messages: vec![screenpipe_core::ChatMessage {
+    let res = llm.chat(skyprompt_core::ChatRequest {
+        messages: vec![skyprompt_core::ChatMessage {
             role: "user".to_string(),
             content: "What is the meaning of life?".to_string(),
         }],

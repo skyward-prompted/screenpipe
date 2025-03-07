@@ -1,7 +1,7 @@
 use crate::{deepgram::stream_transcription_deepgram, AudioStream};
 use anyhow::Result;
 use chrono::{DateTime, Utc};
-use screenpipe_core::Language;
+use skyprompt_core::Language;
 use serde::{Deserialize, Serialize};
 use std::sync::{atomic::AtomicBool, Arc};
 

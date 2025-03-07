@@ -5,7 +5,7 @@ import { quitBrowser } from '@/lib/browser-setup';
 import os from 'os';
 import { ChromeSession } from '@/lib/chrome-session';
 import { RouteLogger } from '@/lib/route-logger';
-// import { pipe } from "@screenpipe/js";
+// import { pipe } from "@skyprompt/js";
 
 const logger = new RouteLogger('chrome-route');
 

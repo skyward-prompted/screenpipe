@@ -1,9 +1,9 @@
 # Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
 data/
 
-screenpipe-app-tauri/public 
-screenpipe-app-tauri/src-tauri/capabilities
-screenpipe-app-tauri/src-tauri/gen
+skyprompt-app-tauri/public 
+skyprompt-app-tauri/src-tauri/capabilities
+skyprompt-app-tauri/src-tauri/gen
 models/
 
 

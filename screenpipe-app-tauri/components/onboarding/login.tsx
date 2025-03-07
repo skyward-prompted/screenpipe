@@ -23,7 +23,7 @@ const OnboardingLogin: React.FC<OnboardingLoginProps> = ({
     <div className="w-full h-full flex flex-col items-center justify-center space-y-6 py-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2 mb-8">
-          <h1 className="text-3xl font-bold">login to screenpipe</h1>
+          <h1 className="text-3xl font-bold">login to skyprompt</h1>
           <p className="text-sm text-muted-foreground">
             connect your account to unlock all features
           </p>

@@ -1,11 +1,11 @@
 [package]
-name = "screenpipe-app"
+name = "skyprompt-app"
 version = "0.39.6"
 description = ""
 authors = ["you"]
 license = ""
 repository = ""
-default-run = "screenpipe-app"
+default-run = "skyprompt-app"
 edition = "2021"
 rust-version = "1.84"
 

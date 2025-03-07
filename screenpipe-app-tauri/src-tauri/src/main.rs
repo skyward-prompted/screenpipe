@@ -56,8 +56,8 @@ pub use commands::reset_all_pipes;
 pub use commands::set_tray_health_icon;
 pub use commands::set_tray_unhealth_icon;
 pub use server::spawn_server;
-pub use sidecar::spawn_screenpipe;
-pub use sidecar::stop_screenpipe;
+pub use sidecar::spawn_skyprompt;
+pub use sidecar::stop_skyprompt;
 pub use store::get_profiles_store;
 pub use store::get_store;
 
@@ -132,7 +132,7 @@ impl ShortcutConfig {
 
         Ok(Self {
             show: store
-                .get("showScreenpipeShortcut")
+                .get("showSkypromptShortcut")
                 .and_then(|v| v.as_str().map(String::from))
                 .unwrap_or_else(|| "Alt+Space".to_string()),
             start: store
@@ -429,7 +429,7 @@ fn get_data_dir(app: &tauri::AppHandle) -> anyhow::Result<PathBuf> {
 
     let store = get_store(app, None)?;
 
-    let default_path = app.path().home_dir().unwrap().join(".screenpipe");
+    let default_path = app.path().home_dir().unwrap().join(".skyprompt");
 
     let data_dir = store
         .get("dataDir")
@@ -669,8 +669,8 @@ async fn main() {
         .plugin(tauri_plugin_sentry::init(&sentry_guard))
         .manage(sidecar_state)
         .invoke_handler(tauri::generate_handler![
-            spawn_screenpipe,
-            stop_screenpipe,
+            spawn_skyprompt,
+            stop_skyprompt,
             permissions::open_permission_settings,
             permissions::request_permission,
             permissions::do_permissions_check,
@@ -679,7 +679,7 @@ async fn main() {
             reset_all_pipes,
             set_tray_unhealth_icon,
             set_tray_health_icon,
-            commands::update_show_screenpipe_shortcut,
+            commands::update_show_skyprompt_shortcut,
             commands::get_disk_usage,
             commands::open_pipe_window,
             get_log_files,
@@ -703,12 +703,12 @@ async fn main() {
             // Set up rolling file appender
             let file_appender = RollingFileAppender::builder()
                 .rotation(Rotation::DAILY)
-                .filename_prefix("screenpipe-app")
+                .filename_prefix("skyprompt-app")
                 .filename_suffix("log")
                 .max_log_files(5)
                 .build(
                     get_data_dir(app.handle())
-                        .unwrap_or_else(|_| dirs::home_dir().unwrap().join(".screenpipe")),
+                        .unwrap_or_else(|_| dirs::home_dir().unwrap().join(".skyprompt")),
                 )?;
 
             // Create a custom layer for file logging
@@ -757,7 +757,7 @@ async fn main() {
             let update_manager = start_update_check(app_handle, 5)?;
 
             // Tray setup
-            if let Some(_) = app.tray_by_id("screenpipe_main") {
+            if let Some(_) = app.tray_by_id("skyprompt_main") {
                 let update_item = update_manager.update_now_menu_item_ref().clone();
                 if let Err(e) = tray::setup_tray(&app.handle(), &update_item) {
                     error!("Failed to setup tray: {}", e);
@@ -781,7 +781,7 @@ async fn main() {
 
             store.save()?;
 
-            // Ensure state is managed before calling update_show_screenpipe_shortcut
+            // Ensure state is managed before calling update_show_skyprompt_shortcut
             let sidecar_manager = Arc::new(Mutex::new(SidecarManager::new()));
             app.manage(sidecar_manager.clone());
 
@@ -851,7 +851,7 @@ async fn main() {
                 .expect("Failed to ensure local data directory");
 
             info!("data_dir: {}", data_dir.display());
-            let has_files = fs::read_dir(data_dir.join(".screenpipe").join("data"))
+            let has_files = fs::read_dir(data_dir.join(".skyprompt").join("data"))
                 .map(|mut entries| entries.next().is_some())
                 .unwrap_or(false);
 

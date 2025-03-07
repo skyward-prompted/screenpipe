@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { embed, generateObject } from "ai";
 import { ollama } from "ollama-ai-provider";
-import { ContentItem } from "@screenpipe/js";
-import { pipe } from "@screenpipe/js";
+import { ContentItem } from "@skyprompt/js";
+import { pipe } from "@skyprompt/js";
 import * as fs from "fs/promises";
 import * as path from "path";
 import { extractLinkedContent } from "@/lib/actions/obsidian";
@@ -34,7 +34,7 @@ async function generateWorkLog(
     enrichedPrompt = await extractLinkedContent(customPrompt, obsidianPath);
   }
 
-  const defaultPrompt = `You are analyzing screen recording data from Screenpipe, a desktop app that records screens & mics 24/7 to provide context to AI systems.
+  const defaultPrompt = `You are analyzing screen recording data from Skyprompt, a desktop app that records screens & mics 24/7 to provide context to AI systems.
     The data includes OCR text, audio transcriptions, and media files from the user's desktop activity.
 
     Based on the following screen data, generate a concise work activity log entry.
@@ -60,7 +60,7 @@ async function generateWorkLog(
     Example outputs:
     {
         "title": "engineering: implemented rust error handling",
-        "description": "refactored error handling in [[screenpipe-core]] pipeline. paired with [[sarah]] to implement anyhow::Result across key modules. improved error propagation and logging",
+        "description": "refactored error handling in [[skyprompt-core]] pipeline. paired with [[sarah]] to implement anyhow::Result across key modules. improved error propagation and logging",
         "tags": ["#rust", "#error-handling", "#pair-programming"],
         "mediaLinks": ["<video src=\"file:///recordings/pair-programming-session.mp4\" controls></video>"]
     }
@@ -74,7 +74,7 @@ async function generateWorkLog(
 
     {
         "title": "research: llm context window analysis",
-        "description": "reviewed [[claude-3]] papers on attention mechanisms. summarized findings in [[context-window]] note. potential implications for [[screenpipe]]'s chunking strategy",
+        "description": "reviewed [[claude-3]] papers on attention mechanisms. summarized findings in [[context-window]] note. potential implications for [[skyprompt]]'s chunking strategy",
         "tags": ["#research", "#llm", "#ai-architecture"],
         "mediaLinks": []
     }
@@ -276,7 +276,7 @@ export async function GET() {
     const now = new Date();
     const oneHourAgo = new Date(now.getTime() - interval);
 
-    let screenData = await pipe.queryScreenpipe({
+    let screenData = await pipe.querySkyprompt({
       startTime: oneHourAgo.toISOString(),
       endTime: now.toISOString(),
       limit: pageSize,

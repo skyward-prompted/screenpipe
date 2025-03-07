@@ -1,16 +1,16 @@
 use anyhow::Result;
 use image::DynamicImage;
 use regex::Regex;
-use screenpipe_vision::utils::{compare_with_previous_image, OcrEngine};
+use skyprompt_vision::utils::{compare_with_previous_image, OcrEngine};
 
 #[cfg(target_os = "macos")]
-use screenpipe_vision::perform_ocr_apple;
+use skyprompt_vision::perform_ocr_apple;
 
 #[cfg(target_os = "windows")]
-use screenpipe_vision::perform_ocr_windows;
+use skyprompt_vision::perform_ocr_windows;
 
 #[allow(unused)]
-use screenpipe_vision::perform_ocr_tesseract;
+use skyprompt_vision::perform_ocr_tesseract;
 
 use serde_json::json;
 use std::path::Path;
@@ -31,7 +31,7 @@ use crate::{
 
 #[allow(clippy::too_many_arguments)]
 pub async fn handle_index_command(
-    screenpipe_dir: PathBuf,
+    skyprompt_dir: PathBuf,
     path: String,
     pattern: Option<String>,
     db: Arc<DatabaseManager>,
@@ -117,8 +117,8 @@ pub async fn handle_index_command(
             let ext = video_path.extension().unwrap_or_default();
             let new_filename = format!("{}.{}", Uuid::new_v4(), ext.to_string_lossy());
 
-            // Construct path in screenpipe data directory
-            let target_path = Path::new(&screenpipe_dir).join("data").join(new_filename);
+            // Construct path in skyprompt data directory
+            let target_path = Path::new(&skyprompt_dir).join("data").join(new_filename);
 
             // Copy the file
             info!("copying video to: {}", target_path.display());

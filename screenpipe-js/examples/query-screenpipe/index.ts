@@ -1,7 +1,7 @@
-import { pipe } from "@screenpipe/js";
+import { pipe } from "@skyprompt/js";
 
-async function queryScreenpipe() {
-  console.log("starting query screenpipe...");
+async function querySkyprompt() {
+  console.log("starting query skyprompt...");
   console.log("------------------------------");
   console.log("querying last 5 minutes of activity...");
   console.log("------------------------------");
@@ -9,7 +9,7 @@ async function queryScreenpipe() {
   // get content from last 5 minutes
   const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
 
-  const results = await pipe.queryScreenpipe({
+  const results = await pipe.querySkyprompt({
     startTime: fiveMinutesAgo,
     limit: 10,
     contentType: "all", // can be "ocr", "audio", "ui", or "all"
@@ -51,4 +51,4 @@ async function queryScreenpipe() {
   }
 }
 
-queryScreenpipe().catch(console.error);
+querySkyprompt().catch(console.error);

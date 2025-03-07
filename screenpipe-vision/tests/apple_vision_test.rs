@@ -2,8 +2,8 @@
 #[cfg(test)]
 mod tests {
     use image::GenericImageView;
-    use screenpipe_core::Language;
-    use screenpipe_vision::perform_ocr_apple;
+    use skyprompt_core::Language;
+    use skyprompt_vision::perform_ocr_apple;
     use std::path::PathBuf;
 
     #[tokio::test]

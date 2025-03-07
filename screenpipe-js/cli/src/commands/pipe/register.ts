@@ -137,7 +137,7 @@ export const registerCommand = new Command()
         handleError(
           symbols.error +
             " not logged in. please login first using" +
-            colors.highlight("screenpipe login")
+            colors.highlight("skyprompt login")
         );
       }
 

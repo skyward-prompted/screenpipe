@@ -3,7 +3,7 @@ use image::{codecs::png::PngEncoder, DynamicImage, ImageEncoder};
 use log::error;
 use reqwest::multipart::{Form, Part};
 use reqwest::Client;
-use screenpipe_core::{Language, TESSERACT_LANGUAGES};
+use skyprompt_core::{Language, TESSERACT_LANGUAGES};
 use serde_json;
 use serde_json::Value;
 use std::collections::HashMap;

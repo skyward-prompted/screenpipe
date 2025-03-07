@@ -16,7 +16,7 @@ const UpdateNotification: React.FC<{ checkIntervalHours: number }> = ({
       ) {
         const os = platform();
         const releasePageUrl =
-          "https://web.crabnebula.cloud/mediar/screenpipe/releases";
+          "https://web.crabnebula.cloud/mediar/skyprompt/releases";
 
         try {
           const response = await fetch(releasePageUrl);
@@ -25,7 +25,7 @@ const UpdateNotification: React.FC<{ checkIntervalHours: number }> = ({
           // Extract download links
           const links =
             html.match(
-              /https:\/\/cdn\.crabnebula\.app\/download\/mediar\/screenpipe\/latest[^\s"']*/g
+              /https:\/\/cdn\.crabnebula\.app\/download\/mediar\/skyprompt\/latest[^\s"']*/g
             ) || [];
 
           let downloadLink = "";
@@ -43,8 +43,8 @@ const UpdateNotification: React.FC<{ checkIntervalHours: number }> = ({
 
           if (downloadLink) {
             sendNotification({
-              title: "Screenpipe Update Available",
-              body: `A new version of Screenpipe is available. Click to download:\n${downloadLink}`,
+              title: "Skyprompt Update Available",
+              body: `A new version of Skyprompt is available. Click to download:\n${downloadLink}`,
               //   icon: "update-icon", // Replace with your update icon
             });
           }

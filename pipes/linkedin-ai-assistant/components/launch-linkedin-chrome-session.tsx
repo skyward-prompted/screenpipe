@@ -14,7 +14,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import * as Sentry from "@sentry/nextjs";
-// import { pipe } from "@screenpipe/js";
+// import { pipe } from "@skyprompt/js";
 
 interface Props {
   loginStatus: 'checking' | 'logged_in' | 'logged_out' | null;

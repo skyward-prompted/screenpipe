@@ -1,7 +1,7 @@
 use crate::UIFrame;
 use anyhow::Result;
 use log::{debug, error, info, warn};
-use screenpipe_events::send_event;
+use skyprompt_events::send_event;
 use std::fs;
 use std::io;
 use std::path::PathBuf;
@@ -20,7 +20,7 @@ pub async fn run_ui() -> Result<()> {
 
     let binary_name = "ui_monitor";
 
-    // Try screenpipe-vision/bin first
+    // Try skyprompt-vision/bin first
     let bin_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("bin")
         .join(binary_name);
@@ -50,7 +50,7 @@ pub async fn run_ui() -> Result<()> {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .parent()
             .unwrap()
-            .join("screenpipe-app-tauri")
+            .join("skyprompt-app-tauri")
             .join("src-tauri")
             .join(binary_name)
     };
@@ -211,12 +211,12 @@ pub async fn run_ui() -> Result<()> {
 }
 
 async fn setup_ipc_queue() -> Result<NamedPipe> {
-    // create random /dev/shm/screenpipe-ipc-queue-<random-string>
+    // create random /dev/shm/skyprompt-ipc-queue-<random-string>
     // read 16 bytes from /dev/urandom
     let mut random_bytes = [0u8; 16];
     let mut file = File::open("/dev/urandom").await?;
     file.read_exact(&mut random_bytes).await?;
-    let mut path: String = String::from("/tmp/screenpipe-ui-ipc-queue-");
+    let mut path: String = String::from("/tmp/skyprompt-ui-ipc-queue-");
     for byte in random_bytes {
         path.push_str(&format!("{:02x}", byte));
     }

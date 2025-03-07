@@ -23,7 +23,7 @@ export type AIProviderType =
   | "openai"
   | "custom"
   | "embedded"
-  | "screenpipe-cloud";
+  | "skyprompt-cloud";
 
 export type EmbeddedLLMConfig = {
   enabled: boolean;
@@ -32,7 +32,7 @@ export type EmbeddedLLMConfig = {
 };
 
 export enum Shortcut {
-  SHOW_SCREENPIPE = "show_screenpipe",
+  SHOW_SKYPROMPT = "show_skyprompt",
   START_RECORDING = "start_recording",
   STOP_RECORDING = "stop_recording",
 }
@@ -95,7 +95,7 @@ export type Settings = {
   platform: string; // Add this line
   disabledShortcuts: Shortcut[];
   user: User;
-  showScreenpipeShortcut: string;
+  showSkypromptShortcut: string;
   startRecordingShortcut: string;
   stopRecordingShortcut: string;
   startAudioShortcut: string;
@@ -156,7 +156,7 @@ const DEFAULT_SETTINGS: Settings = {
   platform: "unknown", // Add this line
   disabledShortcuts: [],
   user: {},
-  showScreenpipeShortcut: "Super+Alt+S",
+  showSkypromptShortcut: "Super+Alt+S",
   startRecordingShortcut: "Super+Alt+R",
   stopRecordingShortcut: "Super+Alt+X",
   startAudioShortcut: "",
@@ -181,7 +181,7 @@ const DEFAULT_IGNORED_WINDOWS_IN_ALL_OS = [
   "Recorder",
   "Vaults",
   "OBS Studio",
-  "screenpipe",
+  "skyprompt",
 ];
 
 const DEFAULT_IGNORED_WINDOWS_PER_OS: Record<string, string[]> = {
@@ -247,7 +247,7 @@ export const getStore = async () => {
   if (!storePromise) {
     storePromise = (async () => {
       const dir = await localDataDir();
-      const profilesStore = new TauriStore(`${dir}/screenpipe/profiles.bin`, {
+      const profilesStore = new TauriStore(`${dir}/skyprompt/profiles.bin`, {
         autoSave: false,
       });
       const activeProfile =
@@ -257,7 +257,7 @@ export const getStore = async () => {
           ? `store.bin`
           : `store-${activeProfile}.bin`;
       console.log("activeProfile", activeProfile, file);
-      return new TauriStore(`${dir}/screenpipe/${file}`, {
+      return new TauriStore(`${dir}/skyprompt/${file}`, {
         autoSave: false,
       });
     })();
@@ -372,8 +372,8 @@ export function useSettings() {
     } catch (e) {}
 
     return p === "macos" || p === "linux"
-      ? `${homeDirPath}/.screenpipe`
-      : `${homeDirPath}\\.screenpipe`;
+      ? `${homeDirPath}/.skyprompt`
+      : `${homeDirPath}\\.skyprompt`;
   };
 
   const loadUser = async (token: string, forceReload = false) => {

@@ -1,5 +1,5 @@
 [package]
-name = "screenpipe-audio"
+name = "skyprompt-audio"
 version = { workspace = true }
 authors = { workspace = true }
 description = { workspace = true }
@@ -62,8 +62,8 @@ webrtc-vad = "0.4.0"
 # Deepgram
 reqwest = { workspace = true }
 
-screenpipe-core = { path = "../screenpipe-core" }
-screenpipe-events = { path = "../screenpipe-events" }
+skyprompt-core = { path = "../skyprompt-core" }
+skyprompt-events = { path = "../skyprompt-events" }
 
 # crossbeam
 crossbeam = { workspace = true }
@@ -113,8 +113,8 @@ cuda = ["candle/cuda", "candle-nn/cuda", "candle-transformers/cuda"]
 mkl = ["candle/mkl", "candle-nn/mkl", "candle-transformers/mkl"]
 
 [[bin]]
-name = "screenpipe-audio"
-path = "src/bin/screenpipe-audio.rs"
+name = "skyprompt-audio"
+path = "src/bin/skyprompt-audio.rs"
 
 [[bench]]
 name = "pcm_decode_benchmark"

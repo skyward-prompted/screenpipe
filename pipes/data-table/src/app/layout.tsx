@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 
 
 export const metadata: Metadata = {
-  title: "Data Table • Screenpipe",
-  description: "View your screenpipe recordings in a data table",
+  title: "Data Table • Skyprompt",
+  description: "View your skyprompt recordings in a data table",
 };
 
 export default function RootLayout({

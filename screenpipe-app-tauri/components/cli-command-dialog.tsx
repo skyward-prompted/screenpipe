@@ -47,10 +47,10 @@ export function CliCommandDialog({ settings }: CliCommandDialogProps) {
       );
     }
 
-    // Add AI proxy env vars for screenpipe cloud
+    // Add AI proxy env vars for skyprompt cloud
     if (
       settings.user.cloud_subscribed &&
-      settings.realtimeAudioTranscriptionEngine === "screenpipe-cloud" &&
+      settings.realtimeAudioTranscriptionEngine === "skyprompt-cloud" &&
       settings.userId
     ) {
       const cmdPrefix = shell === "cmd" ? "SET " : "";
@@ -71,7 +71,7 @@ export function CliCommandDialog({ settings }: CliCommandDialogProps) {
 
     if (settings.audioTranscriptionEngine !== "default") {
       // TBD hard coded for now
-      // if someone wants to use deepgram / screenpipe cloud in CLI mode they'll ask us
+      // if someone wants to use deepgram / skyprompt cloud in CLI mode they'll ask us
       args.push(`--audio-transcription-engine whisper-large-v3-turbo`);
     }
     if (settings.ocrEngine !== "default") {
@@ -167,7 +167,7 @@ export function CliCommandDialog({ settings }: CliCommandDialogProps) {
           <DialogHeader>
             <DialogTitle>CLI command</DialogTitle>
             <DialogDescription>
-              you can use this CLI command to start screenpipe with the current
+              you can use this CLI command to start skyprompt with the current
               settings.
             </DialogDescription>
           </DialogHeader>
