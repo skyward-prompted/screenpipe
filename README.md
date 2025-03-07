@@ -47,9 +47,6 @@ skyprompt
 
 make sure to allow permissions on macos (screen, mic)
 
-- [get the desktop app](https://screenpi.pe/)
-- [docs & build from source](https://docs.screenpi.pe/docs/getting-started)
-
 ## create plugins
 
 ```bash
@@ -67,23 +64,4 @@ bun run build
 bunx --bun @skyprompt/dev@latest pipe publish --name foo
 ```
 
-## community 
 
-- [template to build skyprompt-powered desktop native app using Tauri](https://github.com/LorenzoBloedow/skyprompt-tauri-template-dev)
-- [template to build skyprompt-powered desktop native app using Electron](https://github.com/neo773/skyprompt-electron)
-
-## star history
-
-![Star History Nov 24 2024](https://github.com/user-attachments/assets/c7e4de14-0771-4bbb-9a4c-7f2102a1a6cd)
-
-
-## contributing
-
-contributions are welcome! if you'd like to contribute, please read [CONTRIBUTING.md](CONTRIBUTING.md).
-
-   <a href="https://console.algora.io/org/mediar-ai/bounties?status=completed">
-       <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fconsole.algora.io%2Fapi%2Fshields%2Fmediar-ai%2Fbounties%3Fstatus%3Dcompleted" alt="Rewarded Bounties">
-   </a>
-   <a href="https://console.algora.io/org/mediar-ai/bounties?status=open">
-       <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fconsole.algora.io%2Fapi%2Fshields%2Fmediar-ai%2Fbounties%3Fstatus%3Dopen" alt="Open Bounties">
-   </a>
